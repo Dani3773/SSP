@@ -10,19 +10,38 @@
     <header>
         <p>SSP SISTEMA PÚBLICO DE SEGURANÇA</p>
         <nav>
-            <a href="">Início</a>
-            <a href="">Notícias</a>
-            <a href="">Mapa</a>
-            <a href="">Câmeras</a>
-            <a href="">Análises</a>
-            <a href="">Contato</a>
+            <a href="#inicio">Início</a>
+            <a href="#noticias">Notícias</a>
+            <a href="#mapa">Mapa</a>
+            <a href="#cameras">Câmeras</a>
+            <a href="#analises">Análises</a>
+            <a href="#contato">Contato</a>
+            <button type="button">Login</button>
         </nav>
-        <button type="button">Login</button>
     </header>
 
-    <h1>SSP - Segurança na sua mão</h1>
+    <h1 id="inicio">SSP - Segurança na sua mão</h1>
     <p>Envie denúncias e monitore sua cidade</p>
     <a href="#denuncia">Fazer uma denúncia</a>
+
+    <section>
+        <article>
+            <h3>120</h3>
+            <p>Cameras ativas</p>
+        </article>
+        <article>
+            <h3>18</h3>
+            <p>Bairros cobertos</p>
+        </article>
+        <article>
+            <h3>100%</h3>
+            <p>Anonimização LGPD</p>
+        </article>
+        <article>
+            <h3>4 minutos</h3>
+            <p>Respostas integradas</p>
+        </article>
+    </section>
 
     <form id="denuncia" action="formulario.php" method="post" name="denuncia" enctype="multipart/form-data">
         <h2>Fazer uma denúncia anônima</h2>
@@ -38,5 +57,39 @@
         
         <input type="submit" value="Enviar Denúncia">
     </form>
+
+    <h2>Últimas Noticías</h2>
+    <section id="noticias">
+        <article>
+            <h3>Ação integrada resulta em prisão de quadrilha</h3>
+                <p>Uma operação conjunta da SSP com a Polícia Civil prendeu uma quadrilha de assaltantes que atuava na região do centro.
+                    A ação foi possível graças a denúncias anônimas e o monitoramento em tempo real das câmeras públicas.
+                </p>
+        </article>
+        <article>
+            <h3>Moradores relatam aumento de segurança no bairro Aurora</h3>
+                <p>Após a instalação de 10 novas câmeras de alta resolução, o bairro Aurora registrou uma queda de 30% em ocorrências de
+                   furtos e roubos. A iniciativa faz parte do projeto "SSP na sua Rua".
+                </p>
+        </article>   
+    </section>
+    
+    <section id="mapa">
+        <h2>Mapa Geral e cobertura</h2>
+    </section>
+
+    <section id="analises">
+        <h2>Análises de dados e Relatórios</h2>
+    </section>
+
+    <footer>
+        <h2>Fale Conosco</h2>
+        <p>Para mais informações, sugestões ou suporte técnico, entre em contato:</p>
+        <nav>
+            <ol>Email: contato@ssp.gov</ol>
+            <ol>Telefone: (48)00000-0000</ol>
+            <ol>Endereço: Rua da Segurança, 125 - Centro, Cidade Segura</ol>
+        </nav>
+    </footer>
 </body>
 </html>
