@@ -1,42 +1,46 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Sistema de segurança pública</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Sistema de seguran&ccedil;a p&uacute;blica</title>
+    <link rel="stylesheet" href="../stylo/style.css">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
     <header>
-        <p>SSP SISTEMA PÚBLICO DE SEGURANÇA</p>
-        <nav>
-            <a href="">Início</a>
-            <a href="">Notícias</a>
-            <a href="">Mapa</a>
-            <a href="">Câmeras</a>
-            <a href="">Análises</a>
-            <a href="">Contato</a>
-        </nav>
-        <button type="button">Login</button>
+        <div class="logo">
+            <img src="../img/logo-preta.png" alt="Emblema da SSP">
+            <p>SSP - CRICI&Uacute;MA</p>
+        </div>
+        <div class="menu">
+            <nav class="menu-links">
+                <a href="">In&iacute;cio</a>
+                <a href="">Not&iacute;cias</a>
+                <a href="">Mapa</a>
+                <a href="">C&acirc;meras</a>
+                <a href="">An&aacute;lises</a>
+                <a href="">Contato</a>
+            </nav>
+            <button type="button" class="menu-cta">Acesso comit&ecirc;</button>
+        </div>
     </header>
-
-    <h1>SSP - Segurança na sua mão</h1>
-    <p>Envie denúncias e monitore sua cidade</p>
-    <a href="#denuncia">Fazer uma denúncia</a>
+    <h1>SSP - Seguran&ccedil;a na sua m&atilde;o</h1>
+    <p>Envie den&uacute;ncias e monitore sua cidade</p>
+    <a href="#denuncia">Fazer uma den&uacute;ncia</a>
 
     <form id="denuncia" action="formulario.php" method="post" name="denuncia" enctype="multipart/form-data">
-        <h2>Fazer uma denúncia anônima</h2>
+        <h2>Fazer uma den&uacute;ncia an&ocirc;nima</h2>
         
-        <label for="titulo">Título</label><br>
+        <label for="titulo">T&iacute;tulo</label><br>
         <input type="text" id="titulo" name="titulo"><br><br>
         
-        <label for="descricao">Descrição</label><br>
+        <label for="descricao">Descri&ccedil;&atilde;o</label><br>
         <textarea id="descricao" name="descricao" cols="50" rows="10"></textarea><br><br>
         
-        <label for="arquivo">Anexar foto/vídeo (opcional)</label><br>
+        <label for="arquivo">Anexar foto/v&iacute;deo (opcional)</label><br>
         <input type="file" id="arquivo" name="arquivo"><br><br>
         
-        <input type="submit" value="Enviar Denúncia">
+        <input type="submit" value="Enviar Den&uacute;ncia">
     </form>
 </body>
 </html>
