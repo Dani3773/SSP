@@ -4,11 +4,11 @@
 }
 
 header {
-    background-color: #080d3f;
+    background-color: #00074e;
     color: white;
     border-bottom: 2px solid rgba(255, 255, 255, 0.2);
     padding: 12px 18px;
-    font-family: Arial, sans-serif;
+    font-family: Trebuchet MS, sans-serif;
     font-weight: bold;
     display: flex;
     justify-content: space-between;
@@ -19,7 +19,6 @@ header .logo {
     display: flex;
     align-items: center;
     gap: 16px;
-    border-left: 2px solid rgba(255, 255, 255, 0.2);
     padding-left: 16px;
 }
 
@@ -72,3 +71,161 @@ header .menu-cta {
     cursor: pointer;
 }
 
+body {
+    background-color: rgb(75, 75, 75);
+    color: white;
+    font-family: Trebuchet MS, sans-serif;
+    line-height: 28px;
+    text-align: center;
+}
+
+body .ini {
+   
+    height: 100px;
+    margin-top: 100px;
+    line-height: 50px;
+} 
+
+.ini button {
+    background-color: rgb(49, 49, 49);
+    color: white;
+    border-radius: 10px;
+    font-family: Trebuchet MS, sans-serif;
+    height: 40px;
+}
+
+h1 {
+    font-size: 50px;
+}    
+
+.box {
+    gap: 30px;
+    display: flex;
+    margin-top: 120px;
+    margin-bottom: 70px;
+    margin-left: 290px;
+}
+
+.box h3 {
+    color: rgb(70, 70, 240);
+}
+
+.box1 {
+    background-color: rgb(49, 49, 49);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 3px 3px grey;
+}
+
+.box2 {
+    background-color: rgb(49, 49, 49);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 3px 3px grey;
+}
+
+.box3 {
+    background-color: rgb(49, 49, 49);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 3px 3px grey;
+}
+
+.box4 {
+    background-color: rgb(49, 49, 49);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 3px 3px grey;
+}
+
+form {
+    background-color: rgb(46, 44, 44);
+    margin: 0 auto;
+    border-radius: 15px;
+    padding: 100px;
+    width: 400px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    
+}
+
+form h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: white;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-top: 15px;
+}
+
+input[type="text"], textarea, input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    margin-top: 5px;
+    background-color: #333;
+    color: white;
+    font-size: 14px;
+}
+
+input[type="submit"] {
+    margin-top: 25px;
+    width: 100%;
+    padding: 12px;
+    background-color: #00074e;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+h2 {
+    text-align: left;
+    padding-left: 30px;
+}
+
+.noti {
+    background-color: #333;
+    font-family: Trebuchet MS, sans-serif;
+    padding: 12px 18px;
+    border-radius: 20px;
+    margin: 20px;
+}
+
+article {
+    margin-top: 10px;
+    text-align: left;
+    line-height: 30px;
+}
+
+footer {
+    background-color: #00074e;
+    color: white;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    padding: 12px 18px;
+    line-height: 28px;
+    font-family: Trebuchet MS, sans-serif;
+    font-weight: bold;
+    justify-content: space-between;
+    align-items: center;
+}
+
+footer h2 {
+    text-align: center;
+    padding: 10px;
+}
+
+footer .logo {
+    gap: 18px;
+    padding-left: 16px;
+}
+
+footer .logo img {
+    width: 70px;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+}
