@@ -233,15 +233,24 @@ body .ini {
 
 
 .ini button {
-    background-color: rgb(49, 49, 49);
-    color: white;
-    border-radius: 10px;
-    font-family: "Trebuchet MS", sans-serif;
-    height: 40px;
-    padding: 0 16px;
-    border: none;
-    cursor: pointer;
+    padding: 12px 20px;
     margin: 5px;
+    border-radius: 999px;
+    border: none;
+    background-color: #ffffff;
+    color: #0a036b;
+    font-weight: bold;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.ini button:hover{
+    background-color: #ffd700;
+    color: #0a036b;
+    transform: scale(1.05);
 }
 
 h1 {
@@ -307,20 +316,24 @@ input[type="file"] {
 }
 
 input[type="submit"] {
-    margin-top: 25px;
-    width: 100%;
-    padding: 12px;
-    background-color: #00074e;
-    color: white;
+    padding: 12px 20px;
+    margin: 5px;
+    border-radius: 999px;
     border: none;
-    border-radius: 8px;
-    cursor: pointer;
+    background-color: #ffffff;
+    color: #0a036b;
     font-weight: bold;
-    transition: 0.3s;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
 }
 
 input[type="submit"]:hover {
-    opacity: 0.92;
+    background-color: #ffd700;
+    color: #0a036b;
+    transform: scale(1.05);
 }
 
 /* TÍTULOS SECUNDÁRIOS */
@@ -347,7 +360,7 @@ article {
 
 /* RODAPÉ */
 footer {
-    background-color: #00074e;
+    background-color: rgba(8, 13, 63, 0.98);
     color: white;
     border-bottom: 2px solid rgba(255, 255, 255, 0.2);
     padding: 12px 18px;
@@ -370,6 +383,7 @@ footer .logo {
 
 footer .logo img {
     width: 70px;
+    height: auto;
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
 }
 
