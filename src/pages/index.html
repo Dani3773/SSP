@@ -1,118 +1,417 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <title>Sistema de seguran&ccedil;a p&uacute;blica</title>
-    <link rel="stylesheet" href="../stylo/style.css">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-</head>
-<body>
-    <header>
-        <div class="logo">
-            <img src="../img/logo-preta.png" alt="Emblema da SSP">
-            <p>SSP - CRICI&Uacute;MA</p>
-        </div>
-        <div class="menu">
-            <nav class="menu-links">
-                <a href="#inicio">In&iacute;cio</a>
-                <a href="#noticias">Not&iacute;cias</a>
-                <a href="#mapa">Mapa</a>
-                <a href="#cameras">C&acirc;meras</a>
-                <a href="#analises">An&aacute;lises</a>
-                <a href="#contato">Contato</a>
-                <button type="button" class="menu-cta">Acesso comit&ecirc;</button>
-            </nav>
-        </div>
-    </header>
+/* =========================
+   RESET BÁSICO
+   ========================= */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
 
-    <div class="ini-double">
+/* =========================
+   HEADER FIXO — SSP CRICIÚMA
+   ========================= */
+header {
+    background-color: rgba(8, 13, 63, 0.98);
+    color: #ffffff;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    padding: 12px 18px;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
 
-  <div class="ini">
-    <h1 id="inicio">SSP - Segurança na sua mão</h1>
-    <p>Envie denúncias e monitore sua cidade</p>
-    <div class="botoes">
-      <a href="#denuncia"><button>Fazer uma denúncia</button></a>
-      <a href="#monitoramento"><button>Ver câmeras</button></a>
-    </div>
-  </div>
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-  <section class="box">
-    <div class="box1">
-      <h3>120</h3>
-      <p>Câmeras ativas</p>
-    </div>
-    <div class="box2">
-      <h3>18</h3>
-      <p>Bairros cobertos</p>
-    </div>
-    <div class="box3">
-      <h3>100%</h3>
-      <p>Anonimização LGPD</p>
-    </div>
-    <div class="box4">
-      <h3>4 minutos</h3>
-      <p>Respostas integradas</p>
-    </div>
-  </section>
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
 
-</div>
+    transition: background-color 0.4s ease, backdrop-filter 0.4s ease;
+}
 
-    <form id="denuncia" action="formulario.php" method="post" name="denuncia" enctype="multipart/form-data">
-        <h2>Fazer uma den&uacute;ncia an&ocirc;nima</h2>
+/* HEADER TRANSPARENTE AO ROLAR */
+header.scrolled {
+    background-color: rgba(8, 13, 63, 0.7);
+    backdrop-filter: blur(8px);
+}
 
-        <label for="titulo">T&iacute;tulo</label><br>
-        <input type="text" id="titulo" name="titulo"><br><br>
-        
-        <label for="descricao">Descri&ccedil;&atilde;o</label><br>
-        <textarea id="descricao" name="descricao" cols="50" rows="10"></textarea><br><br>
-        
-        <label for="arquivo">Anexar foto/v&iacute;deo (opcional)</label><br>
-        <input type="file" id="arquivo" name="arquivo"><br><br>
-        
-        <input type="submit" value="Enviar Den&uacute;ncia">
-    </form>
+header .logo {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border-left: 2px solid rgba(255, 255, 255, 0.2);
+    padding-left: 16px;
+}
 
-    <section id="noticias">
-        <h2>Últimas Noticías</h2>
-        <div class="noti">
-            <article>
-                <h3>Ação integrada resulta em prisão de quadrilha</h3>
-                    <p>Uma operação conjunta da SSP com a Polícia Civil prendeu uma quadrilha de assaltantes que atuava na região do centro.
-                        A ação foi possível graças a denúncias anônimas e o monitoramento em tempo real das câmeras públicas.
-                    </p>
-            </article>
-            <article>
-                <h3>Moradores relatam aumento de segurança no bairro Aurora</h3>
-                    <p>Após a instalação de 10 novas câmeras de alta resolução, o bairro Aurora registrou uma queda de 30% em ocorrências de
-                        furtos e roubos. A iniciativa faz parte do projeto "SSP na sua Rua".
-                    </p>
-            </article> 
-        </div>
-    </section>
-    
-    <section id="mapa">
-        <h2>Mapa Geral e cobertura</h2>
-    </section>
+header .logo img {
+    width: 70px;
+    height: auto;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+}
 
-    <section id="analises">
-        <h2>Análises de dados e Relatórios</h2>
-    </section>
+header .logo p {
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1;
+}
 
-   
-    <footer id="contato">
-        <h2>Fale Conosco</h2>
-        <p>Para mais informações, sugestões ou suporte técnico, entre em contato:</p>
-            <nav class="c1">
-                <ol> Email: contato@ssp.gov</ol>
-                <ol> Telefone: (48)00000-0000</ol>
-                <ol> Endereço: Rua da Segurança, 125 - Centro, Cidade Segura</ol>
-            </nav>
-        <div class="logo">
-                <img src="../img/logo-preta.png" alt="Emblema da SSP">
-        </div>
-    </footer>
+/* CONTAINER DO MENU */
+header .menu {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-left: auto;
+    justify-content: flex-end;
+    flex-shrink: 0;
+}
 
-    <script src="../function/script.js"></script>
-   
-</body>
-</html>
+header .menu-links {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 0;
+}
+
+/* LINKS COM LINHA DOURADA ANIMADA EMBAIXO */
+header .menu-links a {
+    color: inherit;
+    text-decoration: none;
+    font-weight: normal;
+    display: inline-block;
+    padding: 6px 8px;
+    line-height: 1.1;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+header .menu-links a::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background-color: #ffd700;
+    transition: width 0.3s ease;
+}
+
+header .menu-links a:hover {
+    color: #ffd700;
+}
+
+header .menu-links a:hover::after {
+    width: 100%;
+}
+
+/* FOCO ACESSÍVEL */
+header .menu-links a:focus-visible {
+    outline: 2px solid #ffd700;
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* BOTÃO CTA */
+header .menu-cta {
+    padding: 8px 18px;
+    border-radius: 999px;
+    border: none;
+    background-color: #ffffff;
+    color: #0a036b;
+    font-weight: bold;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+header .menu-cta:hover {
+    background-color: #ffd700;
+    color: #0a036b;
+    transform: scale(1.05);
+}
+
+/* RESPONSIVIDADE DO HEADER */
+@media (max-width: 860px) {
+    header {
+        padding: 10px 14px;
+    }
+
+    header .menu-links {
+        gap: 12px;
+        max-width: calc(100vw - 200px);
+    }
+
+    header .menu-cta {
+        padding: 8px 14px;
+    }
+}
+
+@media (max-width: 640px) {
+    header {
+        flex-wrap: wrap;
+        row-gap: 8px;
+    }
+
+    header .menu {
+        width: 100%;
+        justify-content: space-between;
+        gap: 12px;
+    }
+
+    header .menu-links {
+        flex: 1 1 auto;
+        row-gap: 8px;
+    }
+
+    header .menu-links a {
+        white-space: normal;
+    }
+}
+
+body {
+    background-color: rgb(75, 75, 75);
+    color: white;
+    font-family: Trebuchet MS, sans-serif;
+    line-height: 28px;
+    text-align: center;
+    padding-top: 90px;
+}
+
+body .ini {
+    height: auto;
+    margin-top: 100px;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.ini-double {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    /* 🧱 Tamanho horizontal amplo (igual antes) */
+    width: calc(100% - 50px);
+    margin: 25px;
+    padding: 40px 20px;
+
+    /* 🎨 Degradê azul → preto → cinza */
+    background: linear-gradient(135deg, #000814, #001d3d, #003566, #5f6773);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+
+    /* 💡 Sombra moderna com leve brilho interno */
+    box-shadow:
+        0 6px 25px rgba(0, 0, 0, 0.7),
+        inset 0 0 15px rgba(0, 90, 255, 0.15);
+
+    color: white;
+    text-align: center;
+    font-family: "Trebuchet MS", sans-serif;
+
+    /* 🎬 Suavidade de movimento */
+    transition: transform 0.35s ease, box-shadow 0.35s ease, filter 0.35s ease;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    will-change: transform, box-shadow;
+}
+
+.ini-double:hover {
+    transform: scale(1.02); /* Cresce 2% — natural e estável */
+    filter: brightness(1.08); /* realce suave sem borrão */
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.8),
+        inset 0 0 22px rgba(0, 110, 255, 0.25);
+}
+
+
+.ini button {
+    padding: 12px 20px;
+    margin: 5px;
+    border-radius: 999px;
+    border: none;
+    background-color: #ffffff;
+    color: #0a036b;
+    font-weight: bold;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.ini button:hover{
+    background-color: #ffd700;
+    color: #0a036b;
+    transform: scale(1.05);
+}
+
+h1 {
+    font-size: 50px;
+}
+
+.box {
+    gap: 30px;
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    margin-bottom: 70px;
+}
+
+.box h3 {
+    color: rgb(70, 70, 240);
+}
+
+.box1,
+.box2,
+.box3,
+.box4 {
+    background-color: rgb(49, 49, 49);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 3px 3px grey;
+    text-align: center;
+}
+
+/* FORMULÁRIOS */
+form {
+    background-color: rgb(46, 44, 44);
+    margin: 0 auto;
+    border-radius: 15px;
+    padding: 100px;
+    width: 400px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+form h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: white;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-top: 15px;
+}
+
+input[type="text"],
+textarea,
+input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    margin-top: 5px;
+    background-color: #333;
+    color: white;
+    font-size: 14px;
+}
+
+input[type="submit"] {
+    padding: 12px 20px;
+    margin: 5px;
+    border-radius: 999px;
+    border: none;
+    background-color: #ffffff;
+    color: #0a036b;
+    font-weight: bold;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #ffd700;
+    color: #0a036b;
+    transform: scale(1.05);
+}
+
+/* TÍTULOS SECUNDÁRIOS */
+h2 {
+    text-align: left;
+    padding-left: 30px;
+}
+
+/* NOTIFICAÇÕES / CARDS */
+.noti {
+    background-color: #333;
+    font-family: Trebuchet MS, sans-serif;
+    padding: 12px 18px;
+    border-radius: 20px;
+    margin: 20px;
+}
+
+/* ARTIGOS / CONTEÚDO */
+article {
+    margin-top: 10px;
+    text-align: left;
+    line-height: 30px;
+}
+
+/* RODAPÉ */
+footer {
+    background-color: rgba(8, 13, 63, 0.98);
+    color: white;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    padding: 12px 18px;
+    line-height: 28px;
+    font-family: Trebuchet MS, sans-serif;
+    font-weight: bold;
+    justify-content: space-between;
+    align-items: center;
+}
+
+footer h2 {
+    text-align: center;
+    padding: 10px;
+}
+
+footer .logo {
+    gap: 18px;
+    padding-left: 16px;
+}
+
+footer .logo img {
+    width: 70px;
+    height: auto;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+}
+
+/* RESPONSIVIDADE GERAL */
+@media (max-width: 960px) {
+    .box {
+        margin-left: 0;
+        justify-content: center;
+        flex-wrap: wrap;
+        padding: 0 16px;
+    }
+
+    form {
+        width: 90%;
+        padding: 40px 24px;
+    }
+
+    h1 {
+        font-size: 40px;
+    }
+}
+
+@media (max-width: 560px) {
+    h1 {
+        font-size: 32px;
+    }
+
+    .ini button {
+        width: 100%;
+    }
+}
