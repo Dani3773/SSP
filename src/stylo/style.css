@@ -175,33 +175,73 @@ header .menu-cta:hover {
     }
 }
 
-/* =========================
-   RESTO DO SITE
-   ========================= */
 body {
     background-color: rgb(75, 75, 75);
     color: white;
     font-family: Trebuchet MS, sans-serif;
     line-height: 28px;
     text-align: center;
-    padding-top: 90px; /* Espaço pro header fixo */
+    padding-top: 90px;
 }
 
 body .ini {
-    height: 100px;
+    height: auto;
     margin-top: 100px;
-    line-height: 50px;
+    line-height: 1.5;
+    text-align: center;
 }
+
+.ini-double {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    /* 🧱 Tamanho horizontal amplo (igual antes) */
+    width: calc(100% - 50px);
+    margin: 25px;
+    padding: 40px 20px;
+
+    /* 🎨 Degradê azul → preto → cinza */
+    background: linear-gradient(135deg, #000814, #001d3d, #003566, #5f6773);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+
+    /* 💡 Sombra moderna com leve brilho interno */
+    box-shadow:
+        0 6px 25px rgba(0, 0, 0, 0.7),
+        inset 0 0 15px rgba(0, 90, 255, 0.15);
+
+    color: white;
+    text-align: center;
+    font-family: "Trebuchet MS", sans-serif;
+
+    /* 🎬 Suavidade de movimento */
+    transition: transform 0.35s ease, box-shadow 0.35s ease, filter 0.35s ease;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    will-change: transform, box-shadow;
+}
+
+.ini-double:hover {
+    transform: scale(1.02); /* Cresce 2% — natural e estável */
+    filter: brightness(1.08); /* realce suave sem borrão */
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.8),
+        inset 0 0 22px rgba(0, 110, 255, 0.25);
+}
+
 
 .ini button {
     background-color: rgb(49, 49, 49);
     color: white;
     border-radius: 10px;
-    font-family: Trebuchet MS, sans-serif;
+    font-family: "Trebuchet MS", sans-serif;
     height: 40px;
     padding: 0 16px;
     border: none;
     cursor: pointer;
+    margin: 5px;
 }
 
 h1 {
@@ -211,9 +251,9 @@ h1 {
 .box {
     gap: 30px;
     display: flex;
-    margin-top: 120px;
+    justify-content: center;
+    margin-top: 50px;
     margin-bottom: 70px;
-    margin-left: 290px;
 }
 
 .box h3 {
@@ -228,6 +268,7 @@ h1 {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 3px 3px grey;
+    text-align: center;
 }
 
 /* FORMULÁRIOS */
