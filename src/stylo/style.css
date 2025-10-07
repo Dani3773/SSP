@@ -1,18 +1,27 @@
-﻿* {
+/* RESET BÁSICO */
+* {
     padding: 0;
     margin: 0;
+    box-sizing: border-box;
 }
 
+/* =========================
+   HEADER — SSP CRICIÚMA
+   ========================= */
 header {
     background-color: #080d3f;
-    color: white;
+    color: #ffffff;
     border-bottom: 2px solid rgba(255, 255, 255, 0.2);
     padding: 12px 18px;
     font-family: Arial, sans-serif;
     font-weight: bold;
+
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    position: relative;
+    z-index: 10;
 }
 
 header .logo {
@@ -38,30 +47,64 @@ header .logo p {
     line-height: 1;
 }
 
-
+/* CONTAINER DO MENU */
 header .menu {
     display: flex;
     align-items: center;
     gap: 16px;
     margin-left: auto;
     justify-content: flex-end;
+    flex-shrink: 0;
 }
 
 header .menu-links {
     display: flex;
     gap: 16px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 0;
 }
 
+/* LINKS COM LINHA DOURADA ANIMADA EMBAIXO */
 header .menu-links a {
     color: inherit;
     text-decoration: none;
     font-weight: normal;
+    display: inline-block;
+    padding: 6px 8px;
+    line-height: 1.1;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+/* linha dourada sólida (embaixo agora) */
+header .menu-links a::after {
+    content: "";
+    position: absolute;
+    bottom: 0;             /* linha embaixo do texto */
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background-color: #ffd700;
+    transition: width 0.3s ease;
 }
 
 header .menu-links a:hover {
-    text-decoration: underline;
+    color: #ffd700;
 }
 
+header .menu-links a:hover::after {
+    width: 100%;
+}
+
+/* FOCO ACESSÍVEL */
+header .menu-links a:focus-visible {
+    outline: 2px solid #ffd700;
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* BOTÃO CTA */
 header .menu-cta {
     padding: 8px 18px;
     border-radius: 999px;
@@ -70,5 +113,52 @@ header .menu-cta {
     color: #0a036b;
     font-weight: bold;
     cursor: pointer;
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
 }
 
+header .menu-cta:hover {
+    background-color: #ffd700;
+    color: #0a036b;
+    transform: scale(1.05);
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 860px) {
+    header {
+        padding: 10px 14px;
+    }
+
+    header .menu-links {
+        gap: 12px;
+        max-width: calc(100vw - 200px);
+    }
+
+    header .menu-cta {
+        padding: 8px 14px;
+    }
+}
+
+@media (max-width: 640px) {
+    header {
+        flex-wrap: wrap;
+        row-gap: 8px;
+    }
+
+    header .menu {
+        width: 100%;
+        justify-content: space-between;
+        gap: 12px;
+    }
+
+    header .menu-links {
+        flex: 1 1 auto;
+        row-gap: 8px;
+    }
+
+    header .menu-links a {
+        white-space: normal;
+    }
+}
