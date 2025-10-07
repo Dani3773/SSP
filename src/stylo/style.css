@@ -1,4 +1,6 @@
-/* RESET BÁSICO */
+/* =========================
+   RESET BÁSICO
+   ========================= */
 * {
     padding: 0;
     margin: 0;
@@ -6,10 +8,10 @@
 }
 
 /* =========================
-   HEADER — SSP CRICIÚMA
+   HEADER FIXO — SSP CRICIÚMA
    ========================= */
 header {
-    background-color: #080d3f;
+    background-color: rgba(8, 13, 63, 0.98);
     color: #ffffff;
     border-bottom: 2px solid rgba(255, 255, 255, 0.2);
     padding: 12px 18px;
@@ -20,8 +22,19 @@ header {
     justify-content: space-between;
     align-items: center;
 
-    position: relative;
-    z-index: 10;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+
+    transition: background-color 0.4s ease, backdrop-filter 0.4s ease;
+}
+
+/* HEADER TRANSPARENTE AO ROLAR */
+header.scrolled {
+    background-color: rgba(8, 13, 63, 0.7);
+    backdrop-filter: blur(8px);
 }
 
 header .logo {
@@ -77,11 +90,10 @@ header .menu-links a {
     transition: color 0.3s ease;
 }
 
-/* linha dourada sólida (embaixo agora) */
 header .menu-links a::after {
     content: "";
     position: absolute;
-    bottom: 0;             /* linha embaixo do texto */
+    bottom: 0;
     left: 0;
     width: 0%;
     height: 3px;
@@ -125,7 +137,7 @@ header .menu-cta:hover {
     transform: scale(1.05);
 }
 
-/* RESPONSIVIDADE */
+/* RESPONSIVIDADE DO HEADER */
 @media (max-width: 860px) {
     header {
         padding: 10px 14px;
@@ -160,5 +172,191 @@ header .menu-cta:hover {
 
     header .menu-links a {
         white-space: normal;
+    }
+}
+
+/* =========================
+   RESTO DO SITE
+   ========================= */
+body {
+    background-color: rgb(75, 75, 75);
+    color: white;
+    font-family: Trebuchet MS, sans-serif;
+    line-height: 28px;
+    text-align: center;
+    padding-top: 90px; /* Espaço pro header fixo */
+}
+
+body .ini {
+    height: 100px;
+    margin-top: 100px;
+    line-height: 50px;
+}
+
+.ini button {
+    background-color: rgb(49, 49, 49);
+    color: white;
+    border-radius: 10px;
+    font-family: Trebuchet MS, sans-serif;
+    height: 40px;
+    padding: 0 16px;
+    border: none;
+    cursor: pointer;
+}
+
+h1 {
+    font-size: 50px;
+}
+
+.box {
+    gap: 30px;
+    display: flex;
+    margin-top: 120px;
+    margin-bottom: 70px;
+    margin-left: 290px;
+}
+
+.box h3 {
+    color: rgb(70, 70, 240);
+}
+
+.box1,
+.box2,
+.box3,
+.box4 {
+    background-color: rgb(49, 49, 49);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 3px 3px grey;
+}
+
+/* FORMULÁRIOS */
+form {
+    background-color: rgb(46, 44, 44);
+    margin: 0 auto;
+    border-radius: 15px;
+    padding: 100px;
+    width: 400px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+form h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: white;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-top: 15px;
+}
+
+input[type="text"],
+textarea,
+input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    margin-top: 5px;
+    background-color: #333;
+    color: white;
+    font-size: 14px;
+}
+
+input[type="submit"] {
+    margin-top: 25px;
+    width: 100%;
+    padding: 12px;
+    background-color: #00074e;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+input[type="submit"]:hover {
+    opacity: 0.92;
+}
+
+/* TÍTULOS SECUNDÁRIOS */
+h2 {
+    text-align: left;
+    padding-left: 30px;
+}
+
+/* NOTIFICAÇÕES / CARDS */
+.noti {
+    background-color: #333;
+    font-family: Trebuchet MS, sans-serif;
+    padding: 12px 18px;
+    border-radius: 20px;
+    margin: 20px;
+}
+
+/* ARTIGOS / CONTEÚDO */
+article {
+    margin-top: 10px;
+    text-align: left;
+    line-height: 30px;
+}
+
+/* RODAPÉ */
+footer {
+    background-color: #00074e;
+    color: white;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    padding: 12px 18px;
+    line-height: 28px;
+    font-family: Trebuchet MS, sans-serif;
+    font-weight: bold;
+    justify-content: space-between;
+    align-items: center;
+}
+
+footer h2 {
+    text-align: center;
+    padding: 10px;
+}
+
+footer .logo {
+    gap: 18px;
+    padding-left: 16px;
+}
+
+footer .logo img {
+    width: 70px;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+}
+
+/* RESPONSIVIDADE GERAL */
+@media (max-width: 960px) {
+    .box {
+        margin-left: 0;
+        justify-content: center;
+        flex-wrap: wrap;
+        padding: 0 16px;
+    }
+
+    form {
+        width: 90%;
+        padding: 40px 24px;
+    }
+
+    h1 {
+        font-size: 40px;
+    }
+}
+
+@media (max-width: 560px) {
+    h1 {
+        font-size: 32px;
+    }
+
+    .ini button {
+        width: 100%;
     }
 }
