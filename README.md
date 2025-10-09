@@ -3,17 +3,7 @@ SSP — Guia de Colaboração com Git/GitHub
 Bem-vindos ao repositório SSP.
 Aqui está o guia de como o time deve clonar, criar branches, commitar, abrir Pull Requests (PRs) e manter o fluxo de trabalho organizado.
 
-Pré-requisitos
-
-Ter o Git instalado (Windows: Git Bash ou PowerShell).
-
-Ter conta no GitHub com o convite de colaborador aceito.
-
-Opcional: gerar um Token de Acesso Pessoal (PAT) no GitHub para usar no push via HTTPS (no lugar da senha).
-
 Primeiro acesso
-
-Aceite o convite que recebeu por e-mail/GitHub.
 
 Clone o repositório e entre na pasta:
 git clone https://github.com/Dani3773/SSP.git
@@ -143,16 +133,4 @@ Pediu senha no push (HTTPS)
 Conflitos ao dar pull/merge
 → Resolver conforme seção de conflitos.
 
-Boas práticas
-
-Sempre rode git pull origin main antes de começar o dia.
-
-Uma tarefa = uma branch.
-
-Commits pequenos e claros.
-
-PRs pequenos são revisados mais rápido.
-
 Nunca suba senhas ou chaves. Use .env local e crie um arquivo .env.example como modelo.
-
-Atualize o README se adicionar algo que exija setup.
