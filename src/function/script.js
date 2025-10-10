@@ -5,6 +5,7 @@ window.addEventListener("scroll", function() {
   } else {
     header.classList.remove("scrolled");
   }
+});
 
 // Carrossel de notícias
 document.addEventListener('DOMContentLoaded', function () {
