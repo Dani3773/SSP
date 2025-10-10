@@ -275,14 +275,36 @@ h1 {
     justify-content: space-between;
 }
 
-.card{
-    border: 1px solid gray;
-    border-radius: 5px;
+.card {
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
     margin: 20px 10px 20px 10px;
     padding: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45), inset 0 0 12px rgba(0, 120, 255, 0.15);
+    transition: all 0.3s ease;
 }
 
-.box-p p{
+.card:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(1.03);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.55),
+              0 0 25px rgba(0, 120, 255, 0.25);
+}
+
+[data-lucide="alert-triangle"],
+[data-lucide="cpu"],
+[data-lucide="users"],
+[data-lucide="shield"] {
+    width: 28px;
+    height: 28px;
+    stroke: #ffd700;
+    stroke-width: 2.2;
+    filter: drop-shadow(0 0 3px rgba(255, 215, 0, 0.4));
+}
+
+
+
+.box-p p {
     color: rgba(255, 255, 255, 0.75);
 }
 
@@ -351,7 +373,7 @@ h1 {
     line-height: 1;
 }
 
-.tittle-form h2{
+.tittle-form h2 {
     margin: 0;
     font-size: 1.4rem;
     line-height: 1.1;
@@ -359,7 +381,7 @@ h1 {
     padding: 0;
 }
 
-.tittle-form p{
+.tittle-form p {
     color: rgba(255, 255, 255, 0.75);
     margin: 4px 0 0;
     font-size: 0.85rem;
@@ -370,16 +392,17 @@ h1 {
 }
 
 [data-lucide="shield-check"] {
-  width: 28px;
-  height: 28px;
-  stroke: #ffd700; /* dourado */
-  stroke-width: 2.2;
+    width: 28px;
+    height: 28px;
+    stroke: #ffd700;
+    /* dourado */
+    stroke-width: 2.2;
 }
 
 .icon-text {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 
@@ -595,7 +618,7 @@ footer .logo img {
 
 #noticias {
     padding: 50px 20px;
-    background-color: #f0f2f5; 
+    background-color: #f0f2f5;
     text-align: center;
 }
 
@@ -698,7 +721,8 @@ footer .logo img {
 }
 
 /* O código abaixo anula os estilos antigos da classe .noti para evitar conflitos */
-.noti, .noti article {
+.noti,
+.noti article {
     background-color: transparent;
     padding: 0;
     border-radius: 0;
