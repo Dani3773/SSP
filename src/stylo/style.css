@@ -245,7 +245,7 @@ body .ini {
 
 .ini button {
     padding: 12px 20px;
-    margin: 5px;
+    margin: 10px 10px 5px 10px;
     border-radius: 999px;
     border: none;
     background-color: #ffffff;
@@ -271,26 +271,19 @@ h1 {
 /* Caixas dentro do início */
 
 .box {
-    gap: 30px;
     display: flex;
-    justify-content: center;
-    margin-top: 50px;
-    margin-bottom: 70px;
+    justify-content: space-between;
 }
 
-.box h3 {
-    color: rgb(70, 70, 240);
-}
-
-.box1,
-.box2,
-.box3,
-.box4 {
-    background-color: rgb(49, 49, 49);
+.card{
+    border: 1px solid gray;
+    border-radius: 5px;
+    margin: 20px 10px 20px 10px;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 3px 3px grey;
-    text-align: center;
+}
+
+.box-p p{
+    color: rgba(255, 255, 255, 0.75);
 }
 
 
