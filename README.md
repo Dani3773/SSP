@@ -86,14 +86,20 @@ Copiar código
 git clone https://github.com/Dani3773/SSP.git
 cd SSP
 start index.html
-✅ No dependencies or build tools required — simply open index.html in your browser.
+✅ No dependencies or build tools required — simply open index.html in your browser.```
+
+
 
 🧭 Project Status
 🟡 Active Development
 New pages, improvements, and scripts are continuously being added.
 
+
+
 📜 License
 Distributed under the MIT License — free for academic and educational use.
 Feel free to explore, fork, and learn.
 
-<p align="center"> <i>Developed collaboratively by Daniel, Gustavo, Igor, and Lucas — 2025.</i><br> <b>Smart Systems Platform • Academic Prototype</b> </p> ```
+
+
+<p align="center"> <i>Developed collaboratively by Daniel, Gustavo, Igor, and Lucas — 2025.</i><br> <b>Smart Systems Platform • Academic Prototype</b> </p>
