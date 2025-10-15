@@ -1,136 +1,113 @@
-SSP — Guia de Colaboração com Git/GitHub
+🧠 SSP — Smart Systems Platform / Public Security System
+🎯 Project Overview
 
-Bem-vindos ao repositório SSP.
-Aqui está o guia de como o time deve clonar, criar branches, commitar, abrir Pull Requests (PRs) e manter o fluxo de trabalho organizado.
+SSP (Smart Systems Platform) is a collaborative academic project developed as part of a Computer Science course.
+Its main goal is to simulate a public security and transparency system, integrating web pages for citizen reporting, monitoring cameras, and interactive dashboards.
 
-Primeiro acesso
+The project is being fully developed by four students working together on HTML, CSS, JavaScript, and interface prototypes, applying teamwork, version control, and interface design skills.
 
-Clone o repositório e entre na pasta:
+🧩 Purpose
+
+The SSP project demonstrates how web technologies can support civic participation and public transparency.
+It is also a learning environment for testing structures, layouts, and interactive functions without external frameworks — only pure code and creativity.
+
+⚙️ Tech Stack
+Category	Technology
+Structure	HTML5
+Style	CSS3
+Logic / Interaction	JavaScript (ES6)
+Collaboration	Git + GitHub
+Prototyping	Figma / Mockups / Screens
+🏗️ Project Structure
+SSP/
+│
+├── src/
+│   ├── function/
+│   │   ├── script.js
+│   │   ├── mapScript.js
+│   │   └── script3.js
+│   ├── img/
+│   │   ├── Mapa.png
+│   │   └── Prefeitura.jpg
+│   └── index.html
+│
+├── protótipo/
+│   ├── interface screenshots and videos
+│
+└── README.md
+
+👥 Developers
+Name	Role
+Daniel Felisberto dos Santos	Front-end, logic, prototyping, version control
+Gustavo Marcelino	Front-end, design, prototyping, scripts
+Igor Rayciky	Front-end, layout, JavaScript functions, UI tests
+Lucas Guollo	Front-end, support, prototypes, interface adjustments
+
+All four developers actively contribute to every part of the project — from HTML and CSS structure to JS scripting and prototype design.
+
+🚀 How to Run
+
+Clone this repository and open the index.html file in your browser.
+No dependencies or build tools are required.
+
 git clone https://github.com/Dani3773/SSP.git
-
 cd SSP
+start index.html
 
-Configure seu usuário Git (só precisa uma vez na máquina):
-git config --global user.name "Seu Nome"
-git config --global user.email "seu-email@exemplo.com
-"
+🧭 Project Status
 
-Atualize a base antes de começar:
-git pull origin main
+🟡 In active development
+The system is continuously evolving, with new pages and scripts being implemented step by step.
 
-Fluxo de contribuição (recomendado)
+📜 License
 
-Crie uma branch para sua tarefa:
-git checkout -b feat/nome-da-tarefa
+MIT License — free for educational and academic use.
+Feel free to explore, fork, and learn.
 
-Prefixos de branches:
-feat/ (nova feature), fix/ (correção), docs/ (documentação), refactor/ (refatoração), chore/ (tarefas gerais).
+🇩🇪 SSP — Plattform für Öffentliche Sicherheit und Transparenz
+🎓 Projektübersicht
 
-Faça suas alterações no código.
+SSP (Smart Systems Platform) ist ein gemeinsames Hochschulprojekt im Studiengang Informatik.
+Das Ziel ist die Simulation eines Systems für öffentliche Sicherheit und Bürgertransparenz, einschließlich Online-Meldungen, Live-Überwachung und Verwaltungs-Dashboards.
 
-Adicione e faça commit:
-git add .
-git commit -m "feat: descrição curta do que foi feito"
+Das Projekt wird vollständig von vier Studierenden entwickelt, die gemeinsam an HTML, CSS, JavaScript und Prototypen arbeiten.
 
-Envie sua branch para o GitHub:
-git push origin feat/nome-da-tarefa
+🧩 Zweck
 
-Abra um Pull Request (PR) no GitHub comparando sua branch com a main.
+SSP zeigt, wie Web-Technologien zur Bürgerbeteiligung und Transparenz beitragen können.
+Es dient auch als Lernplattform, um mit Layouts, Funktionen und Interaktivität zu experimentieren — mit reinem HTML, CSS und JS, ohne Frameworks.
 
-Após aprovação, faça merge na main.
+⚙️ Technologien
+Kategorie	Technologie
+Struktur	HTML5
+Stil	CSS3
+Logik / Interaktion	JavaScript (ES6)
+Zusammenarbeit	Git + GitHub
+Prototyping	Figma / Mockups / Screens
+👥 Entwickler
+Name	Rolle
+Daniel Felisberto dos Santos	Frontend, Logik, Prototyping, Versionskontrolle
+Gustavo Marcelino	Frontend, Design, Prototyping, Skripte
+Igor Rayciky	Frontend, Layout, JavaScript, UI-Tests
+Lucas Guollo	Frontend, Support, Prototyping, Interface-Anpassungen
 
-Apague a branch remota se quiser (opcional, mas recomendado).
+Alle vier Entwickler arbeiten an allen Bereichen — HTML, CSS, JS und Prototypen — gemeinsam.
 
-Checklist antes de abrir PR
+🚀 Projekt ausführen
 
-O código compila/roda localmente.
+Repository klonen und die Datei index.html im Browser öffnen.
+Keine zusätzlichen Abhängigkeiten erforderlich.
 
-Commits claros e seguindo padrão.
+git clone https://github.com/Dani3773/SSP.git
+cd SSP
+start index.html
 
-Sem arquivos temporários (use .gitignore).
+🧭 Projektstatus
 
-Testes manuais feitos (explique no PR como testar).
+🟡 In aktiver Entwicklung
+Neue Seiten und Funktionen werden fortlaufend hinzugefügt.
 
-Atualize documentação se necessário.
+📜 Lizenz
 
-Sincronizar sua branch com a main
-
-Para atualizar sua branch com a main:
-git fetch origin
-git checkout main
-git pull origin main
-git checkout feat/nome-da-tarefa
-git merge main
-
-Se preferir rebase:
-git rebase main
-
-Se houver conflitos no rebase:
-git add .
-git rebase --continue
-
-Resolver conflitos
-
-O Git marca conflitos com <<<<<<<, =======, >>>>>>>.
-
-Edite o arquivo e una o conteúdo correto.
-
-Marque como resolvido:
-git add .
-git commit (se for merge)
-git rebase --continue (se for rebase)
-
-Padrão de branches e commits
-
-Exemplos de branches:
-
-feat/login
-
-fix/validacao-email
-
-docs/readme
-
-refactor/servico-x
-
-chore/config-ci
-
-Exemplos de commits (Conventional Commits simplificado):
-
-feat: adiciona módulo de login
-
-fix: corrige validação de e-mail
-
-docs: atualiza instruções
-
-refactor: simplifica cálculo
-
-chore: ajusta .gitignore
-
-Prefira vários commits pequenos a um commit gigante.
-
-Guia rápido de comandos Git
-
-git status → ver status dos arquivos
-git add . → adicionar arquivos
-git commit -m "msg" → criar commit
-git push -u origin branch → enviar branch
-git pull origin main → atualizar a main
-git checkout -b branch → criar e trocar de branch
-git branch -a → listar branches
-git checkout main → voltar para main
-
-Problemas comuns
-
-Erro: "src refspec main does not match any"
-→ Não há commits na main. Solução:
-git add .
-git commit -m "first commit"
-git push -u origin main
-
-Pediu senha no push (HTTPS)
-→ Use seu Token de Acesso Pessoal (PAT) como senha.
-
-Conflitos ao dar pull/merge
-→ Resolver conforme seção de conflitos.
-
-Nunca suba senhas ou chaves. Use .env local e crie um arquivo .env.example como modelo.
+MIT-Lizenz — frei für akademische und pädagogische Nutzung.
+Offen für Forks, Lernen und Beiträge.
