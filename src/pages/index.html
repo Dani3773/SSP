@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Sistema de segurança pública</title>
-  <link rel="stylesheet" href="../stylo/style.css">
+  <link rel="stylesheet" href="style.css">
   <link rel="icon" href="../img/icone_criciuma.png" type="image/png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <script src="https://unpkg.com/lucide@latest"></script>
@@ -302,59 +302,72 @@
   <!-- Notícias -->
 
   <section id="noticias">
-    <h2>Últimas Notícias</h2>
-    <div class="carousel-container">
-      <div class="carousel-track">
+  <h2>Últimas Notícias</h2>
+
+  <div class="slider-container">
+    <div class="slider-track">
+
+      <a href="#" class="card-link">
         <div class="card-noticia">
-          <img src="../img/imagem1.webp"
-            alt="Imagem da notícia sobre a prisão de uma quadrilha">
+          <img src="../img/imagem1.webp" alt="Imagem da notícia sobre a prisão de uma quadrilha">
           <div class="card-content">
             <h3>Ação integrada resulta em prisão de quadrilha</h3>
-            <p>Operação conjunta da SSP e Polícia Civil prendeu suspeitos que atuavam na região central, graças a
-              denúncias e monitoramento em tempo real.</p>
+            <p>Operação conjunta da SSP e Polícia Civil prendeu suspeitos que atuavam na região central.</p>
+            <button type="button" class="ler-mais-btn">Ler Mais</button>
           </div>
         </div>
+      </a>
+
+      <a href="#" class="card-link">
         <div class="card-noticia">
-          <img src="../img/imagem2.jpg"
-            alt="Imagem da notícia sobre o aumento da segurança">
+          <img src="../img/imagem2.jpg" alt="Imagem da notícia sobre o aumento da segurança">
           <div class="card-content">
             <h3>Moradores relatam aumento de segurança no bairro Aurora</h3>
-            <p>Após a instalação de 10 novas câmeras, o bairro registrou uma queda de 30% em ocorrências de furtos e
-              roubos, como parte do projeto "SSP na sua Rua".</p>
+            <p>Após a instalação de 10 novas câmeras, o bairro registrou uma queda de 30% em ocorrências.</p>
+            <button type="button" class="ler-mais-btn">Ler Mais</button>
           </div>
         </div>
+      </a>
+
+      <a href="#" class="card-link">
         <div class="card-noticia">
-          <img src="../img/imagem3.webp"
-            alt="Imagem da notícia sobre nova tecnologia">
+          <img src="../img/imagem3.webp" alt="Imagem da notícia sobre nova tecnologia">
           <div class="card-content">
             <h3>Nova tecnologia de reconhecimento facial é implementada</h3>
-            <p>Sistema de ponta agora auxilia na identificação de foragidos, aumentando a eficácia das operações de
-              segurança na cidade.</p>
+            <p>Sistema de ponta agora auxilia na identificação de foragidos na cidade.</p>
+            <button type="button" class="ler-mais-btn">Ler Mais</button>
           </div>
         </div>
+      </a>
+
+      <a href="#" class="card-link">
         <div class="card-noticia">
-          <img src="../img/imagem4.jpg"
-            alt="Imagem da notícia sobre programa educativo">
+          <img src="../img/imagem4.jpg" alt="Imagem da notícia sobre programa educativo">
           <div class="card-content">
             <h3>Programa educativo em escolas reduz vandalismo</h3>
-            <p>Iniciativa da SSP em parceria com a Secretaria de Educação promove palestras e atividades sobre
-              cidadania, resultando em queda de 40% no vandalismo.</p>
+            <p>Iniciativa da SSP em parceria com a Secretaria de Educação promove palestras e atividades sobre cidadania.</p>
+            <button type="button" class="ler-mais-btn">Ler Mais</button>
           </div>
         </div>
+      </a>
+
+      <a href="#" class="card-link">
         <div class="card-noticia">
-          <img src="../img/imagem5.jpg"
-            alt="Imagem da notícia sobre reunião com líderes comunitários">
+          <img src="../img/imagem5.jpg" alt="Imagem da notícia sobre reunião com líderes comunitários">
           <div class="card-content">
             <h3>SSP se reúne com líderes comunitários para novas estratégias</h3>
-            <p>Encontro trimestral discute as principais demandas de segurança dos bairros e alinha ações conjuntas para
-              o próximo semestre.</p>
+            <p>Encontro trimestral discute as principais demandas de segurança dos bairros e alinha ações conjuntas.</p>
+            <button type="button" class="ler-mais-btn">Ler Mais</button>
           </div>
         </div>
-      </div>
-      <button class="carousel-button prev"><i class="fa-solid fa-chevron-left"></i></button>
-      <button class="carousel-button next"><i class="fa-solid fa-chevron-right"></i></button>
+      </a>
+
     </div>
-  </section>
+
+    <button class="slider-button prev" aria-label="Notícia anterior"><i class="fa-solid fa-chevron-left"></i></button>
+    <button class="slider-button next" aria-label="Próxima notícia"><i class="fa-solid fa-chevron-right"></i></button>
+  </div>
+</section>
 
   <!-- Análises -->
 
@@ -423,7 +436,7 @@
     </div>
   </footer>
 
-  <script src="../function/script.js"></script>
+  <script src="script.js"></script>
 
 </body>
 
