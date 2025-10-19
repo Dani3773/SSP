@@ -21,15 +21,14 @@
     </div>
     <div class="menu">
       <nav class="menu-links">
-        <nav class="menu-links">
-          <a href="#inicio">Início</a>
-          <a href="#denuncia">Denúncia</a>
-          <a href="#mapa">Mapa</a>
-          <a href="#noticias">Notícias</a>
-          <a href="#analises">Análises</a>
-          <a href="#contato">Contato</a>
-          <button type="button" class="menu-cta">Acesso comitê</button>
-        </nav>
+        <a href="#inicio">Início</a>
+        <a href="#denuncia">Denúncia</a>
+        <a href="#mapa">Mapa</a>
+        <a href="#noticias">Notícias</a>
+        <a href="#analises">Análises</a>
+        <a href="#contato">Contato</a>
+        <button type="button" class="menu-cta">Acesso comitê</button>
+      </nav>
     </div>
   </header>
 
@@ -41,7 +40,8 @@
       <h1 id="inicio">SSP - Sistema de Segurança Pública</h1>
       <p>Envie denúncias e monitore sua cidade</p>
       <div class="button">
-        <a href="#denuncia"><button>Fazer uma denúncia</button></a>
+        <a href="mapdex.html"><button class="btn-acao">Ver Mapa</button></a>
+        <a href="noticias.html"><button class="btn-acao">Ver Notícias</button></a>
       </div>
     </div>
 
@@ -99,8 +99,8 @@
           <div class="form-grid">
             <div class="form-field">
               <label for="titulo">Título</label>
-              <input type="text" id="titulo" name="titulo" placeholder="Ex.: Roubo em comércio no Centro"
-                maxlength="80" required>
+              <input type="text" id="titulo" name="titulo" placeholder="Ex.: Roubo em comércio no Centro" maxlength="80"
+                required>
               <small>Dê um nome curto que descreva a denúncia.</small>
             </div>
 
@@ -290,82 +290,160 @@
   </div>
 
   <!-- Mapa -->
+  <section id="mapa" aria-labelledby="mapa-heading">
+    <div class="mapa-hero">
 
-  <section id="mapa">
-    <div class="map">
-      <div class="m">
-        <a href="mapdex.html"><button>MAPA</button></a>
+      <div class="mapa-hero__content">
+        <div class="mapa-hero__header">
+          <span class="mapa-hero__eyebrow">Monitoramento ao vivo</span>
+          <span class="mapa-hero__pill mapa-hero__pill--sync" aria-live="polite">
+            <i class="fa-solid fa-arrows-rotate" aria-hidden="true"></i>
+            Sincronizado há 2 min
+          </span>
+        </div>
+
+        <h2 id="mapa-heading">Mapa estratégico de monitoramento</h2>
+        <p class="mapa-hero__description">
+          Visualize câmeras e ocorrências em tempo real. Entre no painel completo para rotas de patrulha,
+          zonas críticas e despacho de equipes.
+        </p>
+
+        <!-- Mini status enxuto (trio) -->
+        <ul class="mapa-hero__stats" aria-label="Resumo rápido do monitoramento">
+          <li>
+            <i class="fa-solid fa-tower-broadcast" aria-hidden="true"></i>
+            <span class="stat-label">Cobertura</span>
+            <strong class="stat-value">120 câmeras</strong>
+          </li>
+          <li>
+            <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+            <span class="stat-label">Alertas</span>
+            <strong class="stat-value">2 críticos</strong>
+          </li>
+          <li>
+            <i class="fa-solid fa-car-side" aria-hidden="true"></i>
+            <span class="stat-label">Patrulhas</span>
+            <strong class="stat-value">3 em rota</strong>
+          </li>
+        </ul>
+
+        <div class="mapa-hero__actions">
+          <a class="mapa-hero__cta" href="mapdex.html">
+            Abrir painel do mapa
+            <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+          </a>
+          <a class="mapa-hero__link" href="mapdex.html#como-funciona">Como funciona</a>
+        </div>
       </div>
+
+      <div class="mapa-hero__preview" aria-hidden="true">
+        <div class="mapa-hero__card">
+          <img src="../img/Mapa.png" alt="" loading="lazy">
+          <div class="mapa-hero__overlay"></div>
+          <span class="mapa-hero__badge-live">
+            <i class="fa-solid fa-circle" aria-hidden="true"></i> Ao vivo
+          </span>
+        </div>
+      </div>
+
     </div>
   </section>
 
-  <!-- Notícias -->
 
-  <section id="noticias">
-  <h2>Últimas Notícias</h2>
+<!-- ============================== -->
+<!-- Seção: Últimas Notícias (revisada c/ CTA geral) -->
+<!-- ============================== -->
+<section id="noticias" aria-labelledby="noticias-heading">
+  <div class="noticias-head">
+    <h2 id="noticias-heading">Destaques e Atualizações</h2>
+    <p class="noticias-subtitle">As principais notícias e eventos que impactam nossa comunidade.</p>
+  </div>
 
-  <div class="slider-container">
-    <div class="slider-track">
+  <!-- Carrossel de notícias -->
+  <div class="slider-container" role="region" aria-label="Carrossel de notícias">
+    <button class="slider-button prev" aria-label="Notícia anterior">
+      <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+    </button>
 
-      <a href="#" class="card-link">
-        <div class="card-noticia">
-          <img src="../img/imagem1.webp" alt="Imagem da notícia sobre a prisão de uma quadrilha">
+    <div class="slider-viewport">
+      <div class="slider-track" id="news-track">
+        <!-- Card 1 -->
+        <article class="card-noticia" data-category="seguranca">
+          <div class="card-media">
+            <img src="../img/imagem1.webp" alt="Prisão de quadrilha durante operação policial">
+          </div>
           <div class="card-content">
             <h3>Ação integrada resulta em prisão de quadrilha</h3>
             <p>Operação conjunta da SSP e Polícia Civil prendeu suspeitos que atuavam na região central.</p>
-            <button type="button" class="ler-mais-btn">Ler Mais</button>
           </div>
-        </div>
-      </a>
+        </article>
 
-      <a href="#" class="card-link">
-        <div class="card-noticia">
-          <img src="../img/imagem2.jpg" alt="Imagem da notícia sobre o aumento da segurança">
+        <!-- Card 2 -->
+        <article class="card-noticia" data-category="comunidade">
+          <div class="card-media">
+            <img src="../img/imagem2.jpg" alt="Câmeras de segurança instaladas no bairro Aurora">
+          </div>
           <div class="card-content">
             <h3>Moradores relatam aumento de segurança no bairro Aurora</h3>
-            <p>Após a instalação de 10 novas câmeras, o bairro registrou uma queda de 30% em ocorrências.</p>
-            <button type="button" class="ler-mais-btn">Ler Mais</button>
+            <p>Após a instalação de 10 novas câmeras, o bairro registrou queda de 30% em ocorrências.</p>
           </div>
-        </div>
-      </a>
+        </article>
 
-      <a href="#" class="card-link">
-        <div class="card-noticia">
-          <img src="../img/imagem3.webp" alt="Imagem da notícia sobre nova tecnologia">
+        <!-- Card 3 -->
+        <article class="card-noticia" data-category="tecnologia">
+          <div class="card-media">
+            <img src="../img/imagem3.webp" alt="Painel de reconhecimento facial em operação">
+          </div>
           <div class="card-content">
             <h3>Nova tecnologia de reconhecimento facial é implementada</h3>
             <p>Sistema de ponta agora auxilia na identificação de foragidos na cidade.</p>
-            <button type="button" class="ler-mais-btn">Ler Mais</button>
           </div>
-        </div>
-      </a>
+        </article>
 
-      <a href="#" class="card-link">
-        <div class="card-noticia">
-          <img src="../img/imagem4.jpg" alt="Imagem da notícia sobre programa educativo">
+        <!-- Card 4 -->
+        <article class="card-noticia" data-category="comunidade">
+          <div class="card-media">
+            <img src="../img/imagem4.jpg" alt="Palestra educativa em escola pública">
+          </div>
           <div class="card-content">
             <h3>Programa educativo em escolas reduz vandalismo</h3>
-            <p>Iniciativa da SSP em parceria com a Secretaria de Educação promove palestras e atividades sobre cidadania.</p>
-            <button type="button" class="ler-mais-btn">Ler Mais</button>
+            <p>Parceria com a Educação promove cidadania e diminui ocorrências em áreas escolares.</p>
           </div>
-        </div>
-      </a>
+        </article>
 
-      <a href="#" class="card-link">
-        <div class="card-noticia">
-          <img src="../img/imagem5.jpg" alt="Imagem da notícia sobre reunião com líderes comunitários">
+        <!-- Card 5 -->
+        <article class="card-noticia" data-category="seguranca">
+          <div class="card-media">
+            <img src="../img/imagem5.jpg" alt="Reunião com líderes comunitários">
+          </div>
           <div class="card-content">
             <h3>SSP se reúne com líderes comunitários para novas estratégias</h3>
-            <p>Encontro trimestral discute as principais demandas de segurança dos bairros e alinha ações conjuntas.</p>
-            <button type="button" class="ler-mais-btn">Ler Mais</button>
+            <p>Encontro trimestral alinha ações prioritárias com foco em cada bairro.</p>
           </div>
-        </div>
-      </a>
-
+        </article>
+      </div>
     </div>
 
-    <button class="slider-button prev" aria-label="Notícia anterior"><i class="fa-solid fa-chevron-left"></i></button>
-    <button class="slider-button next" aria-label="Próxima notícia"><i class="fa-solid fa-chevron-right"></i></button>
+    <button class="slider-button next" aria-label="Próxima notícia">
+      <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+    </button>
+  </div>
+
+  <!-- Botão de "Ver todas as notícias" -->
+  <div class="noticias-cta">
+    <a href="/noticias" class="btn-ler-mais" aria-label="Ver todas as notícias">Ver todas as notícias</a>
+  </div>
+</section>
+
+<!-- Seção de Inscrição por E-mail -->
+<section id="newsletter" aria-labelledby="newsletter-heading">
+  <div class="newsletter-container">
+    <h2 id="newsletter-heading">Receba as últimas notícias</h2>
+    <p>Inscreva-se para receber atualizações diretamente no seu e-mail.</p>
+    <form class="newsletter-form" action="#" method="post">
+      <input type="email" name="email" placeholder="Digite seu e-mail" required>
+      <button type="submit">Inscrever-se</button>
+    </form>
   </div>
 </section>
 
@@ -407,8 +485,8 @@
             <p>Tendência (últimos 7 dias)</p>
           </div>
           <svg class="sparkline" viewBox="0 0 100 40" preserveAspectRatio="none" aria-hidden="true">
-            <path d="M0,30 L14,20 L28,24 L42,12 L56,26 L70,22 L84,16 100,18" fill="none"
-              stroke="rgba(255,215,0,0.9)" stroke-width="2" />
+            <path d="M0,30 L14,20 L28,24 L42,12 L56,26 L70,22 L84,16 100,18" fill="none" stroke="rgba(255,215,0,0.9)"
+              stroke-width="2" />
             <polyline points="0,30 14,20 28,24 42,12 56,26 70,22 84,16 100,18 100,40 0,40"
               fill="rgba(255,215,0,0.18)" />
           </svg>
