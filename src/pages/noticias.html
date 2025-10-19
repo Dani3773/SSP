@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Todas as notícias - SSP Criciúma</title>
+  <link rel="icon" href="../img/icone_criciuma.png" type="image/png">
+  <link rel="stylesheet" href="../stylo/style.css">
+  <link rel="stylesheet" href="../stylo/noticias.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+  <header>
+    <div class="logo">
+      <img src="../img/logo-preta.png" alt="Emblema da SSP">
+      <p>SSP - CRICI�MA</p>
+    </div>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Abrir menu de navega��o">
+      <span class="menu-toggle__bar"></span>
+      <span class="menu-toggle__bar"></span>
+      <span class="menu-toggle__bar"></span>
+    </button>
+    <div class="menu">
+      <nav class="menu-links" id="primary-nav">
+        <a href="index.html#inicio">In�cio</a>
+        <a href="index.html#denuncia">Den�ncia</a>
+        <a href="index.html#mapa">Mapa</a>
+        <a href="index.html#noticias">Not�cias</a>
+        <a href="index.html#analises">An�lises</a>
+        <a href="index.html#contato">Contato</a>
+        <button type="button" class="menu-cta">Acesso comit�</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="pagina-noticias">
+    <!-- Seção de Notícias -->
+    <section id="noticias">
+      <div class="noticias-head">
+        <h2>Últimas Notícias</h2>
+        <p class="noticias-subtitle">Fique por dentro das novidades e atualizações</p>
+        <div class="news-categories">
+          <button class="category-btn active">Todas</button>
+          <button class="category-btn">Tecnologia</button>
+          <button class="category-btn">Saúde</button>
+          <button class="category-btn">Educação</button>
+        </div>
+      </div>
+
+      <div class="slider-container">
+        <button class="slider-button prev">&#8249;</button>
+        <div class="slider-track">
+          <!-- Card 1 -->
+          <div class="card-noticia">
+            <div class="card-media">
+              <img src="../img/noticia1.jpg" alt="Notícia 1">
+            </div>
+            <div class="card-content">
+              <h3>Título da Notícia 1</h3>
+              <p>Resumo breve da notícia 1...</p>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="card-noticia">
+            <div class="card-media">
+              <img src="../img/noticia2.jpg" alt="Notícia 2">
+            </div>
+            <div class="card-content">
+              <h3>Título da Notícia 2</h3>
+              <p>Resumo breve da notícia 2...</p>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="card-noticia">
+            <div class="card-media">
+              <img src="../img/noticia3.jpg" alt="Notícia 3">
+            </div>
+            <div class="card-content">
+              <h3>Título da Notícia 3</h3>
+              <p>Resumo breve da notícia 3...</p>
+            </div>
+          </div>
+        </div>
+        <button class="slider-button next">&#8250;</button>
+      </div>
+
+      <div class="noticias-cta">
+        <a href="#" class="btn-ler-mais">Ver todas as notícias</a>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contato">
+    <h2>Fale Conosco</h2>
+    <p>Para mais informações, sugestões ou suporte técnico, entre em contato:</p>
+    <nav class="c1">
+      <ol>Email: contato@ssp.gov</ol>
+      <ol>Telefone: (48)00000-0000</ol>
+      <ol>Endereço: Rua da Segurança, 125 - Centro, Cidade Segura</ol>
+    </nav>
+    <div class="logo">
+      <img src="../img/logo-preta.png" alt="Emblema da SSP">
+    </div>
+  </footer>
+
+  <script src="../function/script.js"></script>
+</body>
+
+</html>
