@@ -12,9 +12,9 @@
 
 <body>
 
-<!-- ============================== -->
-<!--             Header             -->
-<!-- ============================== -->
+  <!-- ============================== -->
+  <!--             Header             -->
+  <!-- ============================== -->
 
   <header>
     <div class="logo">
@@ -34,9 +34,31 @@
     </div>
   </header>
 
-<!-- ============================== -->
-<!--             Início             -->
-<!-- ============================== -->
+  <!-- ============================== -->
+  <!--             Login              -->
+  <!-- ============================== -->
+
+  <!-- Fundo escuro -->  
+        <div id="overlay-comite" aria-hidden="true"></div>
+
+  <section id="login" hidden role="dialog" aria-modal="true" aria-labelledby="login-title" tabindex="-1">
+  
+    <!-- Formulário -->
+     <h2 id="login-title">Acesso do Comitê</h2>
+    <button id="modal-comite-cancel">X</button>
+    <input id="comite-user" type="text" name="nome" placeholder="Insira o login" autocomplete="username">
+    <input type="password" name="senha" id="comite-pass" placeholder="Insira a senha" autocomplete="current-password">
+    <button id="comite-acess">Acessar</button>
+
+    <!-- Mensagem de erro -->
+    <p id="comite-error" aria-live="polite"></p>
+
+  </section>
+
+
+  <!-- ============================== -->
+  <!--             Início             -->
+  <!-- ============================== -->
 
   <div id="inicio" class="ini-double">
 
@@ -83,9 +105,9 @@
     </div>
   </div>
 
-<!-- ============================== -->
-<!--            Formulário          -->
-<!-- ============================== -->
+  <!-- ============================== -->
+  <!--            Formulário          -->
+  <!-- ============================== -->
 
   <div id="denuncia" class="section-2">
     <div class="section-text">
@@ -295,9 +317,9 @@
     </div>
   </div>
 
-<!-- ============================== -->
-<!--              Mapa              -->
-<!-- ============================== -->
+  <!-- ============================== -->
+  <!--              Mapa              -->
+  <!-- ============================== -->
 
   <section id="mapa" aria-labelledby="mapa-heading">
     <div class="mapa-hero">
@@ -358,109 +380,109 @@
   </section>
 
 
-<!-- ============================== -->
-<!--             Notícias           -->
-<!-- ============================== -->
+  <!-- ============================== -->
+  <!--             Notícias           -->
+  <!-- ============================== -->
 
-<section id="noticias" aria-labelledby="noticias-heading">
-  <div class="noticias-head">
-    <h2 id="noticias-heading">Destaques e Atualizações</h2>
-    <p class="noticias-subtitle">As principais notícias e eventos que impactam nossa comunidade.</p>
-  </div>
-
-  <!-- Carrossel de notícias -->
-  <div class="slider-container" role="region" aria-label="Carrossel de notícias">
-    <button class="slider-button prev" aria-label="Notícia anterior">
-      <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
-    </button>
-
-    <div class="slider-viewport">
-      <div class="slider-track" id="news-track">
-        <!-- Card 1 -->
-        <article class="card-noticia" data-category="seguranca">
-          <div class="card-media">
-            <img src="../img/imagem1.webp" alt="Prisão de quadrilha durante operação policial">
-          </div>
-          <div class="card-content">
-            <h3>Ação integrada resulta em prisão de quadrilha</h3>
-            <p>Operação conjunta da SSP e Polícia Civil prendeu suspeitos que atuavam na região central.</p>
-          </div>
-        </article>
-
-        <!-- Card 2 -->
-        <article class="card-noticia" data-category="comunidade">
-          <div class="card-media">
-            <img src="../img/imagem2.jpg" alt="Câmeras de segurança instaladas no bairro Aurora">
-          </div>
-          <div class="card-content">
-            <h3>Moradores relatam aumento de segurança no bairro Aurora</h3>
-            <p>Após a instalação de 10 novas câmeras, o bairro registrou queda de 30% em ocorrências.</p>
-          </div>
-        </article>
-
-        <!-- Card 3 -->
-        <article class="card-noticia" data-category="tecnologia">
-          <div class="card-media">
-            <img src="../img/imagem3.webp" alt="Painel de reconhecimento facial em operação">
-          </div>
-          <div class="card-content">
-            <h3>Nova tecnologia de reconhecimento facial é implementada</h3>
-            <p>Sistema de ponta agora auxilia na identificação de foragidos na cidade.</p>
-          </div>
-        </article>
-
-        <!-- Card 4 -->
-        <article class="card-noticia" data-category="comunidade">
-          <div class="card-media">
-            <img src="../img/imagem4.jpg" alt="Palestra educativa em escola pública">
-          </div>
-          <div class="card-content">
-            <h3>Programa educativo em escolas reduz vandalismo</h3>
-            <p>Parceria com a Educação promove cidadania e diminui ocorrências em áreas escolares.</p>
-          </div>
-        </article>
-
-        <!-- Card 5 -->
-        <article class="card-noticia" data-category="seguranca">
-          <div class="card-media">
-            <img src="../img/imagem5.jpg" alt="Reunião com líderes comunitários">
-          </div>
-          <div class="card-content">
-            <h3>SSP se reúne com líderes comunitários para novas estratégias</h3>
-            <p>Encontro trimestral alinha ações prioritárias com foco em cada bairro.</p>
-          </div>
-        </article>
-      </div>
+  <section id="noticias" aria-labelledby="noticias-heading">
+    <div class="noticias-head">
+      <h2 id="noticias-heading">Destaques e Atualizações</h2>
+      <p class="noticias-subtitle">As principais notícias e eventos que impactam nossa comunidade.</p>
     </div>
 
-    <!-- Botão próxima notícia-->
+    <!-- Carrossel de notícias -->
+    <div class="slider-container" role="region" aria-label="Carrossel de notícias">
+      <button class="slider-button prev" aria-label="Notícia anterior">
+        <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+      </button>
 
-    <button class="slider-button next" aria-label="Próxima notícia">
-      <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
-    </button>
-  </div>
+      <div class="slider-viewport">
+        <div class="slider-track" id="news-track">
+          <!-- Card 1 -->
+          <article class="card-noticia" data-category="seguranca">
+            <div class="card-media">
+              <img src="../img/imagem1.webp" alt="Prisão de quadrilha durante operação policial">
+            </div>
+            <div class="card-content">
+              <h3>Ação integrada resulta em prisão de quadrilha</h3>
+              <p>Operação conjunta da SSP e Polícia Civil prendeu suspeitos que atuavam na região central.</p>
+            </div>
+          </article>
 
-  <!-- Botão de "Ver todas as notícias" -->
-  <div class="noticias-cta">
-    <a href="noticias.html" class="btn-ler-mais" aria-label="Ver todas as notícias">Ver todas as notícias</a>
-  </div>
-</section>
+          <!-- Card 2 -->
+          <article class="card-noticia" data-category="comunidade">
+            <div class="card-media">
+              <img src="../img/imagem2.jpg" alt="Câmeras de segurança instaladas no bairro Aurora">
+            </div>
+            <div class="card-content">
+              <h3>Moradores relatam aumento de segurança no bairro Aurora</h3>
+              <p>Após a instalação de 10 novas câmeras, o bairro registrou queda de 30% em ocorrências.</p>
+            </div>
+          </article>
 
-<!-- Seção de Inscrição por E-mail -->
-<section id="newsletter" aria-labelledby="newsletter-heading">
-  <div class="newsletter-container">
-    <h2 id="newsletter-heading">Receba as últimas notícias</h2>
-    <p>Inscreva-se para receber atualizações diretamente no seu e-mail.</p>
-    <form class="newsletter-form" action="#" method="post">
-      <input type="email" name="email" placeholder="Digite seu e-mail" required>
-      <button type="submit">Inscrever-se</button>
-    </form>
-  </div>
-</section>
+          <!-- Card 3 -->
+          <article class="card-noticia" data-category="tecnologia">
+            <div class="card-media">
+              <img src="../img/imagem3.webp" alt="Painel de reconhecimento facial em operação">
+            </div>
+            <div class="card-content">
+              <h3>Nova tecnologia de reconhecimento facial é implementada</h3>
+              <p>Sistema de ponta agora auxilia na identificação de foragidos na cidade.</p>
+            </div>
+          </article>
 
-<!-- ============================== -->
-<!--             Análises           -->
-<!-- ============================== -->
+          <!-- Card 4 -->
+          <article class="card-noticia" data-category="comunidade">
+            <div class="card-media">
+              <img src="../img/imagem4.jpg" alt="Palestra educativa em escola pública">
+            </div>
+            <div class="card-content">
+              <h3>Programa educativo em escolas reduz vandalismo</h3>
+              <p>Parceria com a Educação promove cidadania e diminui ocorrências em áreas escolares.</p>
+            </div>
+          </article>
+
+          <!-- Card 5 -->
+          <article class="card-noticia" data-category="seguranca">
+            <div class="card-media">
+              <img src="../img/imagem5.jpg" alt="Reunião com líderes comunitários">
+            </div>
+            <div class="card-content">
+              <h3>SSP se reúne com líderes comunitários para novas estratégias</h3>
+              <p>Encontro trimestral alinha ações prioritárias com foco em cada bairro.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <!-- Botão próxima notícia-->
+
+      <button class="slider-button next" aria-label="Próxima notícia">
+        <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+      </button>
+    </div>
+
+    <!-- Botão de "Ver todas as notícias" -->
+    <div class="noticias-cta">
+      <a href="noticias.html" class="btn-ler-mais" aria-label="Ver todas as notícias">Ver todas as notícias</a>
+    </div>
+  </section>
+
+  <!-- Seção de Inscrição por E-mail -->
+  <section id="newsletter" aria-labelledby="newsletter-heading">
+    <div class="newsletter-container">
+      <h2 id="newsletter-heading">Receba as últimas notícias</h2>
+      <p>Inscreva-se para receber atualizações diretamente no seu e-mail.</p>
+      <form class="newsletter-form" action="#" method="post">
+        <input type="email" name="email" placeholder="Digite seu e-mail" required>
+        <button type="submit">Inscrever-se</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ============================== -->
+  <!--             Análises           -->
+  <!-- ============================== -->
 
   <section id="analises">
     <div class="bor-ana">
@@ -512,18 +534,18 @@
 
   </section>
 
-<!-- ============================== -->
-<!--             Sobre              -->
-<!-- ============================== -->
+  <!-- ============================== -->
+  <!--             Sobre              -->
+  <!-- ============================== -->
 
-<br>
-<h1>!!!!!!Fazer seção de sobre aqui!!!!!!</h1>
-<br>
+  <br>
+  <h1>!!!!!!Fazer seção de sobre aqui!!!!!!</h1>
+  <br>
 
 
-<!-- ============================== -->
-<!--             Rodapé             -->
-<!-- ============================== -->
+  <!-- ============================== -->
+  <!--             Rodapé             -->
+  <!-- ============================== -->
 
   <footer id="contato">
     <h2>Fale Conosco</h2>
@@ -538,7 +560,8 @@
     </div>
   </footer>
 
-  <script src="../function/script.js"></script>
+  <script src="../function/script.js" defer></script>
+  <script src="../../back-end/controllers/controlDex.js" defer></script>
 
 </body>
 
