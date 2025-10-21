@@ -1,0 +1,422 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+header {
+    background-color: rgba(8, 13, 63, 0.98);
+    color: #ffffff;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    padding: 12px 18px;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    transition: background-color 0.4s ease, backdrop-filter 0.4s ease;
+}
+
+header.scrolled {
+    background-color: rgba(8, 13, 63, 0.7);
+    backdrop-filter: blur(8px);
+}
+
+header .logo {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border-left: 2px solid rgba(255, 255, 255, 0.2);
+    padding-left: 16px;
+}
+
+header .logo img {
+    width: 70px;
+    height: auto;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+}
+
+header .logo p {
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1;
+}
+
+header .menu {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-left: auto;
+    justify-content: flex-end;
+    flex-shrink: 0;
+}
+
+header .menu-links {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 0;
+}
+
+header .menu-links a {
+    color: inherit;
+    text-decoration: none;
+    font-weight: normal;
+    display: inline-block;
+    padding: 6px 8px;
+    line-height: 1.1;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+header .menu-links a::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background-color: #ffd700;
+    transition: width 0.3s ease;
+}
+
+header .menu-links a:hover {
+    color: #ffd700;
+}
+
+header .menu-links a:hover::after {
+    width: 100%;
+}
+
+header .menu-links a:focus-visible {
+    outline: 2px solid #ffd700;
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+header .menu-cta {
+    padding: 8px 18px;
+    border-radius: 999px;
+    border: none;
+    background-color: #ffffff;
+    color: #0a036b;
+    font-weight: bold;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+header .menu-cta:hover {
+    background-color: #ffd700;
+    color: #0a036b;
+    transform: scale(1.05);
+}
+
+/* RESPONSIVIDADE DO HEADER */
+@media (max-width: 860px) {
+    header {
+        padding: 10px 14px;
+    }
+
+    header .menu-links {
+        gap: 12px;
+        max-width: calc(100vw - 200px);
+    }
+
+    header .menu-cta {
+        padding: 8px 14px;
+    }
+}
+
+@media (max-width: 640px) {
+    header {
+        flex-wrap: wrap;
+        row-gap: 8px;
+    }
+
+    header .menu {
+        width: 100%;
+        justify-content: space-between;
+        gap: 12px;
+    }
+
+    header .menu-links {
+        flex: 1 1 auto;
+        row-gap: 8px;
+    }
+
+    header .menu-links a {
+        white-space: normal;
+    }
+}
+
+body {
+    background-color: white;
+    color: var(--ink);
+    font-family: Trebuchet MS, sans-serif;
+    line-height: 28px;
+    text-align: center;
+    padding-top: 50px;
+}
+
+#map {
+    height: 650px; 
+    width: 650px;
+    margin: 20px auto;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.mapa {
+    background:
+        radial-gradient(1200px 600px at 10% -10%, rgba(0, 81, 255, 0.06), transparent 60%),
+        radial-gradient(1000px 500px at 120% 10%, rgba(0, 123, 255, 0.05), transparent 60%),
+        linear-gradient(180deg, #11106b, #0c0b22);
+    margin-top: 20px;
+    display: flex;
+    justify-content: center; 
+    align-items: flex-start; 
+    flex-wrap: wrap; 
+    gap: 40px;
+    padding-bottom: 2px;
+}
+
+.select {
+    margin-top: 40px;
+    color: white;
+    text-align: center;
+    width: 500px;
+    line-height: 35px;
+    margin-right: 60px;
+}
+
+.cam {
+   background:
+        linear-gradient(135deg,
+            rgba(0, 45, 120, 0.92) 0%,
+            rgba(0, 25, 80, 0.88) 40%,
+            rgba(0, 10, 40, 0.92) 100%);
+    max-height: 640px;
+    overflow-y: auto;
+    border-radius: 25px;
+    margin-top: 20px;
+    padding-bottom: 10px;
+    font-size: 20px;
+    border: 1px solid #ddd;
+}
+
+.cam::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.cam::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.cam::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.cam1 {
+    background-color: #001d3d;
+    margin: 25px;
+    line-height: 50px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+}
+
+.cam1 button {
+    background-color: #0c0b22;
+    border-radius: 20px;
+    color: #ddd;
+    padding: 5px;
+    width: 30%;
+    height: 40%;
+}
+
+.cam2 {
+    background-color: #001d3d;
+    margin: 25px;
+    line-height: 50px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+}
+
+.cam2 button {
+    background-color: #0c0b22;
+    border-radius: 20px;
+    color: #ddd;
+    padding: 5px;
+    width: 30%;
+    height: 40%;
+}
+
+.cam3 {
+    background-color: #001d3d;
+    margin: 25px;
+    line-height: 50px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+}
+
+.cam3 button {
+    background-color: #0c0b22;
+    border-radius: 20px;
+    color: #ddd;
+    padding: 5px;
+    width: 30%;
+    height: 40%;
+}
+
+#textbusc {
+    border-radius: 25px;
+    font-family: Trebuchet MS, sans-serif;
+    text-align: left;
+    height: 40px;
+    width: 60%;
+    padding-left: 10px;
+    font-size: 17px;
+}
+
+.video {
+    margin: 25px;
+    width: 80%;
+    height: 80%;
+}
+
+.map {
+    color: white;
+    padding: 30px 20px;
+    line-height: 20px;
+    width: 500px;
+    margin: 40px;
+    text-align: center;
+    margin: 10px auto 20px 50px;
+}
+
+.map h2 {
+    margin: 10px;
+    margin-left: 180px;
+}
+
+.map p {
+    margin-left: 170px;
+}
+
+footer {
+    background-color: rgba(8, 13, 63, 0.98);
+    color: white;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    padding: 12px 18px;
+    line-height: 28px;
+    font-family: Trebuchet MS, sans-serif;
+    font-weight: bold;
+    justify-content: space-between;
+    align-items: center;
+}
+
+footer h2 {
+    text-align: center;
+    padding: 10px;
+}
+
+footer .logo {
+    gap: 18px;
+    padding-left: 16px;
+}
+
+footer .logo img {
+    width: 70px;
+    height: auto;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+}
+
+/* Estilo para a seção de inscrição por e-mail */
+#newsletter {
+  padding: 64px 16px;
+  background: var(--bg);
+  text-align: center;
+}
+
+.newsletter-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+#newsletter h2 {
+  font-size: 2rem;
+  color: var(--brand);
+  margin-bottom: 16px;
+}
+
+#newsletter p {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 24px;
+}
+
+.newsletter-form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.newsletter-form input[type="email"] {
+  padding: 12px 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  flex: 1 1 300px;
+}
+
+.newsletter-form button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  background: var(--brand);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.newsletter-form button:hover {
+  background: var(--brand-2);
+}
+
+/* Botões de ação no início */
+.btn-acao {
+  padding: 12px 20px;
+  margin: 10px 10px 5px 10px;
+  border-radius: 999px;
+  border: none;
+  background-color: #ffffff;
+  color: #0a036b;
+  font-weight: bold;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.btn-acao:hover {
+  background-color: #ffd700;
+  color: #0a036b;
+  transform: scale(1.05);
+}
