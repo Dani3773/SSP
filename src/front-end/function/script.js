@@ -1,3 +1,15 @@
+/*    ==============================  -->
+<!-- Inicializações após carregar o DOM  -->
+<!--  ==============================   */
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  initHamburgerMenu();
+  initInfiniteLoopSlider(); 
+  initLucideIcons();
+  initCameraSelector();
+});
+
 /*   ============================== -->
 <!--             Header             -->
 <!-- ==============================  */
@@ -13,17 +25,69 @@ const handleHeaderScroll = () => {
 window.addEventListener('scroll', handleHeaderScroll);
 handleHeaderScroll();
 
-/*    ==============================  -->
-<!-- Inicializações após carregar o DOM  -->
-<!--  ==============================   */
+/*   ============================== -->
+<!--             Login              -->
+<!-- ==============================  */
 
+// === Seletores fixos do modal ===
+const overlay = document.getElementById('overlay-comite');
+const modal   = document.getElementById('login');
+const btnClose = document.getElementById('modal-comite-cancel');
+const btnTrigger = document.querySelector('.menu-cta');
+const userInput = document.getElementById('comite-user');
+const passInput = document.getElementById('comite-pass');
+const errorEl   = document.getElementById('comite-error');
 
-document.addEventListener('DOMContentLoaded', () => {
-  initHamburgerMenu();
-  initInfiniteLoopSlider(); 
-  initLucideIcons();
-  initCameraSelector();
+// Abre o modal: mostra overlay, exibe a caixa e trava o scroll do body.
+
+btnTrigger?.addEventListener('click', () => {
+  openComiteModal();
 });
+
+function openComiteModal() {
+  overlay.classList.add('show'); // fundo escuro
+  modal.hidden = false;          // exibe a section
+  document.body.classList.add('comite-modal-open'); // trava scroll
+  errorEl.textContent = '';      // limpa erro
+  (userInput || modal).focus();  // foco
+}
+
+if (location.hash === '#openComite') {
+  openComiteModal();
+}
+
+//Função botão acessar
+
+passInput?.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    document.getElementById('comite-acess')?.click();
+  }
+});
+
+// Fecha o modal: esconde overlay, recolhe a caixa e destrava o body.
+// Se focusTrigger=true, devolve o foco ao botão do header.
+
+function closeComiteModal(focusTrigger = false) {
+  overlay.classList.remove('show');
+  modal.hidden = true;
+  document.body.classList.remove('comite-modal-open');
+  if (focusTrigger && btnTrigger) btnTrigger.focus();
+}
+
+// Fechar clicando no X
+btnClose?.addEventListener('click', () => closeComiteModal(true));
+
+// Fechar clicando fora (no overlay)
+overlay?.addEventListener('click', (e) => {
+  if (e.target === overlay) closeComiteModal(true);
+});
+
+// Fechar com ESC
+document.addEventListener('keydown', (e) => {
+  const isOpen = overlay.classList.contains('show');
+  if (isOpen && e.key === 'Escape') closeComiteModal(true);
+});
+
 
 
 /*   ============================== -->
