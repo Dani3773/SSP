@@ -1,6 +1,9 @@
-// ==============================
-// Header (fixo) - efeito de scroll
-// ==============================
+/*   ============================== -->
+<!--             Header             -->
+<!-- ==============================  */
+
+/* Deixar header fixo */
+
 const handleHeaderScroll = () => {
   const header = document.querySelector('header');
   if (!header) return;
@@ -10,19 +13,23 @@ const handleHeaderScroll = () => {
 window.addEventListener('scroll', handleHeaderScroll);
 handleHeaderScroll();
 
-// ==============================
-// Inicializações após carregar o DOM
-// ==============================
+/*    ==============================  -->
+<!-- Inicializações após carregar o DOM  -->
+<!--  ==============================   */
+
+
 document.addEventListener('DOMContentLoaded', () => {
   initHamburgerMenu();
-  initInfiniteLoopSlider();  // carrossel de notícias
+  initInfiniteLoopSlider(); 
   initLucideIcons();
   initCameraSelector();
 });
 
-// ==============================
-// Menu hamburguer responsivo
-// ==============================
+
+/*   ============================== -->
+<!--   Menu hamburguer responsivo   -->
+<!-- ==============================  */
+
 function initHamburgerMenu() {
   const header = document.querySelector('header');
   const toggle = document.querySelector('.menu-toggle');
@@ -66,9 +73,11 @@ function initHamburgerMenu() {
   });
 }
 
-// ==============================
-// Slider com Loop Infinito, Autoplay e Hover (CORRIGIDO)
-// ==============================
+
+/*     ==========================================   -->
+<!--   Slider com Loop Infinito, Autoplay e Hover   -->
+<!--   ==========================================    */
+
 function initInfiniteLoopSlider() {
   // Seletores compatíveis com teu HTML original
   const container = document.querySelector('.slider-container, .carousel-container');
