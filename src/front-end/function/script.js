@@ -1,153 +1,122 @@
-/*    ==============================  -->
-<!-- Inicializações após carregar o DOM  -->
-<!--  ==============================   */
-
+/* =========================================================
+   SSP - Front Script (UI Geral)
+   ========================================================= */
 
 document.addEventListener('DOMContentLoaded', () => {
-  initHamburgerMenu();
-  initInfiniteLoopSlider(); 
+  initHeaderScroll();
   initLucideIcons();
-  initCameraSelector();
+  initLoginModal();         
+  initPasswordToggle();     
+  initInfiniteLoopSlider(); 
+  initCameraSelector();     
+  initNewsletterForm();     
 });
 
-/*   ============================== -->
-<!--             Header             -->
-<!-- ==============================  */
-
-/* Deixar header fixo */
-
-const handleHeaderScroll = () => {
+/* =========================================================
+   Header fixo no scroll
+   ========================================================= */
+function initHeaderScroll() {
   const header = document.querySelector('header');
   if (!header) return;
-  const isPastThreshold = window.scrollY > 50;
-  header.classList.toggle('scrolled', isPastThreshold);
-};
-window.addEventListener('scroll', handleHeaderScroll);
-handleHeaderScroll();
 
-/*   ============================== -->
-<!--             Login              -->
-<!-- ==============================  */
-
-// === Seletores fixos do modal ===
-const overlay = document.getElementById('overlay-comite');
-const modal   = document.getElementById('login');
-const btnClose = document.getElementById('modal-comite-cancel');
-const btnTrigger = document.querySelector('.menu-cta');
-const userInput = document.getElementById('comite-user');
-const passInput = document.getElementById('comite-pass');
-const errorEl   = document.getElementById('comite-error');
-
-// Abre o modal: mostra overlay, exibe a caixa e trava o scroll do body.
-
-btnTrigger?.addEventListener('click', () => {
-  openComiteModal();
-});
-
-function openComiteModal() {
-  overlay.classList.add('show'); // fundo escuro
-  modal.hidden = false;          // exibe a section
-  document.body.classList.add('comite-modal-open'); // trava scroll
-  errorEl.textContent = '';      // limpa erro
-  (userInput || modal).focus();  // foco
+  const handleHeaderScroll = () => {
+    header.classList.toggle('scrolled', window.scrollY > 50);
+  };
+  window.addEventListener('scroll', handleHeaderScroll);
+  handleHeaderScroll();
 }
 
-if (location.hash === '#openComite') {
-  openComiteModal();
-}
-
-//Função botão acessar
-
-passInput?.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter') {
-    document.getElementById('comite-acess')?.click();
+/* =========================================================
+   Lucide Icons
+   ========================================================= */
+function initLucideIcons() {
+  if (window.lucide && typeof window.lucide.createIcons === 'function') {
+    window.lucide.createIcons();
   }
-});
-
-// Fecha o modal: esconde overlay, recolhe a caixa e destrava o body.
-// Se focusTrigger=true, devolve o foco ao botão do header.
-
-function closeComiteModal(focusTrigger = false) {
-  overlay.classList.remove('show');
-  modal.hidden = true;
-  document.body.classList.remove('comite-modal-open');
-  if (focusTrigger && btnTrigger) btnTrigger.focus();
 }
 
-// Fechar clicando no X
-btnClose?.addEventListener('click', () => closeComiteModal(true));
+/* =========================================================
+   Modal do Comitê (abrir, fechar, foco, overlay)
+   ========================================================= */
+function initLoginModal() {
+  const overlay    = document.getElementById('overlay-comite');
+  const modal      = document.getElementById('login');
+  const btnClose   = document.getElementById('modal-comite-cancel');
+  const btnTrigger = document.querySelector('.menu-cta');
+  const userInput  = document.getElementById('comite-user');
+  const errorEl    = document.getElementById('comite-error');
 
-// Fechar clicando fora (no overlay)
-overlay?.addEventListener('click', (e) => {
-  if (e.target === overlay) closeComiteModal(true);
-});
+  if (!overlay || !modal) return;
 
-// Fechar com ESC
-document.addEventListener('keydown', (e) => {
-  const isOpen = overlay.classList.contains('show');
-  if (isOpen && e.key === 'Escape') closeComiteModal(true);
-});
-
-
-
-/*   ============================== -->
-<!--   Menu hamburguer responsivo   -->
-<!-- ==============================  */
-
-function initHamburgerMenu() {
-  const header = document.querySelector('header');
-  const toggle = document.querySelector('.menu-toggle');
-  const nav = document.getElementById('primary-nav');
-  if (!header || !toggle || !nav) return;
-
-  const navLinks = Array.from(nav.querySelectorAll('a, button'));
-
-  const closeMenu = (focusToggle = false) => {
-    if (!header.classList.contains('menu-open')) return;
-    header.classList.remove('menu-open');
-    toggle.setAttribute('aria-expanded', 'false');
-    document.body.classList.remove('nav-open');
-    if (focusToggle) toggle.focus();
+  const lockBody = (on) => {
+    document.body.classList.toggle('comite-modal-open', !!on);
   };
 
-  toggle.addEventListener('click', () => {
-    const isOpen = header.classList.toggle('menu-open');
-    toggle.setAttribute('aria-expanded', String(isOpen));
-    document.body.classList.toggle('nav-open', isOpen);
+  function openComiteModal() {
+    overlay.classList.add('show');
+    modal.hidden = false;
+    lockBody(true);
+    if (errorEl) errorEl.textContent = '';
+    (userInput || modal).focus();
+  }
+
+  function closeComiteModal(focusTrigger = false) {
+    overlay.classList.remove('show');
+    modal.hidden = true;
+    lockBody(false);
+    if (focusTrigger && btnTrigger) btnTrigger.focus();
+  }
+
+  btnTrigger?.addEventListener('click', openComiteModal);
+  btnClose?.addEventListener('click', () => closeComiteModal(true));
+
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) closeComiteModal(true);
   });
 
-  navLinks.forEach((link) => {
-    link.addEventListener('click', () => {
-      if (window.innerWidth <= 960) closeMenu();
-    });
+  document.addEventListener('keydown', (e) => {
+    if (overlay.classList.contains('show') && e.key === 'Escape') closeComiteModal(true);
   });
 
-  window.addEventListener('resize', () => {
-    if (window.innerWidth > 960) closeMenu();
-  });
+  if (location.hash === '#openComite') {
+    openComiteModal();
+  }
 
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') closeMenu(true);
-  });
+  window.__SSP__ = window.__SSP__ || {};
+  window.__SSP__.openComiteModal = openComiteModal;
+  window.__SSP__.closeComiteModal = closeComiteModal;
+}
 
-  document.addEventListener('click', (event) => {
-    if (!header.classList.contains('menu-open')) return;
-    if (header.contains(event.target)) return;
-    closeMenu();
+/* =========================================================
+   Toggle de Senha (eye / eye-off)
+   ========================================================= */
+function initPasswordToggle() {
+  const pass = document.getElementById('comite-pass');
+  const btn = document.querySelector('.toggle-pass');
+  if (!pass || !btn) return;
+
+  btn.addEventListener('click', () => {
+    const showing = pass.type === 'text';
+    pass.type = showing ? 'password' : 'text';
+
+    const icon = btn.querySelector('i[data-lucide]');
+    if (icon) {
+      icon.setAttribute('data-lucide', showing ? 'eye' : 'eye-off');
+      initLucideIcons();
+    }
+
+    pass.focus({ preventScroll: true });
   });
 }
 
-
-/*     ==========================================   -->
-<!--   Slider com Loop Infinito, Autoplay e Hover   -->
-<!--   ==========================================    */
-
+/* =========================================================
+   Slider / Carrossel de Notícias
+   ========================================================= */
 function initInfiniteLoopSlider() {
-  // Seletores compatíveis com teu HTML original
-  const container = document.querySelector('.slider-container, .carousel-container');
-  const track = document.querySelector('.slider-track, .carousel-track');
-  const prevButton = document.querySelector('.slider-button.prev, .carousel-button.prev');
-  const nextButton = document.querySelector('.slider-button.next, .carousel-button.next');
+  const container   = document.querySelector('.slider-container, .carousel-container');
+  const track       = document.querySelector('.slider-track, .carousel-track');
+  const prevButton  = document.querySelector('.slider-button.prev, .carousel-button.prev');
+  const nextButton  = document.querySelector('.slider-button.next, .carousel-button.next');
   if (!container || !track) return;
 
   let slides = Array.from(track.children);
@@ -158,18 +127,14 @@ function initInfiniteLoopSlider() {
   let slidesToClone = 0;
   let autoplayInterval;
 
-  // Lê a margem real do CSS (esquerda + direita) do primeiro slide
   function getSlideMargin() {
     const first = slides[0];
     if (!first) return 0;
     const cs = getComputedStyle(first);
-    const ml = parseFloat(cs.marginLeft) || 0;
-    const mr = parseFloat(cs.marginRight) || 0;
-    return ml + mr;
+    return (parseFloat(cs.marginLeft) || 0) + (parseFloat(cs.marginRight) || 0);
   }
 
   function recalcSlideWidth() {
-    // largura do "conteúdo" do card (sem margens)
     if (!slides.length) return 0;
     slideWidth = slides[0].getBoundingClientRect().width;
     return slideWidth;
@@ -177,36 +142,26 @@ function initInfiniteLoopSlider() {
 
   function setupSlider() {
     stopAutoplay();
-
-    // Remove clones antigos
     track.querySelectorAll('.clone').forEach((c) => c.remove());
-
-    // Recoleta apenas os originais
     slides = Array.from(track.children).filter((el) => !el.classList.contains('clone'));
     originalSlidesCount = slides.length;
 
-    // Quantos clonar (mesma lógica que tu usava)
-    if (window.innerWidth <= 768) {
-      slidesToClone = 1;
-    } else if (window.innerWidth <= 960) {
-      slidesToClone = 2;
-    } else {
-      slidesToClone = 3;
-    }
+    if (window.innerWidth <= 768) slidesToClone = 1;
+    else if (window.innerWidth <= 960) slidesToClone = 2;
+    else slidesToClone = 3;
 
-    // Se não tem slides suficientes, esconde botões e não clona
     if (slides.length <= slidesToClone) {
-      if (prevButton) prevButton.style.display = 'none';
-      if (nextButton) nextButton.style.display = 'none';
+      prevButton?.style?.setProperty('display', 'none');
+      nextButton?.style?.setProperty('display', 'none');
       currentIndex = 0;
       track.style.transition = 'none';
       track.style.transform = 'translateX(0)';
       return;
     }
-    if (prevButton) prevButton.style.display = 'flex';
-    if (nextButton) nextButton.style.display = 'flex';
 
-    // Clona para o fim e para o início
+    prevButton?.style?.setProperty('display', 'flex');
+    nextButton?.style?.setProperty('display', 'flex');
+
     for (let i = 0; i < slidesToClone; i++) {
       const cloneEnd = slides[i].cloneNode(true);
       cloneEnd.classList.add('clone');
@@ -217,18 +172,14 @@ function initInfiniteLoopSlider() {
       track.insertBefore(cloneStart, track.firstChild);
     }
 
-    // Recoleta com clones
     slides = Array.from(track.children);
     currentIndex = slidesToClone;
-
-    // Recalcula largura real do slide
     recalcSlideWidth();
     positionTrack();
     startAutoplay();
   }
 
   function positionTrack() {
-    // Usa a MESMA margem lida do CSS
     const slideMargin = getSlideMargin();
     const initialOffset = (slideWidth + slideMargin) * currentIndex;
     track.style.transition = 'none';
@@ -238,31 +189,24 @@ function initInfiniteLoopSlider() {
   function moveSlider(direction) {
     if (isMoving) return;
     isMoving = true;
-
     currentIndex += direction;
-
     const slideMargin = getSlideMargin();
     const offset = (slideWidth + slideMargin) * currentIndex;
-
     track.style.transition = 'transform 0.5s ease-in-out';
     track.style.transform = `translateX(-${offset}px)`;
   }
 
   function startAutoplay() {
     stopAutoplay();
-    autoplayInterval = setInterval(() => {
-      moveSlider(1);
-    }, 5000);
+    autoplayInterval = setInterval(() => moveSlider(1), 5000);
   }
 
   function stopAutoplay() {
     if (autoplayInterval) clearInterval(autoplayInterval);
   }
 
-  // Ajuste de limites e salto invisível
   track.addEventListener('transitionend', () => {
     isMoving = false;
-
     if (currentIndex >= originalSlidesCount + slidesToClone) {
       currentIndex -= originalSlidesCount;
       positionTrack();
@@ -273,41 +217,19 @@ function initInfiniteLoopSlider() {
     }
   });
 
-  // Controles
-  nextButton?.addEventListener('click', () => {
-    moveSlider(1);
-    startAutoplay();
-  });
-  prevButton?.addEventListener('click', () => {
-    moveSlider(-1);
-    startAutoplay();
-  });
+  nextButton?.addEventListener('click', () => { moveSlider(1); startAutoplay(); });
+  prevButton?.addEventListener('click', () => { moveSlider(-1); startAutoplay(); });
 
   container.addEventListener('mouseenter', stopAutoplay);
   container.addEventListener('mouseleave', startAutoplay);
+  window.addEventListener('resize', setupSlider);
 
-  // Reflow em resize (mantém 3/2/1 certinho)
-  window.addEventListener('resize', () => {
-    // Recalcular tudo (clones, largura, índice)
-    setupSlider();
-  });
-
-  // Boot
   setupSlider();
 }
 
-// ==============================
-// Ícones Lucide
-// ==============================
-function initLucideIcons() {
-  if (window.lucide && typeof window.lucide.createIcons === 'function') {
-    window.lucide.createIcons();
-  }
-}
-
-// ==============================
-// Seletor de câmera (formulário)
-// ==============================
+/* =========================================================
+   Seletor de câmera (formulário denúncia)
+   ========================================================= */
 function initCameraSelector() {
   const cameraButtons = Array.from(document.querySelectorAll('.cam-btn'));
   if (!cameraButtons.length) return;
@@ -330,14 +252,11 @@ function initCameraSelector() {
       hiddenField.value = '';
       return;
     }
-    const cameraName =
-      button.getAttribute('data-camera') || button.querySelector('h3')?.textContent?.trim() || '';
-    const regionName =
-      button.getAttribute('data-region') || button.querySelector('p')?.textContent?.trim() || '';
+    const cameraName = button.getAttribute('data-camera') || button.querySelector('h3')?.textContent?.trim() || '';
+    const regionName = button.getAttribute('data-region') || button.querySelector('p')?.textContent?.trim() || '';
     const status = button.getAttribute('data-status');
     const descriptiveLabel = [cameraName, regionName, status && status !== 'online' ? status : null]
-      .filter(Boolean)
-      .join(' - ');
+      .filter(Boolean).join(' - ');
     helperLabel.textContent = descriptiveLabel || cameraName || regionName || 'nenhuma';
     helperContainer.classList.add('cam-helper--active');
     hiddenField.value = cameraName;
@@ -365,31 +284,22 @@ function initCameraSelector() {
   });
 }
 
-// ==============================
-// Validação do formulário de inscrição por e-mail
-// ==============================
-document.addEventListener('DOMContentLoaded', () => {
+/* =========================================================
+   Newsletter
+   ========================================================= */
+function initNewsletterForm() {
   const newsletterForm = document.querySelector('.newsletter-form');
+  if (!newsletterForm) return;
 
-  if (newsletterForm) {
-    newsletterForm.addEventListener('submit', (event) => {
-      event.preventDefault();
-
-      const emailInput = newsletterForm.querySelector('input[type="email"]');
-      const emailValue = emailInput.value.trim();
-
-      if (!validateEmail(emailValue)) {
-        alert('Por favor, insira um e-mail válido.');
-        return;
-      }
-
-      alert('Inscrição realizada com sucesso!');
-      newsletterForm.reset();
-    });
-  }
-
-  function validateEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  }
-});
+  newsletterForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const emailInput = newsletterForm.querySelector('input[type="email"]');
+    const emailValue = (emailInput?.value || '').trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue)) {
+      alert('Por favor, insira um e-mail válido.');
+      return;
+    }
+    alert('Inscrição realizada com sucesso!');
+    newsletterForm.reset();
+  });
+}
