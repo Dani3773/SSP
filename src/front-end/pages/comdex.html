@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+  <!-- ============================== -->
+  <!--    Bloquear acesso sem logi    -->
+  <!-- ============================== -->
+
+    <script>
+(function guard() {
+  const KEY = 'ssp.comite.auth';
+  if (sessionStorage.getItem(KEY) !== '1') {
+    window.location.href = 'index.html#openComite';
+  }
+})();
+</script>
+
+
+    
+</body>
+</html>
