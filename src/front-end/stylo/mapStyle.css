@@ -239,12 +239,14 @@ body {
 }
 
 .cam1 button {
-    background-color: #0c0b22;
-    border-radius: 20px;
-    color: #ddd;
-    padding: 5px;
-    width: 30%;
-    height: 40%;
+    background-color: #001f5c;
+    color: white;
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+    margin-top: 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 .cam2 {
@@ -256,12 +258,14 @@ body {
 }
 
 .cam2 button {
-    background-color: #0c0b22;
-    border-radius: 20px;
-    color: #ddd;
-    padding: 5px;
-    width: 30%;
-    height: 40%;
+    background-color: #001f5c;
+    color: white;
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+    margin-top: 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 .cam3 {
@@ -273,12 +277,14 @@ body {
 }
 
 .cam3 button {
-    background-color: #0c0b22;
-    border-radius: 20px;
-    color: #ddd;
-    padding: 5px;
-    width: 30%;
-    height: 40%;
+    background-color: #001f5c;
+    color: white;
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+    margin-top: 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 #textbusc {
@@ -314,6 +320,10 @@ body {
 
 .map p {
     margin-left: 170px;
+}
+
+.hide{
+    display: none;
 }
 
 footer {
