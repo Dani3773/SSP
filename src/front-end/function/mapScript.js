@@ -59,3 +59,38 @@ const cameraIcon = L.icon({
       allowfullscreen>
     </iframe>
   `);
+
+  const inputBusca = document.getElementById("textbusc");
+  const cameras = document.querySelectorAll(".cam > div");
+
+  inputBusca.addEventListener("keyup", () => {
+    const termo = inputBusca.value.toLowerCase(); 
+
+    cameras.forEach((cam) => {
+      const nomeRua = cam.querySelector("p").textContent.toLowerCase();
+      if (nomeRua.includes(termo)) {
+        cam.style.display = "block";
+      } else {
+        cam.style.display = "none";
+      }
+    });
+  });
+
+const botoesLocalizacao = document.querySelectorAll(".cam button");
+
+botoesLocalizacao.forEach((botao) => {
+  botao.addEventListener("click", () => {
+    const lat = parseFloat(botao.getAttribute("data-lat"));
+    const lng = parseFloat(botao.getAttribute("data-lng"));
+    map.setView([lat, lng], 16);
+
+    map.eachLayer((layer) => {
+      if (layer instanceof L.Marker) {
+        const markerLatLng = layer.getLatLng();
+        if (markerLatLng.lat === lat && markerLatLng.lng === lng) {
+          layer.openPopup();
+        }
+      }
+    });
+  });
+});
