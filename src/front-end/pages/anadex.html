@@ -3,25 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Análises e Relatórios</title>
+  <title>Análises e Relatórios - SSP Criciúma</title>
   <link rel="stylesheet" href="../stylo/anaStyle.css">
   <link rel="icon" href="../img/icone_criciuma.png" type="image/png">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="../function/anaScript.js" defer></script>
 </head>
 <body>
-  <!-- Header reutilizado da página principal -->
+  <!-- Header -->
   <header>
     <div class="logo">
-      <img src="../img/logo-preta.png" alt="Emblema da SSP">
+      <a href="index.html" class="logo-link">
+        <img src="../img/logo-preta.png" alt="Emblema da SSP">
+      </a>
       <p>SSP - CRICIÚMA</p>
     </div>
     <div class="menu">
       <nav class="menu-links">
-        <a href="index.html#inicio">Início</a>
+        <a href="index.html">Início</a>
         <a href="index.html#denuncia">Denúncia</a>
-        <a href="index.html#mapa">Mapa</a>
-        <a href="index.html#noticias">Notícias</a>
-        <a href="index.html#analises">Análises</a>
+        <a href="mapdex.html">Mapa</a>
+        <a href="noticias.html">Notícias</a>
+        <a href="anadex.html" class="active">Análises</a>
         <a href="index.html#contato">Contato</a>
         <button type="button" class="menu-cta">Acesso comitê</button>
       </nav>
@@ -29,73 +33,416 @@
   </header>
 
   <main>
-    <section id="analises">
-      <h1>Análises e Relatórios</h1>
-      <p>Explore os principais indicadores e relatórios detalhados sobre segurança pública.</p>
-
-      <article class="relatorio">
-        <h2>Indicadores de Segurança</h2>
-        <p>Dados mais recentes sobre ocorrências e patrulhas:</p>
-        <ul>
-          <li>Ocorrências registradas: 1.245</li>
-          <li>Patrulhas realizadas: 320</li>
-          <li>Áreas monitoradas: 18 bairros</li>
-        </ul>
-      </article>
-
-      <article class="relatorio">
-        <h2>Relatórios Mensais</h2>
-        <p>Resumo do último mês:</p>
-        <ul>
-          <li>Incidentes reportados: 450</li>
-          <li>Respostas emergenciais: 120</li>
-          <li>Tempo médio de resposta: 8 minutos</li>
-        </ul>
-      </article>
-
-      <article class="relatorio">
-        <h2>Comparativos Anuais</h2>
-        <p>Comparação entre os anos de 2024 e 2025:</p>
-        <ul>
-          <li>Redução de crimes: 15%</li>
-          <li>Aumento de patrulhas: 25%</li>
-          <li>Investimento em segurança: +R$ 2 milhões</li>
-        </ul>
-      </article>
-
-      <article class="relatorio">
-        <h2>Mapas de Calor</h2>
-        <p>Áreas com maior incidência de ocorrências:</p>
-        <ul>
-          <li>Bairro Centro: 120 ocorrências</li>
-          <li>Bairro Pinheirinho: 95 ocorrências</li>
-          <li>Bairro Santa Luzia: 80 ocorrências</li>
-        </ul>
-      </article>
-
-      <article class="relatorio">
-        <h2>Estatísticas por Bairro</h2>
-        <p>Detalhamento das ocorrências por região:</p>
-        <ul>
-          <li>Bairro Operária Nova: 50 ocorrências</li>
-          <li>Bairro Próspera: 45 ocorrências</li>
-          <li>Bairro São Luiz: 40 ocorrências</li>
-        </ul>
-      </article>
+    <!-- Hero Section -->
+    <section class="hero-analytics">
+      <div class="hero-content">
+        <h1><i class="fas fa-chart-line"></i> Análises e Relatórios</h1>
+        <p>Dashboard completo com indicadores e estatísticas de segurança pública em tempo real</p>
+      </div>
     </section>
+
+    <!-- Filtros e Controles -->
+    <section class="filters-section">
+      <div class="container">
+        <div class="filters-bar">
+          <div class="filter-group">
+            <label for="periodo-select">
+              <i class="fas fa-calendar-alt"></i> Período
+            </label>
+            <select id="periodo-select" class="filter-select">
+              <option value="hoje">Hoje</option>
+              <option value="semana">Última Semana</option>
+              <option value="mes" selected>Último Mês</option>
+              <option value="trimestre">Último Trimestre</option>
+              <option value="ano">Último Ano</option>
+              <option value="personalizado">Personalizado</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label for="tipo-select">
+              <i class="fas fa-filter"></i> Tipo de Ocorrência
+            </label>
+            <select id="tipo-select" class="filter-select">
+              <option value="todas" selected>Todas</option>
+              <option value="furto">Furto</option>
+              <option value="roubo">Roubo</option>
+              <option value="trafico">Tráfico</option>
+              <option value="vandalismo">Vandalismo</option>
+              <option value="outros">Outros</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label for="bairro-select">
+              <i class="fas fa-map-marker-alt"></i> Bairro
+            </label>
+            <select id="bairro-select" class="filter-select">
+              <option value="todos" selected>Todos os Bairros</option>
+              <option value="centro">Centro</option>
+              <option value="pinheirinho">Pinheirinho</option>
+              <option value="santa-luzia">Santa Luzia</option>
+              <option value="operaria-nova">Operária Nova</option>
+              <option value="prospera">Próspera</option>
+              <option value="sao-luiz">São Luiz</option>
+            </select>
+          </div>
+
+          <button class="btn-export">
+            <i class="fas fa-download"></i> Exportar Dados
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cards de Estatísticas Principais -->
+    <section class="stats-cards">
+      <div class="container">
+        <div class="cards-grid">
+          <div class="stat-card stat-card-blue">
+            <div class="stat-icon">
+              <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <div class="stat-info">
+              <h3>Ocorrências</h3>
+              <p class="stat-number">1.245</p>
+              <p class="stat-change positive">
+                <i class="fas fa-arrow-down"></i> 12% vs mês anterior
+              </p>
+            </div>
+          </div>
+
+          <div class="stat-card stat-card-green">
+            <div class="stat-icon">
+              <i class="fas fa-shield-alt"></i>
+            </div>
+            <div class="stat-info">
+              <h3>Patrulhas</h3>
+              <p class="stat-number">320</p>
+              <p class="stat-change positive">
+                <i class="fas fa-arrow-up"></i> 25% vs mês anterior
+              </p>
+            </div>
+          </div>
+
+          <div class="stat-card stat-card-orange">
+            <div class="stat-icon">
+              <i class="fas fa-clock"></i>
+            </div>
+            <div class="stat-info">
+              <h3>Tempo Médio</h3>
+              <p class="stat-number">8 min</p>
+              <p class="stat-change positive">
+                <i class="fas fa-arrow-down"></i> 15% mais rápido
+              </p>
+            </div>
+          </div>
+
+          <div class="stat-card stat-card-purple">
+            <div class="stat-icon">
+              <i class="fas fa-map-marked-alt"></i>
+            </div>
+            <div class="stat-info">
+              <h3>Áreas Monitoradas</h3>
+              <p class="stat-number">18</p>
+              <p class="stat-change neutral">
+                <i class="fas fa-equals"></i> Sem alteração
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gráficos Principais -->
+    <section class="charts-section">
+      <div class="container">
+        <div class="charts-grid">
+          <!-- Gráfico de Ocorrências por Mês -->
+          <div class="chart-card">
+            <div class="chart-header">
+              <h2><i class="fas fa-chart-area"></i> Ocorrências Mensais</h2>
+              <div class="chart-controls">
+                <button class="chart-btn active" data-chart="line">
+                  <i class="fas fa-chart-line"></i>
+                </button>
+                <button class="chart-btn" data-chart="bar">
+                  <i class="fas fa-chart-bar"></i>
+                </button>
+              </div>
+            </div>
+            <div class="chart-container">
+              <canvas id="ocorrenciasChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Gráfico de Tipos de Crime -->
+          <div class="chart-card">
+            <div class="chart-header">
+              <h2><i class="fas fa-chart-pie"></i> Distribuição por Tipo</h2>
+            </div>
+            <div class="chart-container">
+              <canvas id="tiposChart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gráfico de Comparativo Anual -->
+        <div class="chart-card chart-full">
+          <div class="chart-header">
+            <h2><i class="fas fa-chart-bar"></i> Comparativo Anual 2024 vs 2025</h2>
+            <span class="chart-subtitle">Análise comparativa de indicadores principais</span>
+          </div>
+          <div class="chart-container">
+            <canvas id="comparativoChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tabela de Bairros -->
+    <section class="table-section">
+      <div class="container">
+        <div class="table-card">
+          <div class="table-header">
+            <h2><i class="fas fa-table"></i> Estatísticas por Bairro</h2>
+            <div class="table-search">
+              <i class="fas fa-search"></i>
+              <input type="text" placeholder="Buscar bairro..." id="search-bairro">
+            </div>
+          </div>
+          <div class="table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Bairro</th>
+                  <th>Ocorrências</th>
+                  <th>Patrulhas</th>
+                  <th>Taxa de Resolução</th>
+                  <th>Status</th>
+                  <th>Tendência</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Centro</strong></td>
+                  <td>120</td>
+                  <td>85</td>
+                  <td><span class="badge badge-success">92%</span></td>
+                  <td><span class="status-dot status-high"></span> Alto</td>
+                  <td><span class="trend trend-down"><i class="fas fa-arrow-down"></i> -8%</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Pinheirinho</strong></td>
+                  <td>95</td>
+                  <td>68</td>
+                  <td><span class="badge badge-success">88%</span></td>
+                  <td><span class="status-dot status-high"></span> Alto</td>
+                  <td><span class="trend trend-down"><i class="fas fa-arrow-down"></i> -5%</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Santa Luzia</strong></td>
+                  <td>80</td>
+                  <td>52</td>
+                  <td><span class="badge badge-warning">75%</span></td>
+                  <td><span class="status-dot status-medium"></span> Médio</td>
+                  <td><span class="trend trend-up"><i class="fas fa-arrow-up"></i> +3%</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Operária Nova</strong></td>
+                  <td>50</td>
+                  <td>35</td>
+                  <td><span class="badge badge-success">90%</span></td>
+                  <td><span class="status-dot status-medium"></span> Médio</td>
+                  <td><span class="trend trend-down"><i class="fas fa-arrow-down"></i> -12%</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Próspera</strong></td>
+                  <td>45</td>
+                  <td>32</td>
+                  <td><span class="badge badge-success">85%</span></td>
+                  <td><span class="status-dot status-low"></span> Baixo</td>
+                  <td><span class="trend trend-down"><i class="fas fa-arrow-down"></i> -15%</span></td>
+                </tr>
+                <tr>
+                  <td><strong>São Luiz</strong></td>
+                  <td>40</td>
+                  <td>28</td>
+                  <td><span class="badge badge-success">82%</span></td>
+                  <td><span class="status-dot status-low"></span> Baixo</td>
+                  <td><span class="trend trend-stable"><i class="fas fa-equals"></i> 0%</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mapa de Calor Visual -->
+    <section class="heatmap-section">
+      <div class="container">
+        <div class="heatmap-card">
+          <div class="heatmap-header">
+            <h2><i class="fas fa-fire"></i> Mapa de Calor - Áreas Críticas</h2>
+            <p>Intensidade de ocorrências por região</p>
+          </div>
+          <div class="heatmap-grid">
+            <div class="heat-item heat-critical">
+              <div class="heat-content">
+                <h3>Centro</h3>
+                <p class="heat-value">120 ocorrências</p>
+                <div class="heat-bar">
+                  <div class="heat-fill" style="width: 100%;"></div>
+                </div>
+              </div>
+            </div>
+            <div class="heat-item heat-high">
+              <div class="heat-content">
+                <h3>Pinheirinho</h3>
+                <p class="heat-value">95 ocorrências</p>
+                <div class="heat-bar">
+                  <div class="heat-fill" style="width: 79%;"></div>
+                </div>
+              </div>
+            </div>
+            <div class="heat-item heat-medium">
+              <div class="heat-content">
+                <h3>Santa Luzia</h3>
+                <p class="heat-value">80 ocorrências</p>
+                <div class="heat-bar">
+                  <div class="heat-fill" style="width: 67%;"></div>
+                </div>
+              </div>
+            </div>
+            <div class="heat-item heat-low">
+              <div class="heat-content">
+                <h3>Operária Nova</h3>
+                <p class="heat-value">50 ocorrências</p>
+                <div class="heat-bar">
+                  <div class="heat-fill" style="width: 42%;"></div>
+                </div>
+              </div>
+            </div>
+            <div class="heat-item heat-low">
+              <div class="heat-content">
+                <h3>Próspera</h3>
+                <p class="heat-value">45 ocorrências</p>
+                <div class="heat-bar">
+                  <div class="heat-fill" style="width: 38%;"></div>
+                </div>
+              </div>
+            </div>
+            <div class="heat-item heat-minimal">
+              <div class="heat-content">
+                <h3>São Luiz</h3>
+                <p class="heat-value">40 ocorrências</p>
+                <div class="heat-bar">
+                  <div class="heat-fill" style="width: 33%;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Indicadores Adicionais -->
+    <section class="indicators-section">
+      <div class="container">
+        <h2 class="section-title"><i class="fas fa-chart-line"></i> Indicadores Complementares</h2>
+        <div class="indicators-grid">
+          <div class="indicator-card">
+            <div class="indicator-icon icon-blue">
+              <i class="fas fa-users"></i>
+            </div>
+            <h3>População Atendida</h3>
+            <p class="indicator-value">215.186</p>
+            <p class="indicator-desc">habitantes monitorados</p>
+          </div>
+
+          <div class="indicator-card">
+            <div class="indicator-icon icon-green">
+              <i class="fas fa-car"></i>
+            </div>
+            <h3>Viaturas Ativas</h3>
+            <p class="indicator-value">42</p>
+            <p class="indicator-desc">em operação 24h</p>
+          </div>
+
+          <div class="indicator-card">
+            <div class="indicator-icon icon-orange">
+              <i class="fas fa-video"></i>
+            </div>
+            <h3>Câmeras Ativas</h3>
+            <p class="indicator-value">156</p>
+            <p class="indicator-desc">pontos de monitoramento</p>
+          </div>
+
+          <div class="indicator-card">
+            <div class="indicator-icon icon-red">
+              <i class="fas fa-phone-alt"></i>
+            </div>
+            <h3>Chamados Atendidos</h3>
+            <p class="indicator-value">98.5%</p>
+            <p class="indicator-desc">taxa de atendimento</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
-  <!-- Footer reutilizado da página principal -->
+  <!-- Footer -->
   <footer id="contato">
-    <h2>Fale Conosco</h2>
-    <p>Para mais informações, sugestões ou suporte técnico, entre em contato:</p>
-    <nav class="c1">
-      <ol>Email: contato@ssp.gov</ol>
-      <ol>Telefone: (48)00000-0000</ol>
-      <ol>Endereço: Rua da Segurança, 125 - Centro, Cidade Segura</ol>
-    </nav>
-    <div class="logo">
-      <img src="../img/logo-preta.png" alt="Emblema da SSP">
+    <div class="footer-container">
+      <div class="footer-main">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <img src="../img/logo-preta.png" alt="Emblema da SSP">
+            <div class="footer-brand-text">
+              <h3>SSP - CRICIÚMA</h3>
+              <p>Sistema de Segurança Pública</p>
+            </div>
+          </div>
+          <p class="footer-description">
+            Proteção inteligente, transparente e comprometida com cada cidadão.
+          </p>
+        </div>
+
+        <div class="footer-contact">
+          <h3>Fale Conosco</h3>
+          <ul class="contact-list">
+            <li>
+              <i class="fas fa-envelope"></i>
+              <a href="mailto:contato@ssp.gov">contato@ssp.gov</a>
+            </li>
+            <li>
+              <i class="fas fa-phone"></i>
+              <a href="tel:+5548000000000">(48) 00000-0000</a>
+            </li>
+            <li>
+              <i class="fas fa-map-marker-alt"></i>
+              <span>Rua da Segurança, 125 - Centro<br>Criciúma - SC</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="footer-links">
+          <h3>Acesse Também</h3>
+          <ul>
+            <li><a href="index.html">Página Inicial</a></li>
+            <li><a href="mapdex.html">Painel de Mapas</a></li>
+            <li><a href="noticias.html">Central de Notícias</a></li>
+            <li><a href="comdex.html">Área do Comitê</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2025 SSP Criciúma. Todos os direitos reservados.</p>
+        <p class="footer-lgpd">Sistema em conformidade com a LGPD</p>
+      </div>
     </div>
   </footer>
 </body>
