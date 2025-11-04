@@ -58,9 +58,29 @@
     <!-- Dashboard Container -->
     <div class="container">
       
+      <!-- Acesso Câmeras -->
+      <section class="camera-access-section">
+        <div class="camera-access-card">
+          <div class="camera-access-icon">
+            <i class="fas fa-video"></i>
+          </div>
+          <div class="camera-access-content">
+            <h3>Visualizar Câmeras ao Vivo</h3>
+            <p>Acesse o monitoramento em tempo real de todas as câmeras do sistema</p>
+          </div>
+          <a href="mapdex.html?admin=true" class="btn-camera-live">
+            <i class="fas fa-play-circle"></i> Acessar Câmeras
+          </a>
+        </div>
+      </section>
+
       <!-- Quick Access Cards -->
       <section class="quick-access">
-        <h2 class="section-title">Painel de Gerenciamento</h2>
+        <h2 class="section-title">
+          <i class="fas fa-tasks"></i> Painel de Gerenciamento do Sistema
+        </h2>
+        <p class="section-subtitle">Gerencie notícias, análises, câmeras e usuários da plataforma</p>
+        
         <div class="quick-cards-grid">
 
           <div class="quick-card card-news" onclick="toggleSection('noticias')">
@@ -108,13 +128,6 @@
           </div>
 
         </div>
-      </section>
-
-      <!-- Botão de Acesso às Câmeras ao Vivo -->
-      <section class="camera-access">
-        <button class="btn-camera-live" onclick="window.location.href='mapdex.html?admin=true'">
-          <i class="fas fa-eye"></i> Acessar Câmeras ao Vivo (Sem Filtros)
-        </button>
       </section>
 
       <!-- Management Sections -->
@@ -429,6 +442,86 @@
       </section>
 
     </div>
+
+    <!-- Seção de Denúncias Recebidas -->
+    <section class="forms-received-section">
+      <div class="container">
+        <div class="section-header">
+          <h2><i class="fas fa-exclamation-triangle"></i> Denúncias Recebidas</h2>
+          <p>Visualize todas as denúncias enviadas pelos usuários ao identificar atividades suspeitas nas câmeras</p>
+        </div>
+
+        <div class="filters-bar">
+          <div class="filter-group">
+            <label><i class="fas fa-filter"></i> Filtrar por Status:</label>
+            <select id="filter-status" onchange="filterDenuncias()">
+              <option value="all">Todas</option>
+              <option value="pendente">Pendentes</option>
+              <option value="analisando">Em Análise</option>
+              <option value="resolvida">Resolvidas</option>
+              <option value="arquivada">Arquivadas</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label><i class="fas fa-calendar"></i> Período:</label>
+            <select id="filter-period" onchange="filterDenuncias()">
+              <option value="all">Todos</option>
+              <option value="today">Hoje</option>
+              <option value="week">Última Semana</option>
+              <option value="month">Último Mês</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label><i class="fas fa-sort"></i> Ordenar:</label>
+            <select id="filter-order" onchange="filterDenuncias()">
+              <option value="recent">Mais Recentes</option>
+              <option value="oldest">Mais Antigas</option>
+              <option value="priority">Prioridade</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="stats-bar">
+          <div class="stat-item">
+            <i class="fas fa-inbox"></i>
+            <div>
+              <span class="stat-number" id="total-denuncias">0</span>
+              <span class="stat-label">Total</span>
+            </div>
+          </div>
+          <div class="stat-item pending">
+            <i class="fas fa-clock"></i>
+            <div>
+              <span class="stat-number" id="pendentes-denuncias">0</span>
+              <span class="stat-label">Pendentes</span>
+            </div>
+          </div>
+          <div class="stat-item analyzing">
+            <i class="fas fa-search"></i>
+            <div>
+              <span class="stat-number" id="analisando-denuncias">0</span>
+              <span class="stat-label">Em Análise</span>
+            </div>
+          </div>
+          <div class="stat-item resolved">
+            <i class="fas fa-check-circle"></i>
+            <div>
+              <span class="stat-number" id="resolvidas-denuncias">0</span>
+              <span class="stat-label">Resolvidas</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Conteúdo das Denúncias -->
+        <div id="denuncias-content" class="received-content">
+          <div class="empty-state">
+            <i class="fas fa-inbox"></i>
+            <h3>Nenhuma denúncia recebida ainda</h3>
+            <p>As denúncias enviadas pelos usuários aparecerão aqui</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- Modal para Adicionar/Editar -->
     <div id="modal-overlay" class="modal-overlay" onclick="closeModal()"></div>
