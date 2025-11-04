@@ -5,6 +5,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   initializeHeader();
   initializeLogout();
+  initializeReceivedData();
 });
 
 // ==============================
@@ -251,10 +252,196 @@ function getUserForm() {
 // ==============================
 function saveNews(event) {
   event.preventDefault();
-  // Aqui será implementada a integração com o backend
-  console.log('Salvando notícia...');
+  
+  const form = event.target;
+  const formData = {
+    title: form.querySelector('#news-title').value,
+    content: form.querySelector('#news-content').value,
+    image: form.querySelector('#news-image').value,
+    status: form.querySelector('#news-status').value,
+    date: new Date().toISOString()
+  };
+  
+  console.log('Dados da notícia coletados:', formData);
+  
+  // TODO: Backend integration
+  // sendToBackend('/api/news', formData);
+  
   showNotification('Notícia salva com sucesso!', 'success');
   closeModal();
+  setTimeout(() => refreshNews(), 300);
+}
+
+// ==============================
+// Denúncias Recebidas
+// ==============================
+function initializeReceivedData() {
+  loadDenuncias();
+  updateStats();
+}
+
+function loadDenuncias() {
+  // TODO: Carregar denúncias do backend
+  // fetch('/api/denuncias')
+  //   .then(response => response.json())
+  //   .then(data => renderDenuncias(data))
+  
+  // Dados de exemplo (remover quando integrar com backend)
+  const denunciasExemplo = [
+    {
+      id: 1,
+      camera: 'Câmera 01 - Praça Central',
+      descricao: 'Atividade suspeita identificada próximo ao banco. Indivíduo usando capuz observando os arredores.',
+      dataHora: '2025-11-04T14:30:00',
+      usuario: 'Anônimo',
+      status: 'pendente',
+      prioridade: 'alta'
+    },
+    {
+      id: 2,
+      camera: 'Câmera 03 - Rua das Flores',
+      descricao: 'Veículo sem placa estacionado há mais de 2 horas em local proibido.',
+      dataHora: '2025-11-04T12:15:00',
+      usuario: 'João Silva',
+      status: 'analisando',
+      prioridade: 'media'
+    },
+    {
+      id: 3,
+      camera: 'Câmera 05 - Avenida Principal',
+      descricao: 'Grupo de pessoas em possível situação de conflito.',
+      dataHora: '2025-11-03T18:45:00',
+      usuario: 'Anônimo',
+      status: 'resolvida',
+      prioridade: 'alta'
+    }
+  ];
+  
+  renderDenuncias(denunciasExemplo);
+}
+
+function renderDenuncias(denuncias) {
+  const container = document.getElementById('denuncias-content');
+  
+  if (!denuncias || denuncias.length === 0) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <i class="fas fa-inbox"></i>
+        <h3>Nenhuma denúncia recebida ainda</h3>
+        <p>As denúncias enviadas pelos usuários aparecerão aqui</p>
+      </div>
+    `;
+    return;
+  }
+  
+  container.innerHTML = denuncias.map(denuncia => `
+    <div class="denuncia-card ${denuncia.status}">
+      <div class="denuncia-header">
+        <div class="denuncia-info">
+          <h3><i class="fas fa-video"></i> ${denuncia.camera}</h3>
+          <div class="denuncia-meta">
+            <span><i class="fas fa-calendar"></i> ${formatDate(denuncia.dataHora)}</span>
+            <span><i class="fas fa-clock"></i> ${formatTime(denuncia.dataHora)}</span>
+            <span><i class="fas fa-user"></i> ${denuncia.usuario}</span>
+          </div>
+        </div>
+        <div class="denuncia-status">
+          <span class="status-badge ${denuncia.status}">${getStatusText(denuncia.status)}</span>
+          <span class="priority-badge ${denuncia.prioridade}">${getPriorityText(denuncia.prioridade)}</span>
+        </div>
+      </div>
+      
+      <div class="denuncia-body">
+        <div class="denuncia-field">
+          <span class="denuncia-label">Descrição da Ocorrência:</span>
+          <div class="denuncia-value">${denuncia.descricao}</div>
+        </div>
+      </div>
+      
+      <div class="denuncia-actions">
+        <button class="btn-primary" onclick="viewDenunciaDetails(${denuncia.id})">
+          <i class="fas fa-eye"></i> Ver Detalhes
+        </button>
+        <button class="btn-secondary" onclick="changeDenunciaStatus(${denuncia.id}, 'analisando')">
+          <i class="fas fa-search"></i> Analisar
+        </button>
+        <button class="btn-success" onclick="changeDenunciaStatus(${denuncia.id}, 'resolvida')">
+          <i class="fas fa-check"></i> Resolver
+        </button>
+        <button class="btn-danger" onclick="changeDenunciaStatus(${denuncia.id}, 'arquivada')">
+          <i class="fas fa-archive"></i> Arquivar
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterDenuncias() {
+  const status = document.getElementById('filter-status').value;
+  const period = document.getElementById('filter-period').value;
+  const order = document.getElementById('filter-order').value;
+  
+  console.log('Filtrando denúncias:', { status, period, order });
+  
+  // TODO: Implementar filtros reais com backend
+  showNotification('Filtros aplicados', 'info');
+}
+
+function updateStats() {
+  // TODO: Buscar estatísticas do backend
+  document.getElementById('total-denuncias').textContent = '12';
+  document.getElementById('pendentes-denuncias').textContent = '5';
+  document.getElementById('analisando-denuncias').textContent = '3';
+  document.getElementById('resolvidas-denuncias').textContent = '4';
+}
+
+function viewDenunciaDetails(id) {
+  console.log('Visualizando detalhes da denúncia:', id);
+  showNotification('Abrindo detalhes...', 'info');
+  // TODO: Abrir modal com detalhes completos e imagem da câmera
+}
+
+function changeDenunciaStatus(id, newStatus) {
+  console.log('Alterando status da denúncia', id, 'para', newStatus);
+  
+  // TODO: Atualizar no backend
+  // fetch(`/api/denuncias/${id}/status`, {
+  //   method: 'PATCH',
+  //   headers: { 'Content-Type': 'application/json' },
+  //   body: JSON.stringify({ status: newStatus })
+  // })
+  
+  showNotification('Status atualizado com sucesso!', 'success');
+  setTimeout(() => loadDenuncias(), 500);
+}
+
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  return date.toLocaleDateString('pt-BR');
+}
+
+function formatTime(dateString) {
+  const date = new Date(dateString);
+  return date.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+}
+
+function getStatusText(status) {
+  const statusMap = {
+    'pendente': 'Pendente',
+    'analisando': 'Em Análise',
+    'resolvida': 'Resolvida',
+    'arquivada': 'Arquivada'
+  };
+  return statusMap[status] || status;
+}
+
+function getPriorityText(priority) {
+  const priorityMap = {
+    'alta': 'Alta Prioridade',
+    'media': 'Média Prioridade',
+    'baixa': 'Baixa Prioridade'
+  };
+  return priorityMap[priority] || priority;
 }
 
 function editNews(id) {
@@ -279,9 +466,30 @@ function refreshNews() {
 // ==============================
 function saveAnalysis(event) {
   event.preventDefault();
-  console.log('Salvando análise...');
+  
+  const form = event.target;
+  const formData = {
+    type: form.querySelector('#analysis-type').value,
+    period: form.querySelector('#analysis-period').value,
+    data: form.querySelector('#analysis-data').value,
+    createdAt: new Date().toISOString()
+  };
+  
+  // Validar JSON
+  try {
+    JSON.parse(formData.data);
+    console.log('Dados da análise coletados:', formData);
+  } catch (e) {
+    showNotification('Dados JSON inválidos!', 'error');
+    return;
+  }
+  
+  // TODO: Backend integration
+  // sendToBackend('/api/analysis', formData);
+  
   showNotification('Análise salva com sucesso!', 'success');
   closeModal();
+  setTimeout(() => refreshAnalysis(), 300);
 }
 
 function viewAnalysis(id) {
@@ -311,9 +519,32 @@ function refreshAnalysis() {
 // ==============================
 function saveCamera(event) {
   event.preventDefault();
-  console.log('Salvando câmera...');
+  
+  const form = event.target;
+  const formData = {
+    name: form.querySelector('#camera-name').value,
+    location: form.querySelector('#camera-location').value,
+    stream_url: form.querySelector('#camera-stream').value,
+    latitude: parseFloat(form.querySelector('#camera-lat').value) || null,
+    longitude: parseFloat(form.querySelector('#camera-lng').value) || null,
+    status: form.querySelector('#camera-status').value,
+    createdAt: new Date().toISOString()
+  };
+  
+  // Validar URL do stream
+  if (!formData.stream_url.startsWith('rtsp://') && !formData.stream_url.startsWith('http')) {
+    showNotification('URL do stream deve começar com rtsp:// ou http://', 'error');
+    return;
+  }
+  
+  console.log('Dados da câmera coletados:', formData);
+  
+  // TODO: Backend integration
+  // sendToBackend('/api/cameras', formData);
+  
   showNotification('Câmera salva com sucesso!', 'success');
   closeModal();
+  setTimeout(() => refreshCameras(), 300);
 }
 
 function editCamera(id) {
@@ -346,9 +577,40 @@ function testCamera(id) {
 // ==============================
 function saveUser(event) {
   event.preventDefault();
-  console.log('Salvando usuário...');
+  
+  const form = event.target;
+  const formData = {
+    name: form.querySelector('#user-name').value,
+    email: form.querySelector('#user-email').value,
+    password: form.querySelector('#user-password').value,
+    role: form.querySelector('#user-role').value,
+    createdAt: new Date().toISOString()
+  };
+  
+  // Validar email
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(formData.email)) {
+    showNotification('Email inválido!', 'error');
+    return;
+  }
+  
+  // Validar senha
+  if (formData.password.length < 6) {
+    showNotification('Senha deve ter no mínimo 6 caracteres!', 'error');
+    return;
+  }
+  
+  console.log('Dados do usuário coletados:', {
+    ...formData,
+    password: '***' // Não mostrar senha no console
+  });
+  
+  // TODO: Backend integration
+  // sendToBackend('/api/users', formData);
+  
   showNotification('Usuário salvo com sucesso!', 'success');
   closeModal();
+  setTimeout(() => refreshUsers(), 300);
 }
 
 function editUser(id) {
