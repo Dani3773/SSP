@@ -1,17 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Área do Comitê - SSP Criciúma</title>
+    <link rel="stylesheet" href="../stylo/comdex.css">
+    <link rel="icon" href="../img/icone_criciuma.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="../function/comdex.js" defer></script>
 </head>
 <body>
 
   <!-- ============================== -->
   <!--    Bloquear acesso sem login    -->
   <!-- ============================== -->
-
-    <script>
+  <script>
 (function guard() {
   const KEY = 'ssp.comite.auth';
   if (sessionStorage.getItem(KEY) !== '1') {
@@ -20,8 +23,483 @@
 })();
 </script>
 
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <a href="index.html" class="logo-link">
+        <img src="../img/logo-preta.png" alt="Emblema da SSP">
+      </a>
+      <p>SSP - CRICIÚMA</p>
+    </div>
+    <div class="menu">
+      <nav class="menu-links">
+        <a href="index.html">Início</a>
+        <a href="index.html#denuncia">Denúncia</a>
+        <a href="mapdex.html">Mapa</a>
+        <a href="noticias.html">Notícias</a>
+        <a href="anadex.html">Análises</a>
+        <a href="comdex.html" class="active">Comitê</a>
+        <button type="button" class="btn-logout">
+          <i class="fas fa-sign-out-alt"></i> Sair
+        </button>
+      </nav>
+    </div>
+  </header>
 
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-comite">
+      <div class="hero-content">
+        <h1><i class="fas fa-shield-alt"></i> Painel Administrativo do Comitê</h1>
+        <p>Gerencie todos os aspectos do sistema de segurança pública</p>
+      </div>
+    </section>
+
+    <!-- Dashboard Container -->
+    <div class="container">
+      
+      <!-- Quick Access Cards -->
+      <section class="quick-access">
+        <h2 class="section-title">Painel de Gerenciamento</h2>
+        <div class="quick-cards-grid">
+
+          <div class="quick-card card-news" onclick="toggleSection('noticias')">
+            <div class="quick-icon">
+              <i class="fas fa-newspaper"></i>
+            </div>
+            <h3>Notícias</h3>
+            <p>Gerenciar publicações</p>
+            <div class="card-arrow">
+              <i class="fas fa-chevron-down"></i>
+            </div>
+          </div>
+
+          <div class="quick-card card-analysis" onclick="toggleSection('analises')">
+            <div class="quick-icon">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <h3>Análises</h3>
+            <p>Dados e relatórios</p>
+            <div class="card-arrow">
+              <i class="fas fa-chevron-down"></i>
+            </div>
+          </div>
+
+          <div class="quick-card card-cameras" onclick="toggleSection('cameras')">
+            <div class="quick-icon">
+              <i class="fas fa-video"></i>
+            </div>
+            <h3>Câmeras</h3>
+            <p>Gerenciar dispositivos</p>
+            <div class="card-arrow">
+              <i class="fas fa-chevron-down"></i>
+            </div>
+          </div>
+
+          <div class="quick-card card-users" onclick="toggleSection('usuarios')">
+            <div class="quick-icon">
+              <i class="fas fa-users-cog"></i>
+            </div>
+            <h3>Usuários</h3>
+            <p>Gerenciar acessos</p>
+            <div class="card-arrow">
+              <i class="fas fa-chevron-down"></i>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Botão de Acesso às Câmeras ao Vivo -->
+      <section class="camera-access">
+        <button class="btn-camera-live" onclick="window.location.href='mapdex.html?admin=true'">
+          <i class="fas fa-eye"></i> Acessar Câmeras ao Vivo (Sem Filtros)
+        </button>
+      </section>
+
+      <!-- Management Sections -->
+      
+      <!-- SEÇÃO: GERENCIAR NOTÍCIAS -->
+      <section id="section-noticias" class="management-section">
+        <div class="section-header">
+          <h2><i class="fas fa-newspaper"></i> Gerenciar Notícias</h2>
+        </div>
+
+        <div class="management-content">
+          <div class="action-buttons">
+            <button class="btn-primary" onclick="openModal('add-noticia')">
+              <i class="fas fa-plus"></i> Adicionar Notícia
+            </button>
+            <button class="btn-secondary" onclick="refreshNews()">
+              <i class="fas fa-sync"></i> Atualizar Lista
+            </button>
+          </div>
+
+          <div class="table-container">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Título</th>
+                  <th>Data</th>
+                  <th>Status</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="news-table-body">
+                <tr>
+                  <td>001</td>
+                  <td>Operação policial reduz índices de criminalidade</td>
+                  <td>03/11/2025</td>
+                  <td><span class="status-badge status-active">Publicada</span></td>
+                  <td class="action-buttons-cell">
+                    <button class="btn-icon btn-edit" onclick="editNews(1)" title="Editar">
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn-icon btn-delete" onclick="deleteNews(1)" title="Excluir">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>002</td>
+                  <td>Nova tecnologia de monitoramento instalada</td>
+                  <td>02/11/2025</td>
+                  <td><span class="status-badge status-active">Publicada</span></td>
+                  <td class="action-buttons-cell">
+                    <button class="btn-icon btn-edit" onclick="editNews(2)" title="Editar">
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn-icon btn-delete" onclick="deleteNews(2)" title="Excluir">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>003</td>
+                  <td>Reunião do comitê de segurança</td>
+                  <td>01/11/2025</td>
+                  <td><span class="status-badge status-draft">Rascunho</span></td>
+                  <td class="action-buttons-cell">
+                    <button class="btn-icon btn-edit" onclick="editNews(3)" title="Editar">
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn-icon btn-delete" onclick="deleteNews(3)" title="Excluir">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- SEÇÃO: GERENCIAR ANÁLISES -->
+      <section id="section-analises" class="management-section">
+        <div class="section-header">
+          <h2><i class="fas fa-chart-line"></i> Gerenciar Análises</h2>
+        </div>
+
+        <div class="management-content">
+          <div class="action-buttons">
+            <button class="btn-primary" onclick="openModal('add-analise')">
+              <i class="fas fa-plus"></i> Adicionar Análise
+            </button>
+            <button class="btn-secondary" onclick="refreshAnalysis()">
+              <i class="fas fa-sync"></i> Atualizar Dados
+            </button>
+          </div>
+
+          <div class="table-container">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Tipo de Análise</th>
+                  <th>Período</th>
+                  <th>Data de Criação</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="analysis-table-body">
+                <tr>
+                  <td>001</td>
+                  <td>Relatório Mensal de Ocorrências</td>
+                  <td>Outubro 2025</td>
+                  <td>01/11/2025</td>
+                  <td class="action-buttons-cell">
+                    <button class="btn-icon btn-view" onclick="viewAnalysis(1)" title="Visualizar">
+                      <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="btn-icon btn-edit" onclick="editAnalysis(1)" title="Editar">
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn-icon btn-delete" onclick="deleteAnalysis(1)" title="Excluir">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>002</td>
+                  <td>Comparativo Anual 2024 vs 2025</td>
+                  <td>Anual</td>
+                  <td>15/10/2025</td>
+                  <td class="action-buttons-cell">
+                    <button class="btn-icon btn-view" onclick="viewAnalysis(2)" title="Visualizar">
+                      <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="btn-icon btn-edit" onclick="editAnalysis(2)" title="Editar">
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn-icon btn-delete" onclick="deleteAnalysis(2)" title="Excluir">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- SEÇÃO: GERENCIAR CÂMERAS -->
+      <section id="section-cameras" class="management-section">
+        <div class="section-header">
+          <h2><i class="fas fa-video"></i> Gerenciar Câmeras</h2>
+        </div>
+
+        <div class="management-content">
+          <div class="action-buttons">
+            <button class="btn-primary" onclick="openModal('add-camera')">
+              <i class="fas fa-plus"></i> Adicionar Câmera
+            </button>
+            <button class="btn-secondary" onclick="refreshCameras()">
+              <i class="fas fa-sync"></i> Atualizar Lista
+            </button>
+          </div>
+
+          <div class="table-container">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Nome da Câmera</th>
+                  <th>Localização</th>
+                  <th>Status</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="cameras-table-body">
+                <tr>
+                  <td>001</td>
+                  <td>Câmera Centro - Praça Principal</td>
+                  <td>Centro, Criciúma</td>
+                  <td><span class="status-badge status-active">Online</span></td>
+                  <td class="action-buttons-cell">
+                    <button class="btn-icon btn-view" onclick="viewCamera(1)" title="Visualizar">
+                      <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="btn-icon btn-edit" onclick="editCamera(1)" title="Editar">
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn-icon btn-delete" onclick="deleteCamera(1)" title="Excluir">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>002</td>
+                  <td>Câmera Pinheirinho - Av. Principal</td>
+                  <td>Pinheirinho, Criciúma</td>
+                  <td><span class="status-badge status-active">Online</span></td>
+                  <td class="action-buttons-cell">
+                    <button class="btn-icon btn-view" onclick="viewCamera(2)" title="Visualizar">
+                      <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="btn-icon btn-edit" onclick="editCamera(2)" title="Editar">
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn-icon btn-delete" onclick="deleteCamera(2)" title="Excluir">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>003</td>
+                  <td>Câmera Santa Luzia - Rua Central</td>
+                  <td>Santa Luzia, Criciúma</td>
+                  <td><span class="status-badge status-inactive">Offline</span></td>
+                  <td class="action-buttons-cell">
+                    <button class="btn-icon btn-view" onclick="viewCamera(3)" title="Visualizar">
+                      <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="btn-icon btn-edit" onclick="editCamera(3)" title="Editar">
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn-icon btn-delete" onclick="deleteCamera(3)" title="Excluir">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- SEÇÃO: GERENCIAR USUÁRIOS -->
+      <section id="section-usuarios" class="management-section">
+        <div class="section-header">
+          <h2><i class="fas fa-users-cog"></i> Gerenciar Usuários</h2>
+        </div>
+
+        <div class="management-content">
+          <div class="action-buttons">
+            <button class="btn-primary" onclick="openModal('add-usuario')">
+              <i class="fas fa-user-plus"></i> Adicionar Usuário
+            </button>
+            <button class="btn-secondary" onclick="refreshUsers()">
+              <i class="fas fa-sync"></i> Atualizar Lista
+            </button>
+          </div>
+
+          <div class="table-container">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Nome</th>
+                  <th>Email</th>
+                  <th>Cargo</th>
+                  <th>Status</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="users-table-body">
+                <tr>
+                  <td>001</td>
+                  <td>João Silva</td>
+                  <td>joao.silva@ssp.gov</td>
+                  <td><span class="role-badge role-admin">Administrador</span></td>
+                  <td><span class="status-badge status-active">Ativo</span></td>
+                  <td class="action-buttons-cell">
+                    <button class="btn-icon btn-edit" onclick="editUser(1)" title="Editar">
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn-icon btn-delete" onclick="deleteUser(1)" title="Desativar">
+                      <i class="fas fa-user-slash"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>002</td>
+                  <td>Maria Santos</td>
+                  <td>maria.santos@ssp.gov</td>
+                  <td><span class="role-badge role-operator">Operador</span></td>
+                  <td><span class="status-badge status-active">Ativo</span></td>
+                  <td class="action-buttons-cell">
+                    <button class="btn-icon btn-edit" onclick="editUser(2)" title="Editar">
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn-icon btn-delete" onclick="deleteUser(2)" title="Desativar">
+                      <i class="fas fa-user-slash"></i>
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>003</td>
+                  <td>Carlos Oliveira</td>
+                  <td>carlos.oliveira@ssp.gov</td>
+                  <td><span class="role-badge role-viewer">Visualizador</span></td>
+                  <td><span class="status-badge status-inactive">Inativo</span></td>
+                  <td class="action-buttons-cell">
+                    <button class="btn-icon btn-edit" onclick="editUser(3)" title="Editar">
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn-icon btn-delete" onclick="deleteUser(3)" title="Desativar">
+                      <i class="fas fa-user-slash"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Modal para Adicionar/Editar -->
+    <div id="modal-overlay" class="modal-overlay" onclick="closeModal()"></div>
+    <div id="modal-container" class="modal-container">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 id="modal-title">Adicionar Item</h3>
+          <button class="btn-close-modal" onclick="closeModal()">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body" id="modal-body">
+          <!-- Conteúdo dinâmico será inserido aqui -->
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer id="contato">
+    <div class="footer-container">
+      <div class="footer-main">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <img src="../img/logo-preta.png" alt="Emblema da SSP">
+            <div class="footer-brand-text">
+              <h3>SSP - CRICIÚMA</h3>
+              <p>Sistema de Segurança Pública</p>
+            </div>
+          </div>
+          <p class="footer-description">
+            Proteção inteligente, transparente e comprometida com cada cidadão.
+          </p>
+        </div>
+
+        <div class="footer-contact">
+          <h3>Fale Conosco</h3>
+          <ul class="contact-list">
+            <li>
+              <i class="fas fa-envelope"></i>
+              <a href="mailto:contato@ssp.gov">contato@ssp.gov</a>
+            </li>
+            <li>
+              <i class="fas fa-phone"></i>
+              <a href="tel:+5548000000000">(48) 00000-0000</a>
+            </li>
+            <li>
+              <i class="fas fa-map-marker-alt"></i>
+              <span>Rua da Segurança, 125 - Centro<br>Criciúma - SC</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="footer-links">
+          <h3>Acesse Também</h3>
+          <ul>
+            <li><a href="index.html">Página Inicial</a></li>
+            <li><a href="mapdex.html">Painel de Mapas</a></li>
+            <li><a href="noticias.html">Central de Notícias</a></li>
+            <li><a href="anadex.html">Análises Completas</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2025 SSP Criciúma. Todos os direitos reservados.</p>
+        <p class="footer-lgpd">Sistema em conformidade com a LGPD</p>
+      </div>
+    </div>
+  </footer>
     
 </body>
 </html>
-
