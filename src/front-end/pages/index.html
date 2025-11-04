@@ -28,6 +28,7 @@
         <a href="#mapa">Mapa</a>
         <a href="#noticias">Notícias</a>
         <a href="#analises">Análises</a>
+        <a href="#sobre">Sobre</a>
         <a href="#contato">Contato</a>
         <button type="button" class="menu-cta">Acesso comitê</button>
       </nav>
@@ -517,63 +518,182 @@
   <!--             Análises           -->
   <!-- ============================== -->
 
-  <section id="analises">
-    <div class="bor-ana">
-      <h2>Análises de dados e Relatórios</h2>
-      <h3>Resumo de análises:</h3>
-      <p>Visão rápida dos principais indicadores de segurança pública. Para gráficos completos, rankings e relatórios
-        exportáveis, use o botão abaixo.</p>
-      <div class="anaSec1">
-        <div class="ana1">
-          <h4>Ocorrências (7 dias)</h4>
-          <h1>342</h1>
-          <p>+12% vs. semana anterior</p>
+  <section id="analises" aria-labelledby="analises-heading">
+    <div class="analises-container">
+      <div class="analises-header">
+        <div class="analises-header-text">
+          <h2 id="analises-heading">Dados em Tempo Real</h2>
+          <p>Indicadores atualizados de segurança pública para monitoramento contínuo da cidade</p>
         </div>
-        <div class="ana2">
-          <h4>Tempo médio de resposta</h4>
-          <h1>4m 08s</h1>
-          <p>-9% (melhorou)</p>
+        <span class="analises-badge">
+          <i data-lucide="refresh-cw" aria-hidden="true"></i>
+          Atualizado agora
+        </span>
+      </div>
+
+      <div class="analises-grid">
+        <div class="analise-card analise-card--alert">
+          <div class="analise-icon">
+            <i data-lucide="alert-octagon" aria-hidden="true"></i>
+          </div>
+          <div class="analise-content">
+            <h4>Ocorrências Registradas</h4>
+            <div class="analise-value">342</div>
+            <p class="analise-trend analise-trend--neutral">
+              <i data-lucide="calendar" aria-hidden="true"></i>
+              Últimos 7 dias
+            </p>
+          </div>
         </div>
-        <div class="ana3">
-          <h4>Taxa de resolução</h4>
-          <h1>83%</h1>
-          <p>+5 p.p.</p>
+
+        <div class="analise-card analise-card--success">
+          <div class="analise-icon">
+            <i data-lucide="timer" aria-hidden="true"></i>
+          </div>
+          <div class="analise-content">
+            <h4>Tempo de Resposta</h4>
+            <div class="analise-value">4min</div>
+            <p class="analise-trend analise-trend--positive">
+              <i data-lucide="arrow-down" aria-hidden="true"></i>
+              9% mais rápido
+            </p>
+          </div>
         </div>
-        <div class="ana4">
-          <h4>Cobertura por câmeras</h4>
-          <h1>120</h1>
-          <p>18 bairros monitorados</p>
+
+        <div class="analise-card analise-card--info">
+          <div class="analise-icon">
+            <i data-lucide="check-circle-2" aria-hidden="true"></i>
+          </div>
+          <div class="analise-content">
+            <h4>Taxa de Resolução</h4>
+            <div class="analise-value">83%</div>
+            <p class="analise-trend analise-trend--positive">
+              <i data-lucide="trending-up" aria-hidden="true"></i>
+              Em crescimento
+            </p>
+          </div>
+        </div>
+
+        <div class="analise-card analise-card--warning">
+          <div class="analise-icon">
+            <i data-lucide="camera" aria-hidden="true"></i>
+          </div>
+          <div class="analise-content">
+            <h4>Rede de Monitoramento</h4>
+            <div class="analise-value">120</div>
+            <p class="analise-trend analise-trend--neutral">
+              <i data-lucide="map" aria-hidden="true"></i>
+              Câmeras em 18 bairros
+            </p>
+          </div>
         </div>
       </div>
 
-      <div class="anaSec2">
-        <div class="anaOcor">
-          <div class="text-ana">
-            <h3><i class="fa-solid fa-chart-column"></i>Ocorrências por dia</h3>
-            <p>Tendência (últimos 7 dias)</p>
+      <div class="analises-chart">
+        <div class="chart-header">
+          <div>
+            <h3>
+              <i data-lucide="line-chart" aria-hidden="true"></i> 
+              Evolução de Ocorrências
+            </h3>
+            <p class="chart-subtitle">Registros diários da última semana</p>
           </div>
-          <svg class="sparkline" viewBox="0 0 100 40" preserveAspectRatio="none" aria-hidden="true">
-            <path d="M0,30 L14,20 L28,24 L42,12 L56,26 L70,22 L84,16 100,18" fill="none" stroke="rgba(255,215,0,0.9)"
-              stroke-width="2" />
-            <polyline points="0,30 14,20 28,24 42,12 56,26 70,22 84,16 100,18 100,40 0,40"
-              fill="rgba(255,215,0,0.18)" />
-          </svg>
+          <div class="chart-legend">
+            <span class="legend-item">
+              <span class="legend-dot"></span>
+              Ocorrências
+            </span>
+          </div>
+        </div>
+        <div class="chart-container">
+          <div class="chart-grid">
+            <div class="chart-bar" style="height: 65%;">
+              <span class="bar-value">45</span>
+              <div class="bar-fill"></div>
+              <span class="bar-label">Seg</span>
+            </div>
+            <div class="chart-bar" style="height: 52%;">
+              <span class="bar-value">36</span>
+              <div class="bar-fill"></div>
+              <span class="bar-label">Ter</span>
+            </div>
+            <div class="chart-bar" style="height: 58%;">
+              <span class="bar-value">40</span>
+              <div class="bar-fill"></div>
+              <span class="bar-label">Qua</span>
+            </div>
+            <div class="chart-bar" style="height: 85%;">
+              <span class="bar-value">59</span>
+              <div class="bar-fill"></div>
+              <span class="bar-label">Qui</span>
+            </div>
+            <div class="chart-bar" style="height: 70%;">
+              <span class="bar-value">48</span>
+              <div class="bar-fill"></div>
+              <span class="bar-label">Sex</span>
+            </div>
+            <div class="chart-bar" style="height: 78%;">
+              <span class="bar-value">54</span>
+              <div class="bar-fill"></div>
+              <span class="bar-label">Sáb</span>
+            </div>
+            <div class="chart-bar chart-bar--active" style="height: 87%;">
+              <span class="bar-value">60</span>
+              <div class="bar-fill"></div>
+              <span class="bar-label">Dom</span>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="butt-center">
-        <a href="anadex.html" class="ver-mais-ana">Ver análises completas -></a>
+
+      <div class="analises-cta">
+        <a href="anadex.html" class="btn-analises">
+          <span>Explorar Análises Completas</span>
+          <i data-lucide="arrow-right" aria-hidden="true"></i>
+        </a>
+        <p class="cta-description">Gráficos detalhados, tendências e relatórios exportáveis</p>
       </div>
     </div>
-
   </section>
 
   <!-- ============================== -->
   <!--             Sobre              -->
   <!-- ============================== -->
 
-  <br>
-  <h1>!!!!!!Fazer seção de sobre aqui!!!!!!</h1>
-  <br>
+  <section id="sobre" aria-labelledby="sobre-heading">
+    <div class="sobre-container">
+      <div class="sobre-header">
+        <h2 id="sobre-heading">Segurança Inteligente e Transparente</h2>
+        <p class="sobre-subtitle">Proteção com tecnologia avançada, respeito à privacidade e compromisso com cada cidadão</p>
+      </div>
+
+      <div class="sobre-content">
+        <div class="sobre-card">
+          <div class="sobre-icon">
+            <i data-lucide="shield-check" aria-hidden="true"></i>
+          </div>
+          <h3>Tecnologia e Inovação</h3>
+          <p>Utilizamos inteligência artificial para monitoramento em tempo real e proteção da privacidade. A IA borra automaticamente rostos nas imagens para usuários comuns, garantindo respostas rápidas a emergências com total respeito aos direitos individuais.</p>
+        </div>
+
+        <div class="sobre-card">
+          <div class="sobre-icon">
+            <i data-lucide="lock" aria-hidden="true"></i>
+          </div>
+          <h3>Conformidade com a LGPD</h3>
+          <p>Todos os dados coletados seguem rigorosamente a Lei Geral de Proteção de Dados (LGPD). Garantimos privacidade, segurança e transparência no tratamento das informações dos cidadãos.</p>
+        </div>
+
+        <div class="sobre-card">
+          <div class="sobre-icon">
+            <i data-lucide="users" aria-hidden="true"></i>
+          </div>
+          <h3>Compromisso com a Comunidade</h3>
+          <p>Trabalhamos em colaboração com a população de Criciúma para promover segurança, transparência e qualidade de vida. Sua participação é fundamental para uma cidade mais segura.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
 
   <!-- ============================== -->
@@ -581,15 +701,54 @@
   <!-- ============================== -->
 
   <footer id="contato">
-    <h2>Fale Conosco</h2>
-    <p>Para mais informações, sugestões ou suporte técnico, entre em contato:</p>
-    <nav class="c1">
-      <ol>Email: contato@ssp.gov</ol>
-      <ol>Telefone: (48)00000-0000</ol>
-      <ol>Endereço: Rua da Segurança, 125 - Centro, Cidade Segura</ol>
-    </nav>
-    <div class="logo">
-      <img src="../img/logo-preta.png" alt="Emblema da SSP">
+    <div class="footer-container">
+      <div class="footer-main">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <img src="../img/logo-preta.png" alt="Emblema da SSP">
+            <div class="footer-brand-text">
+              <h3>SSP - CRICIÚMA</h3>
+              <p>Sistema de Segurança Pública</p>
+            </div>
+          </div>
+          <p class="footer-description">
+            Proteção inteligente, transparente e comprometida com cada cidadão.
+          </p>
+        </div>
+
+        <div class="footer-contact">
+          <h3>Fale Conosco</h3>
+          <ul class="contact-list">
+            <li>
+              <i data-lucide="mail" aria-hidden="true"></i>
+              <a href="mailto:contato@ssp.gov">contato@ssp.gov</a>
+            </li>
+            <li>
+              <i data-lucide="phone" aria-hidden="true"></i>
+              <a href="tel:+5548000000000">(48) 00000-0000</a>
+            </li>
+            <li>
+              <i data-lucide="map-pin" aria-hidden="true"></i>
+              <span>Rua da Segurança, 125 - Centro<br>Criciúma - SC</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="footer-links">
+          <h3>Acesse Também</h3>
+          <ul>
+            <li><a href="mapdex.html">Painel de Mapas</a></li>
+            <li><a href="noticias.html">Central de Notícias</a></li>
+            <li><a href="anadex.html">Análises Completas</a></li>
+            <li><a href="comdex.html">Área do Comitê</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2025 SSP Criciúma. Todos os direitos reservados.</p>
+        <p class="footer-lgpd">Sistema em conformidade com a LGPD</p>
+      </div>
     </div>
   </footer>
 
