@@ -3,10 +3,11 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Todas as notícias - SSP Criciúma</title>
+  <title>Notícias - SSP Criciúma</title>
   <link rel="icon" href="../img/icone_criciuma.png" type="image/png">
   <link rel="stylesheet" href="../stylo/style.css">
   <link rel="stylesheet" href="../stylo/noticias.css">
+  <script src="../function/noticiasScript.js" defer></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
@@ -35,103 +36,55 @@
   </header>
 
   <main class="pagina-noticias">
-    <!-- Seção de Notícias -->
     <section id="noticias">
       <div class="noticias-container">
         <h2>Últimas Notícias</h2>
         <p class="noticias-subtitle">Fique por dentro das novidades e atualizações</p>
         <div class="news-categories">
-          <button class="category-btn active">Todas</button>
-          <button class="category-btn">Tecnologia</button>
-          <button class="category-btn">Saúde</button>
-          <button class="category-btn">Educação</button>
+          <button class="category-btn active" data-category="todas">Todas</button>
+          <button class="category-btn" data-category="tecnologia">Tecnologia</button>
+          <button class="category-btn" data-category="seguranca">Segurança</button>
+          <button class="category-btn" data-category="educacao">Educação</button>
         </div>
       </div>
 
       <div class="container">
         <div class="track">
 
-          <!-- Card 1 -->
-          <div class="card">
+          <div class="card" data-category="seguranca">
             <img src="../img/imagem1.webp" alt="Notícia 1">
             <h3>Ação integrada resulta em prisão de quadrilha</h3>
-            <button>VER NOTÍCIA</button>
+            <a href="noticia1.html"><button>VER NOTÍCIA</button></a>
           </div>
 
-          <!-- Card 2 -->
-          <div class="card">
+          <div class="card" data-category="seguranca">
             <img src="../img/imagem2.jpg" alt="Notícia 2">
             <h3>Moradores relatam aumento de segurança no bairro Aurora</h3>
-            <button>VER NOTÍCIA</button>
+            <a href="noticia2.html"><button>VER NOTÍCIA</button></a>
           </div>
 
-          <!-- Card 3 -->
-          <div class="card">
+          <div class="card" data-category="tecnologia">
             <img src="../img/imagem3.webp" alt="Notícia 3">
             <h3>Nova tecnologia de reconhecimento facial é implementada</h3>
-            <button>VER NOTÍCIA</button>
+            <a href="noticia3.html"><button>VER NOTÍCIA</button></a>
           </div>
 
-          <!-- Card 4 -->
-          <div class="card">
+          <div class="card" data-category="educacao">
             <img src="../img/imagem4.jpg" alt="Notícia 4">           
             <h3>Programa educativo em escolas reduz vandalismo</h3>
-            <button>VER NOTÍCIA</button>
+            <a href="noticia4.html"><button>VER NOTÍCIA</button></a>
           </div>
 
-          <!-- Card 5 -->
-          <div class="card">
+          <div class="card" data-category="educacao">
             <img src="../img/imagem5.jpg" alt="Notícia 5">
             <h3>SSP se reúne com líderes comunitários para novas estratégias</h3>
-            <button>VER NOTÍCIA</button>
+            <a href="noticia5.html"><button>VER NOTÍCIA</button></a>
           </div>
 
-          <!-- Card 6 -->
-          <div class="card">         
-            <img src="" alt="">
-            <h3>Título da Notícia 6</h3>
-            <button>VER NOTÍCIA</button>
-          </div>
-
-          <!-- Card 7 -->
-          <div class="card">
-            <img src="" alt="">
-            <h3>Título da Notícia 7</h3>
-            <button>VER NOTÍCIA</button>
-          </div>
-
-          <!-- Card 8 -->
-          <div class="card">
-            <img src="" alt="">
-            <h3>Título da Notícia 8</h3>
-            <button>VER NOTÍCIA</button>
-          </div>
-
-          <!-- Card 9 -->
-          <div class="card">
-            <img src="" alt="">
-            <h3>Título da Notícia 9</h3>
-            <button>VER NOTÍCIA</button>
-          </div>
-
-          <!-- Card 10 -->
-          <div class="card">
-            <img src="" alt="">
-            <h3>Título da Notícia 10</h3>
-            <button>VER NOTÍCIA</button>
-          </div>
-
-          <div class="card">
-            <img src="" alt="">
-            <h3>Título da Notícia 11</h3>
-            <button>VER NOTÍCIA</button>
-          </div>
-
-          <!-- Card 10 -->
-          <div class="card">
-            <img src="" alt="">
-            <h3>Título da Notícia 12</h3>
-            <button>VER NOTÍCIA</button>
+          <div class="card" data-category="seguranca">         
+            <img src="../img/imagem6.png" alt="Noticia 6">
+            <h3>SSP alerta população sobre aumento de golpes virtuais na região</h3>
+            <a href="noticia6.html"><button>VER NOTÍCIA</button></a>
           </div>
         </div>
       </div>
