@@ -1,1 +1,62 @@
-
+[
+  {
+    "id": 1,
+    "name": "Câmera Praça Central",
+    "location": "Praça Central, Criciúma",
+    "streamUrl": "rtsp://192.168.1.100:554/stream",
+    "latitude": -29.1911,
+    "longitude": -49.64,
+    "status": "online",
+    "type": "PTZ",
+    "resolution": "4K",
+    "createdAt": "2025-11-01T10:00:00.000Z"
+  },
+  {
+    "id": 2,
+    "name": "Câmera Av. Centenário",
+    "location": "Av. Centenário, 1500 - Centro",
+    "streamUrl": "rtsp://192.168.1.101:554/stream",
+    "latitude": -29.19,
+    "longitude": -49.638,
+    "status": "online",
+    "type": "Dome",
+    "resolution": "1080p",
+    "createdAt": "2025-11-02T14:30:00.000Z"
+  },
+  {
+    "id": 3,
+    "name": "Câmera Terminal Rodoviário",
+    "location": "Terminal Rodoviário, Criciúma",
+    "streamUrl": "rtsp://192.168.1.102:554/stream",
+    "latitude": -29.185,
+    "longitude": -49.635,
+    "status": "offline",
+    "type": "Bullet",
+    "resolution": "720p",
+    "createdAt": "2025-11-03T09:15:00.000Z"
+  },
+  {
+    "id": 4,
+    "name": "Câmera Parque das Nações",
+    "location": "Parque das Nações, Criciúma",
+    "streamUrl": "rtsp://192.168.1.103:554/stream",
+    "latitude": -29.195,
+    "longitude": -49.642,
+    "status": "online",
+    "type": "PTZ",
+    "resolution": "4K",
+    "createdAt": "2025-11-04T16:45:00.000Z"
+  },
+  {
+    "id": 5,
+    "name": "Câmera Rua do Comércio",
+    "location": "Rua do Comércio, Centro",
+    "streamUrl": "rtsp://192.168.1.104:554/stream",
+    "latitude": -29.192,
+    "longitude": -49.639,
+    "status": "maintenance",
+    "type": "Dome",
+    "resolution": "1080p",
+    "createdAt": "2025-11-05T11:20:00.000Z"
+  }
+]

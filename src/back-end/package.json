@@ -1,0 +1,25 @@
+{
+  "name": "ssp-backend",
+  "version": "1.0.0",
+  "description": "Back-end for SSP - Smart Systems Platform",
+  "main": "app.js",
+  "scripts": {
+    "start": "\"C:\\Program Files\\nodejs\\node.exe\" app.js",
+    "dev": "\"C:\\Program Files\\nodejs\\node.exe\" node_modules/.bin/nodemon app.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "keywords": [
+    "backend",
+    "json",
+    "express"
+  ],
+  "author": "Daniel Felisberto",
+  "license": "MIT"
+}

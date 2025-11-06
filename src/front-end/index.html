@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Sistema de segurança pública</title>
+  <link rel="stylesheet" href="stylo/style.css">
+  <link rel="icon" href="img/icone_criciuma.png" type="image/png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+
+  <!-- ============================== -->
+  <!--             Header             -->
+  <!-- ============================== -->
+
+  <header>
+    <div class="logo">
+      <img src="../img/logo-preta.png" alt="Emblema da SSP">
+      <p>SSP - CRICIÚMA</p>
+    </div>
+    <div class="menu">
+      <nav class="menu-links">
+        <a href="#inicio">Início</a>
+        <a href="#denuncia">Denúncia</a>
+        <a href="#mapa">Mapa</a>
+        <a href="#noticias">Notícias</a>
+        <a href="#analises">Análises</a>
+        <a href="#sobre">Sobre</a>
+        <a href="#contato">Contato</a>
+        <button type="button" class="menu-cta">Acesso comitê</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ============================== -->
+  <!--             Login              -->
+  <!-- ============================== -->
+
+  <!-- Fundo escuro -->
+  <div id="overlay-comite" aria-hidden="true"></div>
+
+
+  <!-- Section do login -->
+  <section id="login" hidden role="dialog" aria-modal="true" aria-labelledby="login-title" tabindex="-1">
+
+
+    <!-- Cabeçalho do modal -->
+    <div class="header-login">
+      <i data-lucide="shield" aria-hidden="true"></i>
+      <div class="header-login__titles">
+        <h2 id="login-title">Acesso do Comitê</h2>
+        <p class="header-login__subtitle">Área restrita — auditoria ativa</p>
+      </div>
+      <button id="modal-comite-cancel" type="button" aria-label="Fechar modal">✕</button>
+    </div>
+
+    <!-- Campos -->
+    <div class="auto-log">
+      <div class="field">
+        <label for="comite-user">Usuário</label>
+        <i data-lucide="user" aria-hidden="true"></i>
+        <input id="comite-user" name="nome" type="text" placeholder="Insira o login" autocomplete="username"
+          inputmode="text">
+      </div>
+
+      <div class="field">
+        <label for="comite-pass">Senha</label>
+        <i data-lucide="key-round" aria-hidden="true"></i>
+        <input id="comite-pass" name="senha" type="password" placeholder="Insira a senha"
+          autocomplete="current-password">
+        <button type="button" class="toggle-pass" aria-label="Mostrar/ocultar senha">
+          <i data-lucide="eye" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <button id="comite-acess" type="button" class="btn-submit">
+        <i data-lucide="log-in" aria-hidden="true"></i>
+        Acessar
+      </button>
+    </div>
+
+    <!-- Aviso + erro -->
+    <p id="comite-policy" class="login-policy">
+      Tentativas são registradas. Ao continuar, você concorda com o termo de uso e auditoria.
+    </p>
+    <p id="comite-error" aria-live="polite" role="alert"></p>
+
+  </section>
+
+
+  <!-- ============================== -->
+  <!--             Início             -->
+  <!-- ============================== -->
+
+  <div id="inicio" class="ini-double">
+
+    <div class="ini">
+      <h1 id="inicio">SSP - Sistema de Segurança Pública</h1>
+      <p>Envie denúncias e monitore sua cidade</p>
+      <div class="button">
+        <a href="pages/mapdex.html"><button class="btn-acao">Ver Mapa</button></a>
+        <a href="pages/noticias.html"><button class="btn-acao">Ver Notícias</button></a>
+      </div>
+    </div>
+
+    <div class="box-p">
+      <div class="box">
+        <div class="card">
+          <i data-lucide="shield"></i>
+          <h3>Segurança</h3>
+          <p>Monitoramento e proteção das informações municipais.</p>
+        </div>
+
+        <div class="card">
+          <i data-lucide="users"></i>
+          <h3>Transparência</h3>
+          <p>Acesso público e claro aos dados de gestão.</p>
+        </div>
+
+        <div class="card">
+          <i data-lucide="cpu"></i>
+          <h3>Tecnologia</h3>
+          <p>Infraestrutura moderna e integrada com IA.</p>
+        </div>
+
+        <div class="card">
+          <i data-lucide="alert-triangle"></i>
+          <h3>Emergência</h3>
+          <p>Respostas rápidas a incidentes e ocorrências.</p>
+        </div>
+      </div>
+      <p>
+        Este painel tem caráter exclusivamente informativo e busca reforçar a <strong>implementação</strong> de medidas
+        de segurança e conformidade. Nenhum dado sensível é substituído ou acessado fora do escopo legal previsto pela
+        <strong>LGPD</strong>.
+      </p>
+    </div>
+  </div>
+
+  <!-- ============================== -->
+  <!--            Formulário          -->
+  <!-- ============================== -->
+
+  <div id="denuncia" class="section-2">
+    <div class="section-text">
+      <form action="formulario.php" method="post" name="denuncia" enctype="multipart/form-data">
+        <div class="form-header">
+          <div class="tittle-form">
+            <h2>Faça uma denúncia</h2>
+            <p>Tempo médio de envio: ~2 min</p>
+          </div>
+          <span class="form-badge" aria-hidden="true">
+            <i data-lucide="shield-check"></i>
+          </span>
+        </div>
+
+        <fieldset class="form-fieldset">
+          <legend>Detalhes da ocorrência</legend>
+          <div class="form-grid">
+            <div class="form-field">
+              <label for="titulo">Título</label>
+              <input type="text" id="titulo" name="titulo" placeholder="Ex.: Roubo em comércio no Centro" maxlength="80"
+                required>
+              <small>Dê um nome curto que descreva a denúncia.</small>
+            </div>
+
+            <div class="form-field form-field--full">
+              <label for="descricao">Descrição</label>
+              <textarea id="descricao" name="descricao" rows="6"
+                placeholder="Conte o que aconteceu, horário aproximado e quem estava no local." required></textarea>
+              <small>Quanto mais detalhes, melhor para a equipe de atendimento.</small>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="form-fieldset">
+          <legend>Anexos (opcional)</legend>
+          <div class="form-field form-field--full">
+            <label for="arquivo">Foto ou vídeo</label>
+            <input type="file" id="arquivo" name="arquivo" accept="image/*,video/*">
+            <small>Formatos comuns até 25 MB. Não enviar se houver risco para você.</small>
+          </div>
+        </fieldset>
+
+        <input type="hidden" name="camera" id="camera-selecionada" value="">
+
+        <button type="submit" class="form-submit">Enviar denúncia</button>
+      </form>
+    </div>
+    <div class="section-cam">
+      <div class="cam-copy">
+        <p class="tit" id="cam-heading">Mapeamento em tempo real</p>
+        <p class="cam-subtitle">Escolha um ponto de monitoramento abaixo para anexar à sua denúncia.</p>
+        <p class="cam-helper" aria-live="polite">Câmera selecionada: <span id="cam-selecionada-label">nenhuma</span>
+        </p>
+      </div>
+      <section class="cam" aria-labelledby="cam-heading">
+        <button type="button" class="cam-btn" data-camera="Câmera 1" data-status="online"
+          data-updated="Atualizada há 2 min" data-region="Bairro 1">
+          <div class="cam-btn__top">
+            <i data-lucide="video"></i>
+            <span class="cam-status">Online</span>
+          </div>
+          <h3>Câmera 1</h3>
+          <p>Bairro 1</p>
+          <small>Atualizada há 2 min</small>
+        </button>
+        <button type="button" class="cam-btn" data-camera="Câmera 2" data-status="online"
+          data-updated="Atualizada há 5 min" data-region="Bairro 2">
+          <div class="cam-btn__top">
+            <i data-lucide="video"></i>
+            <span class="cam-status">Online</span>
+          </div>
+          <h3>Câmera 2</h3>
+          <p>Bairro 2</p>
+          <small>Atualizada há 5 min</small>
+        </button>
+        <button type="button" class="cam-btn" data-camera="Câmera 3" data-status="manutenção"
+          data-updated="Retorno previsto para 14h" data-region="Bairro 3">
+          <div class="cam-btn__top">
+            <i data-lucide="alert-octagon"></i>
+            <span class="cam-status cam-status--warning">Manutenção</span>
+          </div>
+          <h3>Câmera 3</h3>
+          <p>Bairro 3</p>
+          <small>Retorno previsto para 14h</small>
+        </button>
+        <button type="button" class="cam-btn" data-camera="Câmera 4" data-status="online"
+          data-updated="Atualizada há 1 min" data-region="Bairro 4">
+          <div class="cam-btn__top">
+            <i data-lucide="video"></i>
+            <span class="cam-status">Online</span>
+          </div>
+          <h3>Câmera 4</h3>
+          <p>Bairro 4</p>
+          <small>Atualizada há 1 min</small>
+        </button>
+        <button type="button" class="cam-btn" data-camera="Câmera 5" data-status="offline"
+          data-updated="Sem sinal desde 09h20" data-region="Bairro 5">
+          <div class="cam-btn__top">
+            <i data-lucide="wifi-off"></i>
+            <span class="cam-status cam-status--offline">Offline</span>
+          </div>
+          <h3>Câmera 5</h3>
+          <p>Bairro 5</p>
+          <small>Sem sinal desde 09h20</small>
+        </button>
+        <button type="button" class="cam-btn" data-camera="Câmera 6" data-status="online"
+          data-updated="Atualizada há 8 min" data-region="Bairro 6">
+          <div class="cam-btn__top">
+            <i data-lucide="video"></i>
+            <span class="cam-status">Online</span>
+          </div>
+          <h3>Câmera 6</h3>
+          <p>Bairro 6</p>
+          <small>Atualizada há 8 min</small>
+        </button>
+        <button type="button" class="cam-btn" data-camera="Câmera 7" data-status="online"
+          data-updated="Atualizada há 3 min" data-region="Bairro 7">
+          <div class="cam-btn__top">
+            <i data-lucide="video"></i>
+            <span class="cam-status">Online</span>
+          </div>
+          <h3>Câmera 7</h3>
+          <p>Bairro 7</p>
+          <small>Atualizada há 3 min</small>
+        </button>
+        <button type="button" class="cam-btn" data-camera="Câmera 8" data-status="offline"
+          data-updated="Sem sinal desde 11h10" data-region="Bairro 8">
+          <div class="cam-btn__top">
+            <i data-lucide="wifi-off"></i>
+            <span class="cam-status cam-status--offline">Offline</span>
+          </div>
+          <h3>Câmera 8</h3>
+          <p>Bairro 8</p>
+          <small>Sem sinal desde 11h10</small>
+        </button>
+        <button type="button" class="cam-btn" data-camera="Câmera 9" data-status="online"
+          data-updated="Atualizada há 9 min" data-region="Bairro 9">
+          <div class="cam-btn__top">
+            <i data-lucide="video"></i>
+            <span class="cam-status">Online</span>
+          </div>
+          <h3>Câmera 9</h3>
+          <p>Bairro 9</p>
+          <small>Atualizada há 9 min</small>
+        </button>
+        <button type="button" class="cam-btn" data-camera="Câmera 10" data-status="manutenção"
+          data-updated="Retorno previsto para 16h" data-region="Bairro 10">
+          <div class="cam-btn__top">
+            <i data-lucide="alert-octagon"></i>
+            <span class="cam-status cam-status--warning">Manutenção</span>
+          </div>
+          <h3>Câmera 10</h3>
+          <p>Bairro 10</p>
+          <small>Retorno previsto para 16h</small>
+        </button>
+        <button type="button" class="cam-btn" data-camera="Câmera 11" data-status="online"
+          data-updated="Atualizada há 4 min" data-region="Bairro 11">
+          <div class="cam-btn__top">
+            <i data-lucide="video"></i>
+            <span class="cam-status">Online</span>
+          </div>
+          <h3>Câmera 11</h3>
+          <p>Bairro 11</p>
+          <small>Atualizada há 4 min</small>
+        </button>
+        <button type="button" class="cam-btn" data-camera="Câmera 12" data-status="online"
+          data-updated="Atualizada há 6 min" data-region="Bairro 12">
+          <div class="cam-btn__top">
+            <i data-lucide="video"></i>
+            <span class="cam-status">Online</span>
+          </div>
+          <h3>Câmera 12</h3>
+          <p>Bairro 12</p>
+          <small>Atualizada há 6 min</small>
+        </button>
+        <button type="button" class="cam-btn" data-camera="Câmera 13" data-status="online"
+          data-updated="Atualizada há 12 min" data-region="Bairro 13">
+          <div class="cam-btn__top">
+            <i data-lucide="video"></i>
+            <span class="cam-status">Online</span>
+          </div>
+          <h3>Câmera 13</h3>
+          <p>Bairro 13</p>
+          <small>Atualizada há 12 min</small>
+        </button>
+        <button type="button" class="cam-btn" data-camera="Câmera 14" data-status="offline"
+          data-updated="Sem sinal desde 07h45" data-region="Bairro 14">
+          <div class="cam-btn__top">
+            <i data-lucide="wifi-off"></i>
+            <span class="cam-status cam-status--offline">Offline</span>
+          </div>
+          <h3>Câmera 14</h3>
+          <p>Bairro 14</p>
+          <small>Sem sinal desde 07h45</small>
+        </button>
+        <button type="button" class="cam-btn" data-camera="Câmera 15" data-status="online"
+          data-updated="Atualizada há 10 min" data-region="Bairro 15">
+          <div class="cam-btn__top">
+            <i data-lucide="video"></i>
+            <span class="cam-status">Online</span>
+          </div>
+          <h3>Câmera 15</h3>
+          <p>Bairro 15</p>
+          <small>Atualizada há 10 min</small>
+        </button>
+      </section>
+    </div>
+  </div>
+
+  <!-- ============================== -->
+  <!--              Mapa              -->
+  <!-- ============================== -->
+
+  <section id="mapa" aria-labelledby="mapa-heading">
+    <div class="mapa-hero">
+
+      <div class="mapa-hero__content">
+        <div class="mapa-hero__header">
+          <span class="mapa-hero__eyebrow">Monitoramento ao vivo</span>
+          <span class="mapa-hero__pill mapa-hero__pill--sync" aria-live="polite">
+            <i class="fa-solid fa-arrows-rotate" aria-hidden="true"></i>
+            Sincronizado há 2 min
+          </span>
+        </div>
+
+        <h2 id="mapa-heading">Mapa estratégico de monitoramento</h2>
+        <p class="mapa-hero__description">
+          Visualize câmeras e ocorrências em tempo real. Entre no painel completo para rotas de patrulha,
+          zonas críticas e despacho de equipes.
+        </p>
+
+        <ul class="mapa-hero__stats" aria-label="Resumo rápido do monitoramento">
+          <li>
+            <i class="fa-solid fa-tower-broadcast" aria-hidden="true"></i>
+            <span class="stat-label">Cobertura</span>
+            <strong class="stat-value">120 câmeras</strong>
+          </li>
+          <li>
+            <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+            <span class="stat-label">Alertas</span>
+            <strong class="stat-value">2 críticos</strong>
+          </li>
+          <li>
+            <i class="fa-solid fa-car-side" aria-hidden="true"></i>
+            <span class="stat-label">Patrulhas</span>
+            <strong class="stat-value">3 em rota</strong>
+          </li>
+        </ul>
+
+        <div class="mapa-hero__actions">
+          <a class="mapa-hero__cta" href="pages/mapdex.html">
+            Abrir painel do mapa
+            <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="mapa-hero__preview" aria-hidden="true">
+        <div class="mapa-hero__card">
+          <img src="../img/Mapa.png" alt="" loading="lazy">
+          <div class="mapa-hero__overlay"></div>
+          <span class="mapa-hero__badge-live">
+            <i class="fa-solid fa-circle" aria-hidden="true"></i> Ao vivo
+          </span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================== -->
+  <!--             Notícias           -->
+  <!-- ============================== -->
+
+  <section id="noticias" aria-labelledby="noticias-heading">
+    <div class="noticias-head">
+      <h2 id="noticias-heading">Destaques e Atualizações</h2>
+      <p class="noticias-subtitle">As principais notícias e eventos que impactam nossa comunidade.</p>
+    </div>
+
+    <!-- Carrossel de notícias -->
+    <div class="slider-container" role="region" aria-label="Carrossel de notícias">
+      <button class="slider-button prev" aria-label="Notícia anterior">
+        <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+      </button>
+
+      <div class="slider-viewport">
+        <div class="slider-track" id="news-track">
+          <!-- Card 1 -->
+          <article class="card-noticia" data-category="seguranca">
+            <div class="card-media">
+              <img src="../img/imagem1.webp" alt="Prisão de quadrilha durante operação policial">
+            </div>
+            <div class="card-content">
+              <h3>Ação integrada resulta em prisão de quadrilha</h3>
+              <p>Operação conjunta da SSP e Polícia Civil prendeu suspeitos que atuavam na região central.</p>
+            </div>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="card-noticia" data-category="comunidade">
+            <div class="card-media">
+              <img src="../img/imagem2.jpg" alt="Câmeras de segurança instaladas no bairro Aurora">
+            </div>
+            <div class="card-content">
+              <h3>Moradores relatam aumento de segurança no bairro Aurora</h3>
+              <p>Após a instalação de 10 novas câmeras, o bairro registrou queda de 30% em ocorrências.</p>
+            </div>
+          </article>
+
+          <!-- Card 3 -->
+          <article class="card-noticia" data-category="tecnologia">
+            <div class="card-media">
+              <img src="../img/imagem3.webp" alt="Painel de reconhecimento facial em operação">
+            </div>
+            <div class="card-content">
+              <h3>Nova tecnologia de reconhecimento facial é implementada</h3>
+              <p>Sistema de ponta agora auxilia na identificação de foragidos na cidade.</p>
+            </div>
+          </article>
+
+          <!-- Card 4 -->
+          <article class="card-noticia" data-category="comunidade">
+            <div class="card-media">
+              <img src="../img/imagem4.jpg" alt="Palestra educativa em escola pública">
+            </div>
+            <div class="card-content">
+              <h3>Programa educativo em escolas reduz vandalismo</h3>
+              <p>Parceria com a Educação promove cidadania e diminui ocorrências em áreas escolares.</p>
+            </div>
+          </article>
+
+          <!-- Card 5 -->
+          <article class="card-noticia" data-category="seguranca">
+            <div class="card-media">
+              <img src="../img/imagem5.jpg" alt="Reunião com líderes comunitários">
+            </div>
+            <div class="card-content">
+              <h3>SSP se reúne com líderes comunitários para novas estratégias</h3>
+              <p>Encontro trimestral alinha ações prioritárias com foco em cada bairro.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <!-- Botão próxima notícia-->
+
+      <button class="slider-button next" aria-label="Próxima notícia">
+        <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+      </button>
+    </div>
+
+    <!-- Botão de "Ver todas as notícias" -->
+    <div class="noticias-cta">
+      <a href="pages/noticias.html" class="btn-ler-mais" aria-label="Ver todas as notícias">Ver todas as notícias</a>
+    </div>
+  </section>
+
+  <!-- Seção de Inscrição por E-mail -->
+  <section id="newsletter" aria-labelledby="newsletter-heading">
+    <div class="newsletter-container">
+      <h2 id="newsletter-heading">Receba as últimas notícias</h2>
+      <p>Inscreva-se para receber atualizações diretamente no seu e-mail.</p>
+      <form class="newsletter-form" action="#" method="post">
+        <input type="email" name="email" placeholder="Digite seu e-mail" required>
+        <button type="submit">Inscrever-se</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ============================== -->
+  <!--             Análises           -->
+  <!-- ============================== -->
+
+  <section id="analises" aria-labelledby="analises-heading">
+    <div class="analises-container">
+      <div class="analises-header">
+        <div class="analises-header-text">
+          <h2 id="analises-heading">Dados em Tempo Real</h2>
+          <p>Indicadores atualizados de segurança pública para monitoramento contínuo da cidade</p>
+        </div>
+        <span class="analises-badge">
+          <i data-lucide="refresh-cw" aria-hidden="true"></i>
+          Atualizado agora
+        </span>
+      </div>
+
+      <div class="analises-grid">
+        <div class="analise-card analise-card--alert">
+          <div class="analise-icon">
+            <i data-lucide="alert-octagon" aria-hidden="true"></i>
+          </div>
+          <div class="analise-content">
+            <h4>Ocorrências Registradas</h4>
+            <div class="analise-value">342</div>
+            <p class="analise-trend analise-trend--neutral">
+              <i data-lucide="calendar" aria-hidden="true"></i>
+              Últimos 7 dias
+            </p>
+          </div>
+        </div>
+
+        <div class="analise-card analise-card--success">
+          <div class="analise-icon">
+            <i data-lucide="timer" aria-hidden="true"></i>
+          </div>
+          <div class="analise-content">
+            <h4>Tempo de Resposta</h4>
+            <div class="analise-value">4min</div>
+            <p class="analise-trend analise-trend--positive">
+              <i data-lucide="arrow-down" aria-hidden="true"></i>
+              9% mais rápido
+            </p>
+          </div>
+        </div>
+
+        <div class="analise-card analise-card--info">
+          <div class="analise-icon">
+            <i data-lucide="check-circle-2" aria-hidden="true"></i>
+          </div>
+          <div class="analise-content">
+            <h4>Taxa de Resolução</h4>
+            <div class="analise-value">83%</div>
+            <p class="analise-trend analise-trend--positive">
+              <i data-lucide="trending-up" aria-hidden="true"></i>
+              Em crescimento
+            </p>
+          </div>
+        </div>
+
+        <div class="analise-card analise-card--warning">
+          <div class="analise-icon">
+            <i data-lucide="camera" aria-hidden="true"></i>
+          </div>
+          <div class="analise-content">
+            <h4>Rede de Monitoramento</h4>
+            <div class="analise-value">120</div>
+            <p class="analise-trend analise-trend--neutral">
+              <i data-lucide="map" aria-hidden="true"></i>
+              Câmeras em 18 bairros
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="analises-chart">
+        <div class="chart-header">
+          <div>
+            <h3>
+              <i data-lucide="line-chart" aria-hidden="true"></i> 
+              Evolução de Ocorrências
+            </h3>
+            <p class="chart-subtitle">Registros diários da última semana</p>
+          </div>
+          <div class="chart-legend">
+            <span class="legend-item">
+              <span class="legend-dot"></span>
+              Ocorrências
+            </span>
+          </div>
+        </div>
+        <div class="chart-container">
+          <div class="chart-grid">
+            <div class="chart-bar" style="height: 65%;">
+              <span class="bar-value">45</span>
+              <div class="bar-fill"></div>
+              <span class="bar-label">Seg</span>
+            </div>
+            <div class="chart-bar" style="height: 52%;">
+              <span class="bar-value">36</span>
+              <div class="bar-fill"></div>
+              <span class="bar-label">Ter</span>
+            </div>
+            <div class="chart-bar" style="height: 58%;">
+              <span class="bar-value">40</span>
+              <div class="bar-fill"></div>
+              <span class="bar-label">Qua</span>
+            </div>
+            <div class="chart-bar" style="height: 85%;">
+              <span class="bar-value">59</span>
+              <div class="bar-fill"></div>
+              <span class="bar-label">Qui</span>
+            </div>
+            <div class="chart-bar" style="height: 70%;">
+              <span class="bar-value">48</span>
+              <div class="bar-fill"></div>
+              <span class="bar-label">Sex</span>
+            </div>
+            <div class="chart-bar" style="height: 78%;">
+              <span class="bar-value">54</span>
+              <div class="bar-fill"></div>
+              <span class="bar-label">Sáb</span>
+            </div>
+            <div class="chart-bar chart-bar--active" style="height: 87%;">
+              <span class="bar-value">60</span>
+              <div class="bar-fill"></div>
+              <span class="bar-label">Dom</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="analises-cta">
+        <a href="pages/anadex.html" class="btn-analises">
+          <span>Explorar Análises Completas</span>
+          <i data-lucide="arrow-right" aria-hidden="true"></i>
+        </a>
+        <p class="cta-description">Gráficos detalhados, tendências e relatórios exportáveis</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== -->
+  <!--             Sobre              -->
+  <!-- ============================== -->
+
+  <section id="sobre" aria-labelledby="sobre-heading">
+    <div class="sobre-container">
+      <div class="sobre-header">
+        <h2 id="sobre-heading">Segurança Inteligente e Transparente</h2>
+        <p class="sobre-subtitle">Proteção com tecnologia avançada, respeito à privacidade e compromisso com cada cidadão</p>
+      </div>
+
+      <div class="sobre-content">
+        <div class="sobre-card">
+          <div class="sobre-icon">
+            <i data-lucide="shield-check" aria-hidden="true"></i>
+          </div>
+          <h3>Tecnologia e Inovação</h3>
+          <p>Utilizamos inteligência artificial para monitoramento em tempo real e proteção da privacidade. A IA borra automaticamente rostos nas imagens para usuários comuns, garantindo respostas rápidas a emergências com total respeito aos direitos individuais.</p>
+        </div>
+
+        <div class="sobre-card">
+          <div class="sobre-icon">
+            <i data-lucide="lock" aria-hidden="true"></i>
+          </div>
+          <h3>Conformidade com a LGPD</h3>
+          <p>Todos os dados coletados seguem rigorosamente a Lei Geral de Proteção de Dados (LGPD). Garantimos privacidade, segurança e transparência no tratamento das informações dos cidadãos.</p>
+        </div>
+
+        <div class="sobre-card">
+          <div class="sobre-icon">
+            <i data-lucide="users" aria-hidden="true"></i>
+          </div>
+          <h3>Compromisso com a Comunidade</h3>
+          <p>Trabalhamos em colaboração com a população de Criciúma para promover segurança, transparência e qualidade de vida. Sua participação é fundamental para uma cidade mais segura.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================== -->
+  <!--             Rodapé             -->
+  <!-- ============================== -->
+
+  <footer id="contato">
+    <div class="footer-container">
+      <div class="footer-main">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <img src="../img/logo-preta.png" alt="Emblema da SSP">
+            <div class="footer-brand-text">
+              <h3>SSP - CRICIÚMA</h3>
+              <p>Sistema de Segurança Pública</p>
+            </div>
+          </div>
+          <p class="footer-description">
+            Proteção inteligente, transparente e comprometida com cada cidadão.
+          </p>
+        </div>
+
+        <div class="footer-contact">
+          <h3>Fale Conosco</h3>
+          <ul class="contact-list">
+            <li>
+              <i data-lucide="mail" aria-hidden="true"></i>
+              <a href="mailto:contato@ssp.gov">contato@ssp.gov</a>
+            </li>
+            <li>
+              <i data-lucide="phone" aria-hidden="true"></i>
+              <a href="tel:+5548000000000">(48) 00000-0000</a>
+            </li>
+            <li>
+              <i data-lucide="map-pin" aria-hidden="true"></i>
+              <span>Rua da Segurança, 125 - Centro<br>Criciúma - SC</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="footer-links">
+          <h3>Acesse Também</h3>
+          <ul>
+            <li><a href="pages/mapdex.html">Painel de Mapas</a></li>
+            <li><a href="pages/noticias.html">Central de Notícias</a></li>
+            <li><a href="pages/anadex.html">Análises Completas</a></li>
+            <li><a href="pages/comdex.html">Área do Comitê</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2025 SSP Criciúma. Todos os direitos reservados.</p>
+        <p class="footer-lgpd">Sistema em conformidade com a LGPD</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="function/script.js" defer></script>
+
+</body>
+
+</html>

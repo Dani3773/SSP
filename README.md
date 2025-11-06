@@ -1,58 +1,131 @@
 <!-- HEADER -->
 <h1 align="center">🧠 SSP — Smart Systems Platform</h1>
 <p align="center">
-  <b>Public Security & Transparency System Prototype</b><br>
-  Academic Web Development Project • HTML • CSS • JavaScript
+  <b>Protótipo de Sistema de Segurança Pública e Transparência</b><br>
+  Projeto Acadêmico de Desenvolvimento Web Full-Stack • HTML • CSS • JavaScript • Node.js
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/status-active-brightgreen?style=flat-square"/>
-  <img src="https://img.shields.io/badge/license-MIT-blue?style=flat-square"/>
-  <img src="https://img.shields.io/badge/language-English-lightgrey?style=flat-square"/>
+  <img src="https://img.shields.io/badge/status-ativo-brightgreen?style=flat-square"/>
+  <img src="https://img.shields.io/badge/licença-MIT-blue?style=flat-square"/>
+  <img src="https://img.shields.io/badge/idioma-Português-lightgrey?style=flat-square"/>
 </p>
 
 ---
 
-## 🌍 Overview
+## 🌍 Visão Geral
 
-**SSP (Smart Systems Platform)** is an academic web project developed as part of a **Computer Science program**.  
-It simulates a **Public Security and Transparency Portal**, integrating pages for **citizen reports, live monitoring, and administrative dashboards**.
+**SSP (Smart Systems Platform)** é um projeto web acadêmico desenvolvido como parte de um **programa de Ciência da Computação**.  
+Ele simula um **Portal Público de Segurança e Transparência**, integrando páginas front-end para **denúncias cidadãs, monitoramento ao vivo e dashboards administrativos** com uma **API back-end para gerenciamento de dados**.
 
-The entire project is built with **pure web technologies (HTML, CSS, JavaScript)** — no frameworks — focusing on code structure, interactivity, and teamwork.
+O projeto combina **tecnologias front-end (HTML, CSS, JavaScript)** com **back-end (Node.js, Express)**, utilizando JSON para armazenamento de dados, focando no desenvolvimento full-stack, interatividade e trabalho em equipe.
 
-> 🧩 The goal is to create a realistic and educational prototype that connects civic technology with front-end development fundamentals.
-
----
-
-## 🎯 Purpose
-
-The SSP represents how **web technologies** can be used to promote **digital transparency, public engagement, and accountability**.  
-It’s also a **hands-on learning environment** for building, organizing, and testing front-end logic and interface design collaboratively.
+> 🧩 O objetivo é criar um protótipo realista e educacional que conecta tecnologia cívica com fundamentos modernos de desenvolvimento web.
 
 ---
 
-## ⚙️ Tech Stack
+## 🎯 Propósito
 
-| Category | Technology |
+O SSP representa como **tecnologias web** podem ser usadas para promover **transparência digital, engajamento público e accountability**.  
+Também é um **ambiente de aprendizado prático** para construir, organizar e testar aplicações web full-stack de forma colaborativa.
+
+---
+
+## ⚙️ Stack Tecnológico
+
+| Categoria | Tecnologia |
 |-----------|-------------|
-| Structure | **HTML5** |
-| Style | **CSS3** |
-| Logic / Interaction | **JavaScript (ES6)** |
-| Collaboration | **Git + GitHub** |
-| Prototyping | **Mockups, Screens, UI Concepts** |
+| Estrutura Front-end | **HTML5** |
+| Estilo Front-end | **CSS3** |
+| Lógica/Interação Front-end | **JavaScript (ES6)** |
+| Back-end | **Node.js + Express.js** |
+| Armazenamento de Dados | **Arquivos JSON** |
+| Colaboração | **Git + GitHub** |
+| Prototipagem | **Mockups, Telas, Conceitos de UI** |
 
 ---
 
-## 🧑‍💻 Developers
+## 🧑‍💻 Desenvolvedores
 
-| Name | Role |
-|------|------|
-| **Daniel Felisberto dos Santos** | Front-end, logic, UI structure, version control |
-| **Gustavo Marcelino** | Front-end, design, prototyping, scripting |
-| **Igor Rayciky** | Front-end, interactivity, testing, code refinement |
-| **Lucas Guollo** | Front-end, prototyping, interface support, adjustments |
+| Nome | Função |
+|------|--------|
+| **Daniel Felisberto dos Santos** | Back-end, front-end, desenvolvimento de API, integração, controle de versão |
+| **Gustavo Marcelino** | Front-end, design, prototipagem, scripting |
+| **Igor Rayciky** | Front-end, interatividade, testes, refinamento de código |
+| **Lucas Guollo** | Front-end, prototipagem, suporte de interface, ajustes |
 
-> All four developers work equally across the entire project — from HTML and CSS to JavaScript logic and UI prototyping.
+> Todos os quatro desenvolvedores trabalham igualmente em todo o projeto — do UI front-end às APIs back-end.
+
+---
+
+## 🧱 Estrutura do Projeto
+
+SSP/
+│
+├── src/
+│ ├── back-end/
+│ │ ├── controllers/
+│ │ │ ├── controlCom.js (API para comunicações/notícias)
+│ │ │ └── controlUs.js (API para usuários)
+│ │ ├── storage/
+│ │ │ ├── analyses.json
+│ │ │ ├── cameras.json
+│ │ │ ├── media.json
+│ │ │ ├── news.json
+│ │ │ └── users.json
+│ │ ├── utils.js (utilitários para arquivos JSON)
+│ │ ├── app.js (servidor Express)
+│ │ ├── package.json
+│ │ └── start.bat (script de inicialização Windows)
+│ ├── front-end/
+│ │ ├── function/
+│ │ │ ├── script.js (scripts principais de UI)
+│ │ │ ├── comdex.js
+│ │ │ ├── mapScript.js
+│ │ │ ├── noticiasScript.js
+│ │ │ └── anaScript.js
+│ │ ├── img/ (imagens)
+│ │ ├── pages/ (páginas adicionais)
+│ │ ├── stylo/ (folhas de estilo)
+│ │ └── index.html (página principal)
+│
+├── protótipo/
+│ ├── screenshots & vídeos
+│
+└── README.md
+
+---
+
+## 🚀 Como Executar
+
+### Pré-requisitos
+- **Node.js** instalado (baixe em [nodejs.org](https://nodejs.org/))
+
+### Configuração e Execução
+```bash
+git clone https://github.com/Dani3773/SSP.git
+cd SSP/src/back-end
+npm install  # Instalar dependências
+npm start    # Ou use: .\start.bat (Windows)
+```
+
+Em seguida, abra `http://localhost:3000` no navegador.
+
+> **Nota**: No Windows, se `npm` não estiver no PATH, use `.\start.bat` ou `& 'C:\Program Files\nodejs\node.exe' app.js`
+
+---
+
+🧭 Status do Projeto
+🟡 Desenvolvimento Ativo
+Front-end e back-end integrados. Novos recursos, melhorias e APIs estão sendo continuamente adicionados.
+
+---
+
+📜 Licença
+Distribuído sob a Licença MIT — gratuito para uso acadêmico e educacional.
+Sinta-se à vontade para explorar, fazer fork e aprender.
+
+<p align="center"> <i>Desenvolvido colaborativamente por Daniel, Gustavo, Igor e Lucas — 2025.</i><br> <b>Smart Systems Platform • Protótipo Acadêmico</b> </p>> All four developers work equally across the entire project — from HTML and CSS to JavaScript logic and UI prototyping.
 
 ---
 
@@ -61,45 +134,66 @@ It’s also a **hands-on learning environment** for building, organizing, and te
 SSP/
 │
 ├── src/
-│ ├── function/
-│ │ ├── script.js
-│ │ ├── mapScript.js
-│ │ └── script3.js
-│ ├── img/
-│ │ ├── Mapa.png
-│ │ └── Prefeitura.jpg
-│ └── index.html
+│ ├── back-end/
+│ │ ├── controllers/
+│ │ │ ├── controlCom.js (API para comunicações/notícias)
+│ │ │ └── controlUs.js (API para usuários)
+│ │ ├── storage/
+│ │ │ ├── analyses.json
+│ │ │ ├── cameras.json
+│ │ │ ├── media.json
+│ │ │ ├── news.json
+│ │ │ └── users.json
+│ │ ├── utils.js (utilitários para arquivos JSON)
+│ │ ├── app.js (servidor Express)
+│ │ ├── package.json
+│ │ └── start.bat (script de inicialização Windows)
+│ ├── front-end/
+│ │ ├── function/
+│ │ │ ├── script.js (scripts principais de UI)
+│ │ │ ├── comdex.js
+│ │ │ ├── mapScript.js
+│ │ │ ├── noticiasScript.js
+│ │ │ └── anaScript.js
+│ │ ├── img/ (imagens)
+│ │ ├── pages/ (páginas adicionais)
+│ │ ├── stylo/ (folhas de estilo)
+│ │ └── index.html (página principal)
 │
 ├── protótipo/
 │ ├── screenshots & videos
 │
 └── README.md
 
-yaml
-Copiar código
-
 ---
 
 ## 🚀 How to Run
 
+### Prerequisites
+- **Node.js** installed (download from [nodejs.org](https://nodejs.org/))
+
+### Configuração e Execução
 ```bash
 git clone https://github.com/Dani3773/SSP.git
-cd SSP
-start index.html
-✅ No dependencies or build tools required — simply open index.html in your browser.```
+cd SSP/src/back-end
+npm install  # Instalar dependências
+npm start    # Ou use: .\start.bat (Windows)
+```
 
+Em seguida, abra `http://localhost:3000` no navegador.
 
+> **Nota**: No Windows, se `npm` não estiver no PATH, use `.\start.bat` ou `& 'C:\Program Files\nodejs\node.exe' app.js`
 
-🧭 Project Status
-🟡 Active Development
-New pages, improvements, and scripts are continuously being added.
+---
 
+🧭 Status do Projeto
+🟡 Desenvolvimento Ativo
+Front-end e back-end integrados. Novos recursos, melhorias e APIs estão sendo continuamente adicionados.
 
+---
 
-📜 License
-Distributed under the MIT License — free for academic and educational use.
-Feel free to explore, fork, and learn.
+📜 Licença
+Distribuído sob a Licença MIT — gratuito para uso acadêmico e educacional.
+Sinta-se à vontade para explorar, fazer fork e aprender.
 
-
-
-<p align="center"> <i>Developed collaboratively by Daniel, Gustavo, Igor, and Lucas — 2025.</i><br> <b>Smart Systems Platform • Academic Prototype</b> </p>
+<p align="center"> <i>Desenvolvido colaborativamente por Daniel, Gustavo, Igor e Lucas — 2025.</i><br> <b>Smart Systems Platform • Protótipo Acadêmico</b> </p>

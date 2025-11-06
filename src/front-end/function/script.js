@@ -10,6 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
   initInfiniteLoopSlider(); 
   initCameraSelector();     
   initNewsletterForm();     
+  initComiteLogin();        
+  initDenunciaForm();       
+  loadNews();               
 });
 
 /* =========================================================
@@ -61,10 +64,22 @@ function initLoginModal() {
   }
 
   function closeComiteModal(focusTrigger = false) {
-    overlay.classList.remove('show');
-    modal.hidden = true;
-    lockBody(false);
-    if (focusTrigger && btnTrigger) btnTrigger.focus();
+    const modal = document.getElementById('login');
+    if (modal) {
+      modal.classList.add('exiting');
+      // Aguardar a animação terminar antes de esconder
+      setTimeout(() => {
+        overlay.classList.remove('show');
+        modal.hidden = true;
+        modal.classList.remove('exiting');
+        lockBody(false);
+        if (focusTrigger && btnTrigger) btnTrigger.focus();
+      }, 300); // Tempo da animação de saída
+    } else {
+      overlay.classList.remove('show');
+      lockBody(false);
+      if (focusTrigger && btnTrigger) btnTrigger.focus();
+    }
   }
 
   btnTrigger?.addEventListener('click', openComiteModal);
@@ -285,21 +300,191 @@ function initCameraSelector() {
 }
 
 /* =========================================================
-   Newsletter
+   Login do Comitê (conexão com back-end)
    ========================================================= */
-function initNewsletterForm() {
-  const newsletterForm = document.querySelector('.newsletter-form');
-  if (!newsletterForm) return;
+function initComiteLogin() {
+  const loginBtn = document.getElementById('comite-acess');
+  const userInput = document.getElementById('comite-user');
+  const passInput = document.getElementById('comite-pass');
+  const errorEl = document.getElementById('comite-error');
 
-  newsletterForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-    const emailInput = newsletterForm.querySelector('input[type="email"]');
-    const emailValue = (emailInput?.value || '').trim();
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue)) {
-      alert('Por favor, insira um e-mail válido.');
+  if (!loginBtn || !userInput || !passInput || !errorEl) return;
+
+  // Função para fazer login
+  const performLogin = async () => {
+    const username = userInput.value.trim();
+    const password = passInput.value.trim();
+
+    if (!username || !password) {
+      errorEl.textContent = 'Preencha usuário e senha.';
       return;
     }
-    alert('Inscrição realizada com sucesso!');
-    newsletterForm.reset();
+
+    loginBtn.disabled = true;
+    loginBtn.textContent = 'Acessando...';
+
+    try {
+      const response = await fetch('/api/users/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username, password })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Erro no login');
+      }
+
+      // Salvar token no localStorage
+      localStorage.setItem('ssp-token', data.token);
+      localStorage.setItem('ssp-user', JSON.stringify(data.user));
+
+      // Redirecionar para página do comitê
+      window.location.href = 'pages/comdex.html';
+    } catch (error) {
+      errorEl.textContent = error.message;
+    } finally {
+      loginBtn.disabled = false;
+      loginBtn.textContent = 'Acessar';
+    }
+  };
+
+  // Event listener para o botão
+  loginBtn.addEventListener('click', async (e) => {
+    e.preventDefault();
+    await performLogin();
+  });
+
+  // Event listener para tecla Enter nos campos de input
+  const handleEnterKey = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      performLogin();
+    }
+  };
+
+  userInput.addEventListener('keydown', handleEnterKey);
+  passInput.addEventListener('keydown', handleEnterKey);
+}
+
+/* =========================================================
+   Carregar Notícias Dinâmicas (conexão com back-end)
+   ========================================================= */
+async function loadNews() {
+  const newsTrack = document.getElementById('news-track');
+  if (!newsTrack) return;
+
+  try {
+    const response = await fetch('/api/communications');
+    if (!response.ok) throw new Error('Erro ao carregar notícias');
+    const news = await response.json();
+
+    if (news.length === 0) return; // Manter estáticas se vazio
+
+    // Limpar notícias estáticas e adicionar dinâmicas
+    newsTrack.innerHTML = '';
+    news.forEach(item => {
+      const article = document.createElement('article');
+      article.className = 'card-noticia';
+      article.setAttribute('data-category', item.category || 'geral');
+      article.innerHTML = `
+        <div class="card-media">
+          <img src="${item.image || '../img/imagem1.webp'}" alt="${item.title || 'Notícia'}">
+        </div>
+        <div class="card-content">
+          <h3>${item.title || 'Título'}</h3>
+          <p>${item.description || 'Descrição'}</p>
+        </div>
+      `;
+      newsTrack.appendChild(article);
+    });
+
+    // Re-inicializar slider se necessário
+    initInfiniteLoopSlider();
+  } catch (error) {
+    console.error('Erro ao carregar notícias:', error);
+  }
+}
+
+/* =========================================================
+   Newsletter Form (placeholder)
+   ========================================================= */
+function initNewsletterForm() {
+  // Placeholder para futura implementação
+  // const form = document.querySelector('.newsletter-form');
+  // if (!form) return;
+  // form.addEventListener('submit', ...);
+}
+
+/* =========================================================
+   Denúncia Form (envio via API)
+   ========================================================= */
+function initDenunciaForm() {
+  const form = document.querySelector('form[name="denuncia"]');
+  if (!form) return;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalText = submitBtn.textContent;
+
+    // Desabilitar botão durante envio
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Enviando...';
+
+    try {
+      // Coletar dados do formulário
+      const denunciaData = {
+        titulo: document.getElementById('titulo').value,
+        descricao: document.getElementById('descricao').value,
+        camera: document.getElementById('camera-selecionada').value || 'Não especificada'
+      };
+
+      // Verificar se há arquivo (por enquanto não suportado)
+      const arquivoInput = document.getElementById('arquivo');
+      if (arquivoInput.files[0]) {
+        alert('Upload de arquivos ainda não está disponível. A denúncia será enviada sem anexo.');
+      }
+
+      // Enviar para API
+      const response = await fetch('/api/denuncias', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(denunciaData)
+      });
+
+      if (!response.ok) {
+        const error = await response.json().catch(() => ({ error: 'Erro no envio' }));
+        throw new Error(error.error || 'Erro ao enviar denúncia');
+      }
+
+      const result = await response.json();
+
+      // Sucesso
+      alert('Denúncia enviada com sucesso! ID: ' + result.id);
+
+      // Limpar formulário
+      form.reset();
+      document.getElementById('cam-selecionada-label').textContent = 'nenhuma';
+
+      // Desmarcar câmera selecionada
+      document.querySelectorAll('.cam-btn--active').forEach(btn => {
+        btn.classList.remove('cam-btn--active');
+        btn.setAttribute('aria-pressed', 'false');
+      });
+
+    } catch (error) {
+      alert('Erro ao enviar denúncia: ' + error.message);
+    } finally {
+      // Reabilitar botão
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalText;
+    }
   });
 }

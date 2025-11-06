@@ -164,6 +164,30 @@ header .menu-links a:hover::after {
   box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
 }
 
+.btn-change-password {
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: none;
+  background-color: var(--accent-orange);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-change-password:hover {
+  background-color: #ea580c;
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(234, 88, 12, 0.4);
+}
+
 /* ============================================
    HERO SECTION
 ============================================ */
@@ -390,6 +414,7 @@ header .menu-links a:hover::after {
 .card-cameras { border-top-color: var(--accent-blue); }
 .card-news { border-top-color: var(--accent-green); }
 .card-analysis { border-top-color: var(--accent-purple); }
+.card-denuncias { border-top-color: var(--accent-red); }
 .card-users { border-top-color: var(--accent-orange); }
 
 .card-arrow {
@@ -432,6 +457,11 @@ header .menu-links a:hover::after {
 .card-analysis .quick-icon {
   background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(139, 92, 246, 0.25));
   color: var(--accent-purple);
+}
+
+.card-denuncias .quick-icon {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(239, 68, 68, 0.25));
+  color: var(--accent-red);
 }
 
 .card-users .quick-icon {
@@ -1139,8 +1169,81 @@ header .menu-links a:hover::after {
 }
 
 .denuncia-actions button {
-  padding: 10px 20px;
+  padding: 12px 24px;
   font-size: 0.9rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.denuncia-actions button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.denuncia-actions button:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Botão Ver Detalhes - Azul */
+.denuncia-actions button:first-child,
+.denuncia-actions button:has(i.fa-eye) {
+  background: linear-gradient(135deg, var(--accent-blue), #0ea5e9);
+  color: white;
+}
+
+.denuncia-actions button:first-child:hover,
+.denuncia-actions button:has(i.fa-eye):hover {
+  background: linear-gradient(135deg, #0ea5e9, var(--accent-blue));
+  box-shadow: 0 4px 12px rgba(30, 144, 255, 0.3);
+}
+
+/* Botão Analisar - Laranja */
+.denuncia-actions button:nth-child(2),
+.denuncia-actions button:has(i.fa-search) {
+  background: linear-gradient(135deg, var(--accent-orange), #ea580c);
+  color: white;
+}
+
+.denuncia-actions button:nth-child(2):hover,
+.denuncia-actions button:has(i.fa-search):hover {
+  background: linear-gradient(135deg, #ea580c, var(--accent-orange));
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+/* Botão Resolver - Verde */
+.denuncia-actions button:nth-child(3),
+.denuncia-actions button:has(i.fa-check) {
+  background: linear-gradient(135deg, var(--accent-green), #059669);
+  color: white;
+}
+
+.denuncia-actions button:nth-child(3):hover,
+.denuncia-actions button:has(i.fa-check):hover {
+  background: linear-gradient(135deg, #059669, var(--accent-green));
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+/* Botão Arquivar - Cinza */
+.denuncia-actions button:nth-child(4),
+.denuncia-actions button:has(i.fa-archive) {
+  background: linear-gradient(135deg, #6b7280, #4b5563);
+  color: white;
+}
+
+.denuncia-actions button:nth-child(4):hover,
+.denuncia-actions button:has(i.fa-archive):hover {
+  background: linear-gradient(135deg, #4b5563, #6b7280);
+  box-shadow: 0 4px 12px rgba(107, 114, 128, 0.3);
 }
 
 @keyframes fadeIn {
@@ -1434,4 +1537,262 @@ footer {
 /* Scroll suave */
 html {
   scroll-behavior: smooth;
+}
+
+/* ============================================
+   NOTIFICATION SYSTEM
+============================================ */
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: white;
+  border-radius: 12px;
+  padding: 16px 20px;
+  box-shadow: var(--shadow-xl);
+  border-left: 4px solid;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 9999;
+  transform: translateX(100%);
+  opacity: 0;
+  transition: all 0.3s ease;
+  max-width: 400px;
+}
+
+.notification.show {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.notification-success {
+  border-left-color: var(--accent-green);
+}
+
+.notification-success i {
+  color: var(--accent-green);
+}
+
+.notification-error {
+  border-left-color: var(--accent-red);
+}
+
+.notification-error i {
+  color: var(--accent-red);
+}
+
+.notification-warning {
+  border-left-color: var(--accent-orange);
+}
+
+.notification-warning i {
+  color: var(--accent-orange);
+}
+
+.notification-info {
+  border-left-color: var(--accent-blue);
+}
+
+.notification-info i {
+  color: var(--accent-blue);
+}
+
+.notification i {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.notification span {
+  flex: 1;
+  font-size: 0.95rem;
+  color: var(--text-dark);
+}
+
+.notification-close {
+  background: none;
+  border: none;
+  color: var(--text-light);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.notification-close:hover {
+  background: rgba(0, 0, 0, 0.1);
+  color: var(--text-dark);
+}
+
+/* ============================================
+   FORM STYLES
+============================================ */
+.admin-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: var(--text-medium);
+  font-size: 0.95rem;
+}
+
+.form-input {
+  padding: 12px 16px;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 1rem;
+  background: var(--bg-white);
+  transition: all 0.3s ease;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 3px rgba(30, 144, 255, 0.1);
+}
+
+.form-input[type="textarea"] {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.form-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 10px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-color);
+}
+
+/* ============================================
+   CAMERA MAP STYLES
+============================================ */
+.camera-map-container {
+  margin-top: 10px;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--bg-white);
+}
+
+.camera-map {
+  height: 300px;
+  width: 100%;
+  border-radius: 6px;
+}
+
+.map-instruction {
+  padding: 10px;
+  background: var(--bg-light);
+  color: var(--text-medium);
+  font-size: 0.9rem;
+  text-align: center;
+  margin: 0;
+  border-top: 1px solid var(--border-color);
+}
+
+/* ============================================
+   USER MANAGEMENT STYLES
+============================================ */
+.role-badge {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.role-admin {
+  background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+  color: white;
+}
+
+.role-supervisor {
+  background: linear-gradient(135deg, #4ecdc4, #44a08d);
+  color: white;
+}
+
+.role-operator {
+  background: linear-gradient(135deg, #45b7d1, #96c93d);
+  color: white;
+}
+
+.role-viewer {
+  background: linear-gradient(135deg, #a8a8a8, #8c8c8c);
+  color: white;
+}
+
+/* ============================================
+   PASSWORD CHANGE FORM STYLES
+============================================ */
+#change-password-form .form-group {
+  margin-bottom: 20px;
+}
+
+#change-password-form .form-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 1rem;
+  background: var(--bg-white);
+  transition: all 0.3s ease;
+}
+
+#change-password-form .form-input:focus {
+  outline: none;
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 3px rgba(30, 144, 255, 0.1);
+}
+
+#change-password-form .form-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-color);
+}
+
+#change-password-form .btn-primary,
+#change-password-form .btn-secondary {
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+#change-password-form .btn-primary {
+  background: linear-gradient(135deg, var(--accent-green), #059669);
+  color: white;
+}
+
+#change-password-form .btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+#change-password-form .btn-secondary {
+  background: white;
+  color: var(--text-dark);
+  border: 2px solid var(--border-color);
+}
+
+#change-password-form .btn-secondary:hover {
+  border-color: var(--accent-blue);
+  color: var(--accent-blue);
 }
