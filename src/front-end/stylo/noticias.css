@@ -15,6 +15,15 @@
     margin-top: 1px;
 }
 
+.news-categories button{
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.news-categories button:hover {
+    transform: scale(1.1); 
+    background-color: #ffd700; 
+}
+
 .container {
     margin: 10px;
     display: flex;
@@ -26,6 +35,13 @@
     flex-wrap: wrap; 
     gap: 20px; 
     flex-direction: row;
+}
+
+.track.hide {
+    opacity: 0;
+    transform: scale(0.95);
+    pointer-events: none;
+    display: none;
 }
 
 .card {
@@ -49,6 +65,13 @@
     position: absolute;
     bottom: 0;
     left: 0;
+}
+
+.card button:hover {
+   transform: scale(1.0); 
+   background-color: #fff;
+   color: #080d3f;
+   border: 1px solid #080d3f;
 }
 
 .card {
