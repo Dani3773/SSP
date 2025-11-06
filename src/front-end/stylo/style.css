@@ -1141,8 +1141,7 @@ h1 {
 }
 
 #noticias{
-  padding:56px 0 64px;
-  background: var(--bg);
+  padding:40px 0 64px;
   overflow:hidden;
 }
 #noticias h2{
