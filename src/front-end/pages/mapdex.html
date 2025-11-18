@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Mapa - SSP Criciúma</title>
+  <link rel="icon" href="../img/icone_criciuma.png" type="image/png">
+  <link rel="stylesheet" href="../stylo/mapStyle.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="../img/logo-preta.png" alt="Emblema da SSP">
+      <p>SSP - CRICIÚMA</p>
+    </div>
+    <div class="menu">
+      <nav class="menu-links">
+        <a href="index.html">Início</a>
+        <a href="index.html">Denúncia</a>
+        <a href="index.html">Notícias</a>
+        <a href="index.html">Análises</a>
+        <a href="index.html">Contato</a>
+        <button type="button" class="menu-cta">Acesso comitê</button>
+      </nav>
+    </div>
+  </header>
+
+  <section class="mapa">
+    <div class="map">
+      <h2>Mapa Geral e cobertura</h2>
+      <p>Aqui você encontra todas as câmeras de Criciúma</p>
+      <div id="map"></div>
+    </div>
+    <div class="select">
+      <h2>Lista de câmeras:</h2>
+      <input type="text" id="textbusc" placeholder="Digite a rua...">
+      <div data-type="nav-menu" class="cam">
+        <div class="cam1">
+          <p>Rua Leoni Parassoli</p>
+          <iframe 
+            width="400" 
+            height="250" 
+            src="https://www.youtube.com/embed/57Xf43Pug5k?autoplay=1&mute=1" 
+            title="" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen>
+          </iframe>
+          <button data-lat="-28.6837" data-lng="-49.3689">LOCALIZACÃO</button>
+        </div>
+        <div class="cam2">
+          <p>Av. Jorge Elias de Lucca</p>
+          <iframe 
+            width="400" 
+            height="250" 
+            src="https://www.youtube.com/embed/z545k7Tcb5o?autoplay=1&mute=1" 
+            title="" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            referrerpolicy="strict-origin-when-cross-origin" 
+            allowfullscreen>
+          </iframe>
+          <button data-lat="-28.6874" data-lng="-49.3334">LOCALIZACÃO</button>
+        </div>
+        <div class="cam3">
+          <p>Av. Universitária</p>
+          <iframe 
+            width="400" 
+            height="250" 
+            src="https://www.youtube.com/embed/qmE7U1YZPQA?autoplay=1&mute=1" 
+            title="" 
+            frameborder="0" 
+            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen>
+          </iframe>
+          <button data-lat="-28.7008" data-lng="-49.4102">LOCALIZACÃO</button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="../function/mapScript.js"></script>
+  <footer id="contato">
+    <h2>Fale Conosco</h2>
+    <p>Para mais informações, sugestões ou suporte técnico, entre em contato:</p>
+    <nav class="c1">
+      <ol>Email: contato@ssp.gov</ol>
+      <ol>Telefone: (48)00000-0000</ol>
+      <ol>Endereço: Rua da Segurança, 125 - Centro, Cidade Segura</ol>
+    </nav>
+    <div class="logo">
+      <img src="../img/logo-preta.png" alt="Emblema da SSP">
+    </div>
+  </footer>
+</body>
+</html>

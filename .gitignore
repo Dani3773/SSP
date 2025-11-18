@@ -1,0 +1,19 @@
+# Node
+node_modules/
+src/back-end/node_modules/
+src/front-end/node_modules/
+# Logs
+npm-debug.log*
+.yarn-integrity
+# OS
+.DS_Store
+Thumbs.db
+# Env
+.env
+# VSCode
+.vscode/
+# Builds
+dist/
+build/
+coverage/
+\n# Storage outputs\nsrc/back-end/storage/reports/\nsrc/back-end/storage/uploads/\n
