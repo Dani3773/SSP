@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "type": "Relatório Automático Completo",
+    "period": "17 de novembro de 2025",
+    "data": "{\r\n  \"resumo_executivo\": {\r\n    \"data_geracao\": \"2025-11-17T17:26:42.524Z\",\r\n    \"total_denuncias\": 2,\r\n    \"taxa_resolucao\": \"0.0%\",\r\n    \"disponibilidade_cameras\": \"66.7%\"\r\n  },\r\n  \"analise_denuncias\": {\r\n    \"total\": 2,\r\n    \"hoje\": 0,\r\n    \"semana\": 0,\r\n    \"mes\": 2,\r\n    \"trimestre\": 2,\r\n    \"ano\": 2,\r\n    \"alta\": 0,\r\n    \"media\": 1,\r\n    \"baixa\": 1,\r\n    \"pendente\": 2,\r\n    \"emAndamento\": 0,\r\n    \"resolvida\": 0,\r\n    \"taxaResolucao\": \"0.0\",\r\n    \"tempoMedioResposta\": \"18h\",\r\n    \"madrugada\": 0,\r\n    \"manha\": 0,\r\n    \"tarde\": 2,\r\n    \"noite\": 0,\r\n    \"evolucaoMensal\": [\r\n      {\r\n        \"mes\": \"jun.\",\r\n        \"total\": 0\r\n      },\r\n      {\r\n        \"mes\": \"jul.\",\r\n        \"total\": 0\r\n      },\r\n      {\r\n        \"mes\": \"ago.\",\r\n        \"total\": 0\r\n      },\r\n      {\r\n        \"mes\": \"set.\",\r\n        \"total\": 0\r\n      },\r\n      {\r\n        \"mes\": \"out.\",\r\n        \"total\": 0\r\n      },\r\n      {\r\n        \"mes\": \"nov.\",\r\n        \"total\": 2\r\n      }\r\n    ]\r\n  },\r\n  \"analise_cameras\": {\r\n    \"total\": 6,\r\n    \"online\": 4,\r\n    \"offline\": 1,\r\n    \"manutencao\": 1,\r\n    \"taxaDisponibilidade\": \"66.7\",\r\n    \"tipos\": {\r\n      \"PTZ\": 3,\r\n      \"Dome\": 2,\r\n      \"Bullet\": 1\r\n    },\r\n    \"resolucoes\": {\r\n      \"4K\": 3,\r\n      \"1080p\": 2,\r\n      \"720p\": 1\r\n    },\r\n    \"areaCobertura\": \"0.50\",\r\n    \"instalacoesRecentes\": 6\r\n  }\r\n}",
+    "pdfFile": "relatorio-1763400402553-300448707.pdf",
+    "pdfPath": "/api/analyses/download/relatorio-1763400402553-300448707.pdf",
+    "createdAt": "2025-11-17T17:26:42.563Z"
+  },
+  {
+    "id": 2,
+    "type": "Relatório Automático Completo",
+    "period": "17 de novembro de 2025",
+    "data": "{\r\n  \"resumo_executivo\": {\r\n    \"data_geracao\": \"2025-11-17T17:26:46.391Z\",\r\n    \"total_denuncias\": 2,\r\n    \"taxa_resolucao\": \"0.0%\",\r\n    \"disponibilidade_cameras\": \"66.7%\"\r\n  },\r\n  \"analise_denuncias\": {\r\n    \"total\": 2,\r\n    \"hoje\": 0,\r\n    \"semana\": 0,\r\n    \"mes\": 2,\r\n    \"trimestre\": 2,\r\n    \"ano\": 2,\r\n    \"alta\": 0,\r\n    \"media\": 1,\r\n    \"baixa\": 1,\r\n    \"pendente\": 2,\r\n    \"emAndamento\": 0,\r\n    \"resolvida\": 0,\r\n    \"taxaResolucao\": \"0.0\",\r\n    \"tempoMedioResposta\": \"18h\",\r\n    \"madrugada\": 0,\r\n    \"manha\": 0,\r\n    \"tarde\": 2,\r\n    \"noite\": 0,\r\n    \"evolucaoMensal\": [\r\n      {\r\n        \"mes\": \"jun.\",\r\n        \"total\": 0\r\n      },\r\n      {\r\n        \"mes\": \"jul.\",\r\n        \"total\": 0\r\n      },\r\n      {\r\n        \"mes\": \"ago.\",\r\n        \"total\": 0\r\n      },\r\n      {\r\n        \"mes\": \"set.\",\r\n        \"total\": 0\r\n      },\r\n      {\r\n        \"mes\": \"out.\",\r\n        \"total\": 0\r\n      },\r\n      {\r\n        \"mes\": \"nov.\",\r\n        \"total\": 2\r\n      }\r\n    ]\r\n  },\r\n  \"analise_cameras\": {\r\n    \"total\": 6,\r\n    \"online\": 4,\r\n    \"offline\": 1,\r\n    \"manutencao\": 1,\r\n    \"taxaDisponibilidade\": \"66.7\",\r\n    \"tipos\": {\r\n      \"PTZ\": 3,\r\n      \"Dome\": 2,\r\n      \"Bullet\": 1\r\n    },\r\n    \"resolucoes\": {\r\n      \"4K\": 3,\r\n      \"1080p\": 2,\r\n      \"720p\": 1\r\n    },\r\n    \"areaCobertura\": \"0.50\",\r\n    \"instalacoesRecentes\": 6\r\n  }\r\n}",
+    "pdfFile": "relatorio-1763400406432-368097096.pdf",
+    "pdfPath": "/api/analyses/download/relatorio-1763400406432-368097096.pdf",
+    "createdAt": "2025-11-17T17:26:46.438Z"
+  }
+]

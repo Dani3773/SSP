@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+src/back-end/node_modules/
+
+# Environment
+.env
+.env.local
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Build
+dist/
+build/
+
+# Temp files
+*.tmp
+*.temp
