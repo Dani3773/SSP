@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initComiteLogin();        
   initDenunciaForm();       
   loadNews();
+  initMenuToggle();
   loadAnalytics();          // Carregar análises
 });
 
@@ -37,6 +38,22 @@ function initLucideIcons() {
   if (window.lucide && typeof window.lucide.createIcons === 'function') {
     window.lucide.createIcons();
   }
+}
+
+/* =========================================================
+   Menu Toggle (mobile)
+   ========================================================= */
+function initMenuToggle() {
+  const button = document.querySelector('.menu-toggle');
+  const menu = document.querySelector('.menu');
+  const nav = document.getElementById('primary-nav');
+  if (!button) return;
+  button.addEventListener('click', () => {
+    const expanded = button.getAttribute('aria-expanded') === 'true';
+    button.setAttribute('aria-expanded', String(!expanded));
+    if (menu) menu.classList.toggle('open');
+    if (nav) nav.classList.toggle('open');
+  });
 }
 
 /* =========================================================
@@ -416,8 +433,18 @@ function initComiteLogin() {
       localStorage.setItem('ssp-token', data.token);
       localStorage.setItem('ssp-user', JSON.stringify(data.user));
 
-      // Redirecionar para página do comitê
-      window.location.href = 'pages/comdex.html';
+      // Redirecionar para página do comitê (caminho adaptativo para funcionar em páginas locais e index)
+      try {
+        const path = window.location && window.location.pathname ? window.location.pathname : '';
+        if (path.includes('/pages/')) {
+          // Already in pages/ folder, use relative routing
+          window.location.href = 'comdex.html';
+        } else {
+          window.location.href = '/pages/comdex.html';
+        }
+      } catch (e) {
+        window.location.href = '/pages/comdex.html';
+      }
     } catch (error) {
       errorEl.textContent = error.message;
     } finally {

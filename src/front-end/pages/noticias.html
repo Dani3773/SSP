@@ -3,10 +3,13 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Notícias - SSP Criciúma</title>
   <link rel="icon" href="../img/icone_criciuma.png" type="image/png">
   <link rel="stylesheet" href="../stylo/style.css">
   <link rel="stylesheet" href="../stylo/noticias.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="../function/script.js" defer></script>
   <script src="../function/noticiasScript.js" defer></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
@@ -14,7 +17,9 @@
 <body>
   <header>
     <div class="logo">
-      <img src="../img/logo-preta.png" alt="Emblema da SSP">
+      <a href="../index.html" class="logo-link">
+        <img src="../img/logo-preta.png" alt="Emblema da SSP">
+      </a>
       <p>SSP - CRICIÚMA</p>
     </div>
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Abrir menu de navegação">
@@ -24,12 +29,12 @@
     </button>
     <div class="menu">
       <nav class="menu-links" id="primary-nav">
-        <a href="index.html#inicio">Início</a>
-        <a href="index.html#denuncia">Denúncia</a>
-        <a href="index.html#mapa">Mapa</a>
-        <a href="index.html#noticias">Notícias</a>
-        <a href="index.html#analises">Análises</a>
-        <a href="index.html#contato">Contato</a>
+        <a href="../index.html#inicio">Início</a>
+        <a href="../index.html#denuncia">Denúncia</a>
+        <a href="../index.html#mapa">Mapa</a>
+        <a href="../index.html#noticias">Notícias</a>
+        <a href="../index.html#analises">Análises</a>
+        <a href="../index.html#contato">Contato</a>
         <button type="button" class="menu-cta">Acesso comitê</button>
       </nav>
     </div>
@@ -37,102 +42,148 @@
 
   <main class="pagina-noticias">
     <section id="noticias">
-      <div class="noticias-container">
-        <h2>Notícias</h2>
-        <p class="noticias-subtitle">Fique por dentro de todas as noticías de Criciúma</p>
-        <div class="news-categories">
-          <button class="category-btn active" data-category="todas">Todas</button>
-          <button class="category-btn" data-category="tecnologia">Tecnologia</button>
-          <button class="category-btn" data-category="seguranca">Segurança</button>
-          <button class="category-btn" data-category="educacao">Educação</button>
+        <div class="noticias-container">
+        <div class="noticias-hero centered" role="region" aria-label="Introdução das notícias">
+          <div class="hero-eyebrow" aria-hidden="true">Central de Notícias</div>
+          <h1 class="noticias-title">
+            <i data-lucide="book-open" class="title-icon" aria-hidden="true"></i>
+            <span class="title-text">NOTÍCIAS</span>
+          </h1>
+          <p class="noticias-subtitle">Fique por dentro das ações, comunicados e informações relevantes para a segurança de Criciúma.</p>
+          <p class="noticias-lead">Use os filtros abaixo para refinar por categoria, período ou pesquisar por palavras-chave.</p>
         </div>
+        <div class="news-controls">
+          <div class="news-controls-left">
+            <div class="news-categories">
+              <button class="category-btn active" data-category="todas">Todas</button>
+              <button class="category-btn" data-category="noticia">Notícias</button>
+              <button class="category-btn" data-category="comunicado">Comunicados</button>
+              <button class="category-btn" data-category="informacao">Informações</button>
+            </div>
+            <div class="filter-date" style="margin-left:12px;display:flex;gap:8px;align-items:center;">
+              <label for="news-period" class="visually-hidden">Período</label>
+              <select id="news-period" class="page-size-select" aria-label="Filtrar por período">
+                <option value="todos">Todos os períodos</option>
+                <option value="7dias">Últimos 7 dias</option>
+                <option value="30dias">Últimos 30 dias</option>
+                <option value="90dias">Últimos 90 dias</option>
+                <option value="365dias">Último ano</option>
+              </select>
+            </div>
+          </div>
+          <div class="news-controls-right">
+            <div class="search-wrapper">
+              <div class="search-input">
+                <i data-lucide="search" class="search-icon" aria-hidden="true"></i>
+                <input id="news-search" type="search" placeholder="Buscar notícias por título ou conteúdo..." aria-label="Buscar notícias">
+              </div>
+              <button id="news-clear" class="icon-btn" aria-label="Limpar busca">
+                <i data-lucide="x"></i>
+              </button>
+            </div>
+            <select id="news-pagesize" class="page-size-select">
+              <option value="5">5</option>
+              <option value="10" selected>10</option>
+              <option value="25">25</option>
+            </select>
+            <button id="news-refresh" class="btn btn-secondary btn-refresh" title="Atualizar notícias">Atualizar</button>
+          </div>
+        </div>
+        <div id="news-count" class="news-count" aria-live="polite"></div>
       </div>
 
       <div class="container">
-        <div class="track">
-
-          <div class="card" data-category="seguranca">
-            <img src="../img/imagem1.webp" alt="Notícia 1">
-            <div>
-              <h3>Ação integrada resulta em prisão de quadrilha</h3>
-              <p>Publicado em 19/10/2025 - 15:36</p>
-              <p>Uma ação integrada entre a Polícia Militar, Polícia Civil e Guarda Municipal de Criciúma, coordenada pela Secretaria de Segurança Pública (SSP), resultou na prisão de sete pessoas suspeitas de integrar uma quadrilha que atuava em diversos bairros da cidade. 
-                A operação ocorreu nas primeiras horas da manhã e contou com mais de 50 agentes de segurança, além do apoio do setor de inteligência. Durante as buscas, foram apreendidos veículos, armas, drogas e documentos falsificados. A quadrilha é investigada por envolvimento em furtos, tráfico de drogas e receptação de produtos roubados. 
-                Segundo as autoridades, a operação faz parte de um conjunto de ações voltadas ao combate à criminalidade organizada na região. Os presos foram encaminhados ao presídio regional, onde permanecerão à disposição da Justiça. A SSP destacou a importância da integração entre as forças de segurança para garantir resultados eficazes.</p>
-            </div>
-          </div>
-
-          <div class="card" data-category="seguranca">
-            <img src="../img/imagem2.jpg" alt="Notícia 2">
-            <div>
-              <h3>Moradores relatam aumento de segurança no bairro Aurora</h3>
-              <p>Publicado em 12/10/2025 - 19:01</p>
-              <p>Moradores do bairro Aurora, em Criciúma, relataram um aumento significativo na sensação de segurança após ações intensificadas das forças policiais. As patrulhas da Polícia Militar e da Guarda Municipal passaram a ocorrer com maior frequência, especialmente em pontos antes marcados por ocorrências de furtos e tráfico. 
-                Segundo os residentes, a presença constante das viaturas tem inibido a ação de criminosos e trazido mais tranquilidade às famílias. A Secretaria de Segurança Pública (SSP) informou que o bairro foi incluído em um plano de monitoramento estratégico, com apoio de câmeras e rondas programadas. Comerciantes também notaram uma melhora no movimento e redução de assaltos. 
-                A comunidade elogiou o trabalho conjunto das forças de segurança e pediu a continuidade das operações. Além disso, novas ações sociais estão sendo planejadas para fortalecer o vínculo entre moradores e autoridades.</p>
-            </div>
-          </div>
-
-          <div class="card" data-category="tecnologia">
-            <img src="../img/imagem3.webp" alt="Notícia 3">
-            <div>
-              <h3>Nova tecnologia de reconhecimento facial é implementada</h3>
-              <p>Publicado em 24/10/2025 - 09:12</p>
-              <p>A Secretaria de Segurança Pública (SSP) de Criciúma anunciou a implementação de uma nova tecnologia de reconhecimento facial para reforçar o monitoramento da cidade. O sistema foi integrado às câmeras de vigilância já instaladas em pontos estratégicos, permitindo identificar suspeitos em tempo real. 
-                Segundo a SSP, a ferramenta utiliza inteligência artificial para comparar imagens captadas com um banco de dados de pessoas procuradas pela Justiça. A inovação tem como objetivo aumentar a eficiência nas investigações e prevenir crimes. Durante os testes iniciais, o sistema ajudou a localizar dois foragidos e identificar veículos envolvidos em ocorrências. 
-                As autoridades destacaram que o uso da tecnologia respeita as normas de privacidade e proteção de dados. Moradores elogiaram a iniciativa e afirmaram se sentir mais seguros com o reforço na vigilância. A SSP planeja expandir o sistema para outras áreas do município.</p>
-            </div>
-          </div>
-
-          <div class="card" data-category="educacao">
-            <img src="../img/imagem4.jpg" alt="Notícia 4">  
-            <div>
-              <h3>Programa educativo em escolas reduz vandalismo</h3>
-              <p>Publicado em 29/10/2025 - 23:11</p>
-              <p>Um programa educativo promovido pela Secretaria de Segurança Pública (SSP) em parceria com a Secretaria de Educação de Criciúma tem contribuído para a redução de casos de vandalismo em escolas municipais. 
-                A iniciativa, chamada “Escola Segura”, envolve palestras, atividades interativas e ações de conscientização voltadas aos alunos sobre cidadania, respeito ao patrimônio público e convivência pacífica. 
-                Desde o início do programa, as ocorrências de depredação e pichações diminuíram significativamente. Professores e diretores destacam que os estudantes estão mais engajados na preservação dos espaços escolares. Além disso, agentes da Guarda Municipal participam das ações, reforçando a importância da segurança e do diálogo. 
-                O projeto também promove a aproximação entre a comunidade escolar e as autoridades locais. Pais de alunos elogiaram a iniciativa, afirmando que o comportamento dos jovens melhorou dentro e fora da escola. A SSP pretende ampliar o programa para todas as escolas da rede até o próximo ano.</p>
-            </div>         
-          </div>
-
-          <div class="card" data-category="educacao">
-            <img src="../img/imagem5.jpg" alt="Notícia 5">
-            <div>
-              <h3>SSP se reúne com líderes comunitários para novas estratégias</h3>
-              <p>Publicado em 30/10/2025 - 06:00</p>
-              <p>A Secretaria de Segurança Pública (SSP) de Criciúma realizou uma reunião com líderes comunitários para discutir novas estratégias de prevenção à criminalidade nos bairros da cidade. 
-                O encontro teve como objetivo fortalecer o diálogo entre as autoridades e a população, buscando soluções conjuntas para os principais problemas de segurança. 
-                Durante a reunião, foram apresentadas propostas de ampliação do monitoramento por câmeras, aumento das rondas policiais e criação de grupos de comunicação direta entre moradores e forças de segurança. 
-                Os líderes comunitários destacaram a importância da parceria com o poder público para melhorar a qualidade de vida nas regiões mais vulneráveis. A SSP ressaltou que a colaboração da comunidade é essencial para o sucesso das ações de segurança.</p>
-            </div>
-          </div>
-
-          <div class="card" data-category="seguranca">         
-            <img src="../img/imagem6.png" alt="Noticia 6">
-            <div>
-                <h3>SSP alerta população sobre aumento de golpes virtuais na região</h3>
-                <p>Publicado em 02/11/2025 - 12:45</p>
-                <p>A Secretaria de Segurança Pública (SSP) de Criciúma emitiu um alerta à população sobre o aumento de golpes virtuais registrados nas últimas semanas na região. Segundo a SSP, os principais crimes envolvem clonagem de contas de WhatsApp, falsos anúncios de vendas e links fraudulentos enviados por e-mail ou redes sociais. 
-                  As autoridades orientam os cidadãos a redobrarem a atenção e evitarem compartilhar dados pessoais ou realizar transferências sem confirmação da identidade do destinatário. A Polícia Civil está investigando diversos casos e reforçou a importância de registrar boletins de ocorrência para facilitar o rastreamento dos golpistas. 
-                  Também estão sendo realizadas campanhas educativas para conscientizar os moradores sobre práticas seguras na internet. A SSP destacou que o número de tentativas de fraude cresceu com o aumento do uso de serviços digitais.</p>
-            </div>
-            </div>
+        <div id="news-list" class="track" role="list" aria-live="polite">
+          <!-- Notícias são carregadas dinamicamente via API. Sem dados estáticos aqui. -->
         </div>
+        <div id="news-pagination" class="news-pagination"></div>
       </div>
     </section>
   </main>
 
+  <!-- Comitê modal (copiado do index para permitir o acesso do menu-cta) -->
+  <div id="overlay-comite" aria-hidden="true"></div>
+  <section id="login" hidden role="dialog" aria-modal="true" aria-labelledby="login-title" tabindex="-1">
+    <div class="header-login">
+      <i data-lucide="shield" aria-hidden="true"></i>
+      <div class="header-login__titles">
+        <h2 id="login-title">Acesso do Comitê</h2>
+        <p class="header-login__subtitle">Área restrita — auditoria ativa</p>
+      </div>
+      <button id="modal-comite-cancel" type="button" aria-label="Fechar modal">✕</button>
+    </div>
+    <div class="auto-log">
+      <div class="field">
+        <label for="comite-user">Usuário</label>
+        <i data-lucide="user" aria-hidden="true"></i>
+        <input id="comite-user" name="nome" type="text" placeholder="Insira o login" autocomplete="username" inputmode="text">
+      </div>
+      <div class="field">
+        <label for="comite-pass">Senha</label>
+        <i data-lucide="key-round" aria-hidden="true"></i>
+        <input id="comite-pass" name="senha" type="password" placeholder="Insira a senha" autocomplete="current-password">
+        <button type="button" class="toggle-pass" aria-label="Mostrar/ocultar senha">
+          <i data-lucide="eye" aria-hidden="true"></i>
+        </button>
+      </div>
+      <button id="comite-acess" type="button" class="btn-submit">
+        <i data-lucide="log-in" aria-hidden="true"></i>
+        Acessar
+      </button>
+    </div>
+    <p id="comite-policy" class="login-policy">Tentativas são registradas. Ao continuar, você concorda com o termo de uso e auditoria.</p>
+    <p id="comite-error" aria-live="polite" role="alert"></p>
+  </section>
+
   <footer id="contato">
-    <h2>Fale Conosco</h2>
-    <p>Para mais informações, sugestões ou suporte técnico, entre em contato:</p>
-    <nav class="c1">
-      <ol>Email: contato@ssp.gov</ol>
-      <ol>Telefone: (48)00000-0000</ol>
-      <ol>Endereço: Rua da Segurança, 125 - Centro, Cidade Segura</ol>
-    </nav>
-    <div class="logo">
-      <img src="../img/logo-preta.png" alt="Emblema da SSP">
+    <div class="footer-container">
+      <div class="footer-main">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <img src="../img/logo-preta.png" alt="Emblema da SSP">
+            <div class="footer-brand-text">
+              <h3>SSP - CRICIÚMA</h3>
+              <p>Sistema de Segurança Pública</p>
+            </div>
+          </div>
+          <p class="footer-description">
+            Proteção inteligente, transparente e comprometida com cada cidadão.
+          </p>
+        </div>
+
+        <div class="footer-contact">
+          <h3>Fale Conosco</h3>
+          <ul class="contact-list">
+            <li>
+              <i data-lucide="mail" aria-hidden="true"></i>
+              <a href="mailto:contato@ssp.gov">contato@ssp.gov</a>
+            </li>
+            <li>
+              <i data-lucide="phone" aria-hidden="true"></i>
+              <a href="tel:+5548000000000">(48) 00000-0000</a>
+            </li>
+            <li>
+              <i data-lucide="map-pin" aria-hidden="true"></i>
+              <span>Rua da Segurança, 125 - Centro<br>Criciúma - SC</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="footer-links">
+          <h3>Acesse Também</h3>
+          <ul>
+            <li><a href="mapdex.html">Painel de Mapas</a></li>
+            <li><a href="noticias.html">Central de Notícias</a></li>
+            <li><a href="anadex.html">Análises Completas</a></li>
+            <li><a href="comdex.html">Área do Comitê</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2025 SSP Criciúma. Todos os direitos reservados.</p>
+        <p class="footer-lgpd">Sistema em conformidade com a LGPD</p>
+      </div>
     </div>
   </footer>
 </body>
