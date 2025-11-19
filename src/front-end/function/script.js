@@ -626,33 +626,52 @@ function initDenunciaForm() {
    ========================================================= */
 async function loadAnalytics() {
   try {
-    // Carregar denúncias e câmeras em paralelo
-    const [denunciasResponse, camerasResponse] = await Promise.all([
-      fetch('/api/denuncias'),
-      fetch('/api/cameras')
-    ]);
-
-    if (!denunciasResponse.ok || !camerasResponse.ok) {
-      throw new Error('Erro ao carregar dados');
+    // Preferir rota analítica consolidada (mais completa)
+    let stats = null;
+    try {
+      const res = await fetch('/api/analyses/stats');
+      if (res.ok) {
+        stats = await res.json();
+      }
+    } catch (e) {
+      // ignorar: fallback abaixo continuará a funcionar
+      console.warn('Não foi possível obter /api/analyses/stats:', e.message);
     }
 
-    const denuncias = await denunciasResponse.json();
-    const cameras = await camerasResponse.json();
+    // Se rota consolidada não disponível, obter recursos separadamente
+    let denuncias = [];
+    let cameras = [];
+    if (stats) {
+      denuncias = stats.listaDenuncias || [];
+      cameras = stats.listaCameras || [];
+    } else {
+      // Buscar denúncias e câmeras em paralelo
+      const [denunciasResponse, camerasResponse] = await Promise.all([
+        fetch('/api/denuncias'),
+        fetch('/api/cameras')
+      ]);
 
-    // 1. Total de ocorrências (últimos 7 dias)
+      if (!denunciasResponse.ok || !camerasResponse.ok) {
+        throw new Error('Erro ao carregar dados');
+      }
+
+      denuncias = await denunciasResponse.json();
+      cameras = await camerasResponse.json();
+    }
+
+    // 1. Total de ocorrências (últimos 7 dias) - usar stats se disponível
     const seteDiasAtras = new Date();
     seteDiasAtras.setDate(seteDiasAtras.getDate() - 7);
-    
-    const denunciasRecentes = denuncias.filter(d => {
-      const dataDenuncia = new Date(d.createdAt || d.dataOcorrencia);
-      return dataDenuncia >= seteDiasAtras;
-    });
-
-    document.getElementById('total-ocorrencias').textContent = denunciasRecentes.length;
+    const denunciasRecentes = denuncias.filter(d => (new Date(d.createdAt || d.dataOcorrencia) >= seteDiasAtras));
+    if (stats && stats.denuncias && typeof stats.denuncias.semana !== 'undefined') {
+      document.getElementById('total-ocorrencias').textContent = stats.denuncias.semana;
+    } else {
+      document.getElementById('total-ocorrencias').textContent = denunciasRecentes.length;
+    }
 
     // 2. Taxa de resolução
-    const resolvidas = denuncias.filter(d => d.status === 'resolvido' || d.status === 'concluído').length;
-    const taxaResolucao = denuncias.length > 0 ? Math.round((resolvidas / denuncias.length) * 100) : 0;
+    const resolvidas = denuncias.filter(d => d.status === 'resolvido' || d.status === 'concluído' || d.status === 'resolvida').length;
+    const taxaResolucao = stats && typeof stats.taxaResolucao !== 'undefined' ? stats.taxaResolucao : (denuncias.length > 0 ? Math.round((resolvidas / denuncias.length) * 100) : 0);
     document.getElementById('taxa-resolucao').textContent = taxaResolucao + '%';
     
     const resolucaoTrend = taxaResolucao >= 80 ? 'Excelente desempenho' : 
@@ -660,22 +679,19 @@ async function loadAnalytics() {
     document.getElementById('resolucao-trend').textContent = resolucaoTrend;
 
     // 3. Tempo médio de resposta (simulado baseado em prioridade)
-    const denunciasUrgentes = denuncias.filter(d => d.urgente || d.prioridade === 'alta');
-    const tempoMedio = denunciasUrgentes.length > 5 ? '3min' : '5min';
+    const tempoMedio = stats && typeof stats.tempoMedioResposta !== 'undefined' ? stats.tempoMedioResposta : (denuncias.filter(d => d.urgente || d.prioridade === 'alta').length > 5 ? '3min' : '5min');
     document.getElementById('tempo-resposta').textContent = tempoMedio;
-    document.getElementById('tempo-trend').textContent = 
-      denunciasUrgentes.length > 5 ? '12% mais rápido' : 'Dentro da meta';
+    document.getElementById('tempo-trend').textContent = stats && stats.tempoMedioResposta ? 'Baseado em dados' : (denuncias.filter(d => d.urgente || d.prioridade === 'alta').length > 5 ? '12% mais rápido' : 'Dentro da meta');
 
     // 4. Total de câmeras
-    document.getElementById('total-cameras').textContent = cameras.length;
-    const camerasOnline = cameras.filter(c => c.status === 'online').length;
-    document.getElementById('cameras-info').textContent = 
-      `${camerasOnline} ativas de ${cameras.length}`;
+    // Total de câmeras
+    document.getElementById('total-cameras').textContent = stats && stats.cameras ? (stats.cameras.total || cameras.length) : cameras.length;
+    const camerasOnline = stats && stats.cameras && typeof stats.cameras.online !== 'undefined' ? stats.cameras.online : cameras.filter(c => c.status === 'online').length;
+    document.getElementById('cameras-info').textContent = `${camerasOnline} ativas de ${stats && stats.cameras ? (stats.cameras.total || cameras.length) : cameras.length}`;
 
     // 5. Gráfico de barras (últimos 7 dias)
     const diasSemana = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
     const contagemPorDia = new Array(7).fill(0);
-    
     denunciasRecentes.forEach(d => {
       const data = new Date(d.createdAt || d.dataOcorrencia);
       const diaSemana = data.getDay();
@@ -715,6 +731,15 @@ async function loadAnalytics() {
       }
     });
 
+    // Atualizar badge de última atualização se disponível
+    if (stats && stats.ultimaAtualizacao) {
+      const badge = document.querySelector('.analises-badge');
+      if (badge) {
+        const date = new Date(stats.ultimaAtualizacao);
+        badge.innerHTML = `<i data-lucide="refresh-cw" aria-hidden="true"></i> Atualizado em ${date.toLocaleString('pt-BR')}`;
+        initLucideIcons();
+      }
+    }
   } catch (error) {
     console.error('Erro ao carregar análises:', error);
     // Manter valores padrão em caso de erro
