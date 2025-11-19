@@ -476,60 +476,7 @@
 
       <div class="slider-viewport">
         <div class="slider-track" id="news-track">
-          <!-- Card 1 -->
-          <article class="card-noticia" data-category="seguranca">
-            <div class="card-media">
-              <img src="img/imagem1.webp" alt="Prisão de quadrilha durante operação policial">
-            </div>
-            <div class="card-content">
-              <h3>Ação integrada resulta em prisão de quadrilha</h3>
-              <p>Operação conjunta da SSP e Polícia Civil prendeu suspeitos que atuavam na região central.</p>
-            </div>
-          </article>
-
-          <!-- Card 2 -->
-          <article class="card-noticia" data-category="comunidade">
-            <div class="card-media">
-              <img src="img/imagem2.jpg" alt="Câmeras de segurança instaladas no bairro Aurora">
-            </div>
-            <div class="card-content">
-              <h3>Moradores relatam aumento de segurança no bairro Aurora</h3>
-              <p>Após a instalação de 10 novas câmeras, o bairro registrou queda de 30% em ocorrências.</p>
-            </div>
-          </article>
-
-          <!-- Card 3 -->
-          <article class="card-noticia" data-category="tecnologia">
-            <div class="card-media">
-              <img src="img/imagem3.webp" alt="Painel de reconhecimento facial em operação">
-            </div>
-            <div class="card-content">
-              <h3>Nova tecnologia de reconhecimento facial é implementada</h3>
-              <p>Sistema de ponta agora auxilia na identificação de foragidos na cidade.</p>
-            </div>
-          </article>
-
-          <!-- Card 4 -->
-          <article class="card-noticia" data-category="comunidade">
-            <div class="card-media">
-              <img src="img/imagem4.jpg" alt="Palestra educativa em escola pública">
-            </div>
-            <div class="card-content">
-              <h3>Programa educativo em escolas reduz vandalismo</h3>
-              <p>Parceria com a Educação promove cidadania e diminui ocorrências em áreas escolares.</p>
-            </div>
-          </article>
-
-          <!-- Card 5 -->
-          <article class="card-noticia" data-category="seguranca">
-            <div class="card-media">
-              <img src="img/imagem5.jpg" alt="Reunião com líderes comunitários">
-            </div>
-            <div class="card-content">
-              <h3>SSP se reúne com líderes comunitários para novas estratégias</h3>
-              <p>Encontro trimestral alinha ações prioritárias com foco em cada bairro.</p>
-            </div>
-          </article>
+          <!-- Notícias serão carregadas dinamicamente via /api/communications -->
         </div>
       </div>
 
@@ -581,13 +528,13 @@
             <i data-lucide="alert-octagon" aria-hidden="true"></i>
           </div>
           <div class="analise-content">
-            <h4>Ocorrências Registradas</h4>
-            <div class="analise-value" id="total-ocorrencias">0</div>
-            <p class="analise-trend analise-trend--neutral">
-              <i data-lucide="calendar" aria-hidden="true"></i>
-              Últimos 7 dias
-            </p>
-          </div>
+              <h4>Ocorrências Registradas</h4>
+              <div class="analise-value" id="total-ocorrencias">Carregando...</div>
+              <p class="analise-trend analise-trend--neutral">
+                <i data-lucide="calendar" aria-hidden="true"></i>
+                Últimos 7 dias
+              </p>
+            </div>
         </div>
 
         <div class="analise-card analise-card--success">
@@ -596,10 +543,10 @@
           </div>
           <div class="analise-content">
             <h4>Tempo de Resposta</h4>
-            <div class="analise-value" id="tempo-resposta">-</div>
+            <div class="analise-value" id="tempo-resposta">Carregando...</div>
             <p class="analise-trend analise-trend--positive">
               <i data-lucide="arrow-down" aria-hidden="true"></i>
-              <span id="tempo-trend">Calculando...</span>
+              <span id="tempo-trend">Carregando...</span>
             </p>
           </div>
         </div>
@@ -610,10 +557,10 @@
           </div>
           <div class="analise-content">
             <h4>Taxa de Resolução</h4>
-            <div class="analise-value" id="taxa-resolucao">0%</div>
+            <div class="analise-value" id="taxa-resolucao">Carregando...</div>
             <p class="analise-trend analise-trend--positive">
               <i data-lucide="trending-up" aria-hidden="true"></i>
-              <span id="resolucao-trend">Em análise</span>
+              <span id="resolucao-trend">Carregando...</span>
             </p>
           </div>
         </div>
@@ -624,7 +571,7 @@
           </div>
           <div class="analise-content">
             <h4>Rede de Monitoramento</h4>
-            <div class="analise-value" id="total-cameras">0</div>
+            <div class="analise-value" id="total-cameras">Carregando...</div>
             <p class="analise-trend analise-trend--neutral">
               <i data-lucide="map" aria-hidden="true"></i>
               <span id="cameras-info">Carregando...</span>
