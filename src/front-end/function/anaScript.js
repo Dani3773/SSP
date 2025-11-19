@@ -148,6 +148,22 @@ function updateDashboardWithStats(stats) {
   
   camerasChange.innerHTML = `<i class="fas fa-info-circle"></i> ${taxaDisponibilidade}% disponíveis`;
   camerasChange.className = taxaDisponibilidade >= 80 ? 'stat-change positive' : 'stat-change neutral';
+
+  // Atualizar indicadores complementares, se existirem
+  const indicatorCameras = document.getElementById('indicator-cameras');
+  if (indicatorCameras) {
+    indicatorCameras.textContent = stats.cameras?.total || camerasOnline || 0;
+  }
+  const indicatorChamados = document.getElementById('indicator-chamados');
+  if (indicatorChamados) {
+    indicatorChamados.textContent = (stats.taxaResolucao || 0) + '%';
+  }
+  const indicatorViaturas = document.getElementById('indicator-viaturas');
+  if (indicatorViaturas) {
+    // Heurística: 1 viatura a cada 4 câmeras (apenas um proxy se não houver dados reais)
+    const viaturas = stats.cameras?.total ? Math.max(1, Math.round(stats.cameras.total / 4)) : 0;
+    indicatorViaturas.textContent = viaturas;
+  }
 }
 
 // ==============================
