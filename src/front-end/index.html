@@ -444,12 +444,14 @@
         </div>
       </div>
 
-      <div class="mapa-hero__preview" aria-hidden="true">
+      <div class="mapa-hero__preview" aria-live="polite">
         <div class="mapa-hero__card">
-          <img src="img/Mapa.png" alt="" loading="lazy">
+          <div id="map-preview" class="map-preview" aria-hidden="false">
+            <div class="map-preview-loading">Carregando mapa...</div>
+          </div>
           <div class="mapa-hero__overlay"></div>
-          <span class="mapa-hero__badge-live">
-            <i class="fa-solid fa-circle" aria-hidden="true"></i> Ao vivo
+          <span class="mapa-hero__badge-live" id="map-badge">
+            <i class="fa-solid fa-circle" aria-hidden="true"></i> Carregando...
           </span>
         </div>
       </div>

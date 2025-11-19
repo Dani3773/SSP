@@ -384,6 +384,38 @@ async function loadCameras() {
     // Inicializar seletor de câmera após carregar
     initCameraSelector();
 
+    // Atualizar preview do mapa com dados reais (remoção de "fake")
+    try {
+      const mapPreview = document.getElementById('map-preview');
+      const mapBadge = document.getElementById('map-badge');
+      if (mapPreview) {
+        // limpar
+        while (mapPreview.firstChild) mapPreview.removeChild(mapPreview.firstChild);
+        if (cameras.length > 0) {
+          const onlineCount = cameras.filter(c => c.status === 'online').length;
+          if (mapBadge) mapBadge.textContent = `${onlineCount} online`;
+          const rep = cameras.find(c => c.status === 'online') || cameras[0];
+          const wrap = document.createElement('div');
+          wrap.className = 'map-thumb';
+          const title = document.createElement('h4');
+          title.textContent = rep.name || 'Câmera';
+          const loc = document.createElement('p');
+          loc.textContent = rep.location || '';
+          const small = document.createElement('small');
+          small.textContent = `Status: ${rep.status || 'desconhecido'}`;
+          wrap.appendChild(title);
+          wrap.appendChild(loc);
+          wrap.appendChild(small);
+          mapPreview.appendChild(wrap);
+        } else {
+          if (mapBadge) mapBadge.textContent = 'Nenhuma câmera';
+          const p = document.createElement('p');
+          p.textContent = 'Nenhuma câmera disponível';
+          mapPreview.appendChild(p);
+        }
+      }
+    } catch (e) { console.warn('Não foi possível atualizar preview do mapa', e); }
+
   } catch (error) {
     console.error('Erro ao carregar câmeras:', error);
     cameraSection.innerHTML = '<p style="text-align: center; color: #ef4444;">Erro ao carregar câmeras. Tente novamente mais tarde.</p>';
