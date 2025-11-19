@@ -1613,6 +1613,16 @@ h1 {
   color: #666;
 }
 
+/* Remove underline for news card links and keep natural text color */
+.card-noticia-link, .card-noticia-link * {
+  text-decoration: none !important;
+  color: inherit !important;
+}
+.card-noticia-link { display: block; }
+.card-noticia-link:focus { outline: 3px solid rgba(255,215,0,0.14); outline-offset:4px; border-radius:12px; }
+.slider-track a { text-decoration: none; color: inherit; }
+.slider-track a * { text-decoration: none; }
+
 /* Botões do carrossel */
 .slider-button{
   position:absolute;
