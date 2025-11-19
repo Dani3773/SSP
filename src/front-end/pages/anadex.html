@@ -14,19 +14,19 @@
   <!-- Header -->
   <header>
     <div class="logo">
-      <a href="index.html" class="logo-link">
+      <a href="../index.html" class="logo-link">
         <img src="../img/logo-preta.png" alt="Emblema da SSP">
       </a>
       <p>SSP - CRICIÚMA</p>
     </div>
     <div class="menu">
       <nav class="menu-links">
-        <a href="index.html">Início</a>
-        <a href="index.html#denuncia">Denúncia</a>
+        <a href="../index.html">Início</a>
+        <a href="../index.html#denuncia">Denúncia</a>
         <a href="mapdex.html">Mapa</a>
         <a href="noticias.html">Notícias</a>
         <a href="anadex.html" class="active">Análises</a>
-        <a href="index.html#contato">Contato</a>
+        <a href="../index.html#contato">Contato</a>
         <button type="button" class="menu-cta">Acesso comitê</button>
       </nav>
     </div>
@@ -227,54 +227,9 @@
                   <th>Tendência</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody id="bairro-table-body">
                 <tr>
-                  <td><strong>Centro</strong></td>
-                  <td>120</td>
-                  <td>85</td>
-                  <td><span class="badge badge-success">92%</span></td>
-                  <td><span class="status-dot status-high"></span> Alto</td>
-                  <td><span class="trend trend-down"><i class="fas fa-arrow-down"></i> -8%</span></td>
-                </tr>
-                <tr>
-                  <td><strong>Pinheirinho</strong></td>
-                  <td>95</td>
-                  <td>68</td>
-                  <td><span class="badge badge-success">88%</span></td>
-                  <td><span class="status-dot status-high"></span> Alto</td>
-                  <td><span class="trend trend-down"><i class="fas fa-arrow-down"></i> -5%</span></td>
-                </tr>
-                <tr>
-                  <td><strong>Santa Luzia</strong></td>
-                  <td>80</td>
-                  <td>52</td>
-                  <td><span class="badge badge-warning">75%</span></td>
-                  <td><span class="status-dot status-medium"></span> Médio</td>
-                  <td><span class="trend trend-up"><i class="fas fa-arrow-up"></i> +3%</span></td>
-                </tr>
-                <tr>
-                  <td><strong>Operária Nova</strong></td>
-                  <td>50</td>
-                  <td>35</td>
-                  <td><span class="badge badge-success">90%</span></td>
-                  <td><span class="status-dot status-medium"></span> Médio</td>
-                  <td><span class="trend trend-down"><i class="fas fa-arrow-down"></i> -12%</span></td>
-                </tr>
-                <tr>
-                  <td><strong>Próspera</strong></td>
-                  <td>45</td>
-                  <td>32</td>
-                  <td><span class="badge badge-success">85%</span></td>
-                  <td><span class="status-dot status-low"></span> Baixo</td>
-                  <td><span class="trend trend-down"><i class="fas fa-arrow-down"></i> -15%</span></td>
-                </tr>
-                <tr>
-                  <td><strong>São Luiz</strong></td>
-                  <td>40</td>
-                  <td>28</td>
-                  <td><span class="badge badge-success">82%</span></td>
-                  <td><span class="status-dot status-low"></span> Baixo</td>
-                  <td><span class="trend trend-stable"><i class="fas fa-equals"></i> 0%</span></td>
+                  <td colspan="6" style="text-align:center; padding: 20px; color: var(--text-medium);">Carregando dados por bairro...</td>
                 </tr>
               </tbody>
             </table>
@@ -291,60 +246,9 @@
             <h2><i class="fas fa-fire"></i> Mapa de Calor - Áreas Críticas</h2>
             <p>Intensidade de ocorrências por região</p>
           </div>
-          <div class="heatmap-grid">
-            <div class="heat-item heat-critical">
-              <div class="heat-content">
-                <h3>Centro</h3>
-                <p class="heat-value">120 ocorrências</p>
-                <div class="heat-bar">
-                  <div class="heat-fill" style="width: 100%;"></div>
-                </div>
-              </div>
-            </div>
-            <div class="heat-item heat-high">
-              <div class="heat-content">
-                <h3>Pinheirinho</h3>
-                <p class="heat-value">95 ocorrências</p>
-                <div class="heat-bar">
-                  <div class="heat-fill" style="width: 79%;"></div>
-                </div>
-              </div>
-            </div>
-            <div class="heat-item heat-medium">
-              <div class="heat-content">
-                <h3>Santa Luzia</h3>
-                <p class="heat-value">80 ocorrências</p>
-                <div class="heat-bar">
-                  <div class="heat-fill" style="width: 67%;"></div>
-                </div>
-              </div>
-            </div>
-            <div class="heat-item heat-low">
-              <div class="heat-content">
-                <h3>Operária Nova</h3>
-                <p class="heat-value">50 ocorrências</p>
-                <div class="heat-bar">
-                  <div class="heat-fill" style="width: 42%;"></div>
-                </div>
-              </div>
-            </div>
-            <div class="heat-item heat-low">
-              <div class="heat-content">
-                <h3>Próspera</h3>
-                <p class="heat-value">45 ocorrências</p>
-                <div class="heat-bar">
-                  <div class="heat-fill" style="width: 38%;"></div>
-                </div>
-              </div>
-            </div>
-            <div class="heat-item heat-minimal">
-              <div class="heat-content">
-                <h3>São Luiz</h3>
-                <p class="heat-value">40 ocorrências</p>
-                <div class="heat-bar">
-                  <div class="heat-fill" style="width: 33%;"></div>
-                </div>
-              </div>
+          <div class="heatmap-grid" id="heatmap-grid">
+            <div class="heat-item" style="width:100%; text-align:center; color: var(--text-medium); padding: 20px;">
+              Carregando mapa de calor...
             </div>
           </div>
         </div>
@@ -361,7 +265,7 @@
               <i class="fas fa-users"></i>
             </div>
             <h3>População Atendida</h3>
-            <p class="indicator-value">215.186</p>
+            <p class="indicator-value" id="indicator-populacao">215.186</p>
             <p class="indicator-desc">habitantes monitorados</p>
           </div>
 
@@ -370,7 +274,7 @@
               <i class="fas fa-car"></i>
             </div>
             <h3>Viaturas Ativas</h3>
-            <p class="indicator-value">42</p>
+            <p class="indicator-value" id="indicator-viaturas">42</p>
             <p class="indicator-desc">em operação 24h</p>
           </div>
 
@@ -379,7 +283,7 @@
               <i class="fas fa-video"></i>
             </div>
             <h3>Câmeras Ativas</h3>
-            <p class="indicator-value">156</p>
+            <p class="indicator-value" id="indicator-cameras">156</p>
             <p class="indicator-desc">pontos de monitoramento</p>
           </div>
 
@@ -388,7 +292,7 @@
               <i class="fas fa-phone-alt"></i>
             </div>
             <h3>Chamados Atendidos</h3>
-            <p class="indicator-value">98.5%</p>
+            <p class="indicator-value" id="indicator-chamados">98.5%</p>
             <p class="indicator-desc">taxa de atendimento</p>
           </div>
         </div>
@@ -435,7 +339,7 @@
         <div class="footer-links">
           <h3>Acesse Também</h3>
           <ul>
-            <li><a href="index.html">Página Inicial</a></li>
+            <li><a href="../index.html">Página Inicial</a></li>
             <li><a href="mapdex.html">Painel de Mapas</a></li>
             <li><a href="noticias.html">Central de Notícias</a></li>
             <li><a href="comdex.html">Área do Comitê</a></li>

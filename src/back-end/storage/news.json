@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "title": "Operação policial reduz índices de criminalidade",
+    "description": "A SSP de Criciúma realizou uma operação especial que resultou na redução significativa dos índices de criminalidade na região central da cidade. A ação contou com o apoio de 50 policiais e resultou em 15 prisões.",
+    "image": "/api/communications/images/noticia-1.webp",
+    "category": "noticia",
+    "status": "published",
+    "date": "2025-11-03T10:00:00.000Z",
+    "createdAt": "2025-11-03T10:00:00.000Z"
+  },
+  {
+    "id": 2,
+    "title": "Nova tecnologia de monitoramento instalada",
+    "description": "A prefeitura de Criciúma, em parceria com a SSP, instalou um novo sistema de monitoramento inteligente com reconhecimento facial e detecção de movimento. O sistema já está operacional em 10 pontos estratégicos da cidade.",
+    "image": "/api/communications/images/noticia-2.jpg",
+    "category": "noticia",
+    "status": "published",
+    "date": "2025-11-02T14:30:00.000Z",
+    "createdAt": "2025-11-02T14:30:00.000Z"
+  },
+  {
+    "id": 3,
+    "title": "Reunião do comitê de segurança",
+    "description": "O Comitê Municipal de Segurança Pública se reuniu ontem para discutir as estratégias de combate à criminalidade para o próximo trimestre. Participaram representantes da polícia, prefeitura e sociedade civil.",
+    "image": "/api/communications/images/noticia-3.webp",
+    "category": "comunicado",
+    "status": "published",
+    "date": "2025-11-01T09:15:00.000Z",
+    "createdAt": "2025-11-01T09:15:00.000Z"
+  },
+  {
+    "id": 4,
+    "title": "Campanha de conscientização sobre segurança",
+    "description": "A SSP lança campanha educativa sobre prevenção de crimes, com foco em jovens estudantes. A campanha inclui palestras em escolas e distribuição de material informativo sobre segurança pessoal.",
+    "image": "/api/communications/images/noticia-4.jpg",
+    "category": "informacao",
+    "status": "published",
+    "date": "2025-10-28T16:45:00.000Z",
+    "createdAt": "2025-10-28T16:45:00.000Z"
+  },
+  {
+    "id": 5,
+    "title": "Parceria internacional fortalece segurança",
+    "description": "Criciúma firma parceria com instituição internacional especializada em segurança urbana. O acordo prevê troca de experiências e implementação de tecnologias avançadas de monitoramento.",
+    "image": "/api/communications/images/noticia-5.jpg",
+    "category": "noticia",
+    "status": "published",
+    "date": "2025-10-25T11:20:00.000Z",
+    "createdAt": "2025-10-25T11:20:00.000Z"
+  }
+]
