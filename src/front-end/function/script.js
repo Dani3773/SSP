@@ -325,10 +325,19 @@ async function loadCameras() {
   if (!cameraSection) return;
 
   try {
-    const response = await fetch('/api/cameras');
-    if (!response.ok) throw new Error('Erro ao carregar câmeras');
-    
-    const cameras = await response.json();
+    // Buscar câmeras e denúncias em paralelo para popular estatísticas do mapa
+    const [camerasResp, denunciasResp] = await Promise.all([
+      fetch('/api/cameras'),
+      fetch('/api/denuncias').catch(() => ({ ok: false }))
+    ]);
+
+    if (!camerasResp.ok) throw new Error('Erro ao carregar câmeras');
+
+    const cameras = await camerasResp.json();
+    let denuncias = [];
+    if (denunciasResp && denunciasResp.ok) {
+      try { denuncias = await denunciasResp.json(); } catch (e) { denuncias = []; }
+    }
 
     if (cameras.length === 0) {
       cameraSection.innerHTML = '<p style="text-align: center; color: #6b7280;">Nenhuma câmera disponível no momento.</p>';
@@ -413,6 +422,39 @@ async function loadCameras() {
           p.textContent = 'Nenhuma câmera disponível';
           mapPreview.appendChild(p);
         }
+      }
+      // Preencher indicadores do mapa na homepage, quando existirem
+      try {
+        const mapSyncEl = document.getElementById('map-sync');
+        const mapCoverageEl = document.getElementById('map-coverage');
+        const mapAlertsEl = document.getElementById('map-alerts');
+        const mapPatrolsEl = document.getElementById('map-patrols');
+
+        if (mapSyncEl) mapSyncEl.textContent = `Última sincr.: ${new Date().toLocaleString('pt-BR')}`;
+        if (mapCoverageEl) mapCoverageEl.textContent = String(cameras.length || 0);
+
+        // Calcular alertas (últimas 24h ou urgente/alta prioridade)
+        let alertsCount = 0;
+        if (Array.isArray(denuncias) && denuncias.length) {
+          const since24 = new Date(Date.now() - 24 * 3600 * 1000);
+          alertsCount = denuncias.filter(d => {
+            try {
+              const created = new Date(d.createdAt || d.dataOcorrencia);
+              return d.urgente || d.prioridade === 'alta' || created >= since24;
+            } catch (e) { return false; }
+          }).length;
+        }
+        if (mapAlertsEl) mapAlertsEl.textContent = String(alertsCount);
+
+        // Tentativa de inferir número de patrulhas envolvidas (se presente nos dados)
+        let patrolsCount = '—';
+        if (Array.isArray(denuncias) && denuncias.length) {
+          const patrolIds = new Set(denuncias.map(d => d.patrulha || d.patrol || d.patrolId || d.responsavel).filter(Boolean));
+          patrolsCount = patrolIds.size || 0;
+        }
+        if (mapPatrolsEl) mapPatrolsEl.textContent = String(patrolsCount);
+      } catch (e) {
+        console.warn('Não foi possível preencher indicadores do mapa:', e);
       }
     } catch (e) { console.warn('Não foi possível atualizar preview do mapa', e); }
 

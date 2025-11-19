@@ -162,8 +162,9 @@ header .menu-cta:hover {
 }
 
 body {
-    background-color: white;
-    color: var(--ink);
+    /* Usar o cinza padrão do site quando disponível */
+    background-color: var(--bg, #f0f2f5);
+    color: var(--ink, #0b132b);
     font-family: Trebuchet MS, sans-serif;
     line-height: 28px;
     text-align: center;
@@ -171,49 +172,82 @@ body {
 }
 
 #map {
-    height: 650px; 
-    width: 650px;
-    margin: 20px auto;
+    height: 650px;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    box-shadow: 0 0 10px rgba(0,0,0,0.12);
 }
 
 .mapa {
-    background:
-        radial-gradient(1200px 600px at 10% -10%, rgba(0, 81, 255, 0.06), transparent 60%),
-        radial-gradient(1000px 500px at 120% 10%, rgba(0, 123, 255, 0.05), transparent 60%),
-        linear-gradient(180deg, #11106b, #0c0b22);
+    /* Container externo — apenas controla espaçamento geral ao redor do bloco */
+    background: var(--bg, #f0f2f5);
+    color: var(--ink, #0b132b);
     margin-top: 20px;
-    display: flex;
-    justify-content: center; 
-    align-items: flex-start; 
-    flex-wrap: wrap; 
-    gap: 40px;
-    padding-bottom: 2px;
+    padding: 18px 12px 24px;
+}
+
+/* Wrapper que contém os dois painéis (mapa + lista). É ele que recebe o fundo/estilo unificado */
+.mapa-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr auto 480px; /* coluna do meio é o separador */
+    gap: 18px;
+    align-items: start;
+    background: linear-gradient(160deg, rgba(11,24,54,0.92), rgba(6,16,42,0.88));
+    border: 1px solid rgba(96, 140, 255, 0.25);
+    border-radius: 12px;
+    padding: 14px;
+    box-shadow: 0 18px 38px rgba(0, 0, 0, 0.28);
+    backdrop-filter: blur(8px);
 }
 
 .select {
-    margin-top: 40px;
-    color: white;
-    text-align: center;
-    width: 500px;
+    margin: 0;
+    color: var(--ink, #0b132b);
+    text-align: left;
+    width: auto;
     line-height: 35px;
-    margin-right: 60px;
+}
+
+/* Aplicar visual semelhante ao formulário da página inicial */
+.map, .select {
+    background: transparent; /* fundo agora no wrapper .mapa-inner */
+    border: 0;
+    border-radius: 8px;
+    padding: 18px 20px;
+    box-shadow: none;
+    color: #fff; /* texto sobre o gradiente do wrapper */
+}
+
+/* Separador vertical central (risco) — visual suave como no formulário inicial */
+.map-separator {
+    width: 1px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.12), rgba(255,255,255,0));
+    align-self: stretch;
+    margin: 6px 8px;
+    border-radius: 2px;
+}
+
+.map h2, .select h2 {
+    color: #fff;
+}
+
+.map p, .select p {
+    color: rgba(255,255,255,0.85);
 }
 
 .cam {
-   background:
-        linear-gradient(135deg,
-            rgba(0, 45, 120, 0.92) 0%,
-            rgba(0, 25, 80, 0.88) 40%,
-            rgba(0, 10, 40, 0.92) 100%);
+   background: transparent;
     max-height: 640px;
     overflow-y: auto;
-    border-radius: 25px;
-    margin-top: 20px;
-    padding-bottom: 10px;
-    font-size: 20px;
-    border: 1px solid #ddd;
+    border-radius: 12px;
+    margin: 0;
+    padding: 8px 4px;
+    font-size: 16px;
+    border: 0;
 }
 
 .cam::-webkit-scrollbar {
@@ -235,60 +269,34 @@ body {
     margin: 25px;
     line-height: 50px;
     border: 1px solid #ddd;
-    border-radius: 25px;
-}
+    .cam1, .cam2, .cam3 {
+        background-color: rgba(255,255,255,0.03);
+        margin: 12px 0;
+        line-height: 1.4;
+        border: 0;
+        border-radius: 12px;
+        padding: 10px;
+    }
 
-.cam1 button {
-    background-color: #001f5c;
-    color: white;
-    border: 1px solid #ddd;
-    padding: 8px 12px;
-    margin-top: 8px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
+    .cam1 button,
+    .cam2 button,
+    .cam3 button {
+        background-color: rgba(255,255,255,0.06);
+        color: #fff;
+        border: 0;
+        padding: 8px 12px;
+        margin-top: 8px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.15s;
+    }
 
-.cam2 {
-    background-color: #001d3d;
-    margin: 25px;
-    line-height: 50px;
-    border: 1px solid #ddd;
-    border-radius: 25px;
-}
-
-.cam2 button {
-    background-color: #001f5c;
-    color: white;
-    border: 1px solid #ddd;
-    padding: 8px 12px;
-    margin-top: 8px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.cam3 {
-    background-color: #001d3d;
-    margin: 25px;
-    line-height: 50px;
-    border: 1px solid #ddd;
-    border-radius: 25px;
-}
-
-.cam3 button {
-    background-color: #001f5c;
-    color: white;
-    border: 1px solid #ddd;
-    padding: 8px 12px;
-    margin-top: 8px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-#textbusc {
-    border-radius: 25px;
+    /* Garantir que iframes não excedam a largura do painel */
+    .cam iframe {
+        width: 100% !important;
+        max-width: 100%;
+        height: auto;
+    }
     font-family: Trebuchet MS, sans-serif;
     text-align: left;
     height: 40px;
@@ -303,15 +311,19 @@ body {
     height: 80%;
 }
 
+
 .map {
-    color: white;
-    padding: 30px 20px;
+    color: #fff;
+    padding: 24px 20px;
     line-height: 20px;
-    width: 500px;
-    margin: 40px;
-    text-align: center;
-    margin: 10px auto 20px 50px;
+    width: auto;
+    margin: 0;
+    text-align: left;
 }
+
+/* Remover bordas internas para parecer um bloco contínuo */
+.map { border-right: 0; }
+.select { border-left: 0; }
 
 .map h2 {
     margin: 10px;

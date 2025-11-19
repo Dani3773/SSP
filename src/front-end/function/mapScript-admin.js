@@ -1,4 +1,4 @@
-// Admin Mode - Câmeras sem blur
+// Admin Mode - Câmeras sem blur (centralizado em Criciúma)
 const map = L.map('map').setView([-28.6773, -49.3699], 13);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {

@@ -4,8 +4,10 @@
   <meta charset="UTF-8">
   <title>Mapa - SSP Criciúma</title>
   <link rel="icon" href="../img/icone_criciuma.png" type="image/png">
+  <link rel="stylesheet" href="../stylo/style.css">
   <link rel="stylesheet" href="../stylo/mapStyle.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
   <header>
@@ -25,13 +27,62 @@
     </div>
   </header>
 
+  <!-- Fundo escuro e modal do Comitê (copiado do index para funcionar nas pages) -->
+  <div id="overlay-comite" aria-hidden="true"></div>
+
+
+  <!-- Section do login -->
+  <section id="login" hidden role="dialog" aria-modal="true" aria-labelledby="login-title" tabindex="-1">
+
+
+    <!-- Cabeçalho do modal -->
+    <div class="header-login">
+      <i data-lucide="shield" aria-hidden="true"></i>
+      <div class="header-login__titles">
+        <h2 id="login-title">Acesso do Comitê</h2>
+        <p class="header-login__subtitle">Área restrita — auditoria ativa</p>
+      </div>
+      <button id="modal-comite-cancel" type="button" aria-label="Fechar modal">✕</button>
+    </div>
+
+    <!-- Campos -->
+    <div class="auto-log">
+      <div class="field">
+        <label for="comite-user">Usuário</label>
+        <i data-lucide="user" aria-hidden="true"></i>
+        <input id="comite-user" name="nome" type="text" placeholder="Insira o login" autocomplete="username" inputmode="text">
+      </div>
+
+      <div class="field">
+        <label for="comite-pass">Senha</label>
+        <i data-lucide="key-round" aria-hidden="true"></i>
+        <input id="comite-pass" name="senha" type="password" placeholder="Insira a senha" autocomplete="current-password">
+        <button type="button" class="toggle-pass" aria-label="Mostrar/ocultar senha">
+          <i data-lucide="eye" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <button id="comite-acess" type="button" class="btn-submit">
+        <i data-lucide="log-in" aria-hidden="true"></i>
+        Acessar
+      </button>
+    </div>
+
+    <!-- Aviso + erro -->
+    <p id="comite-policy" class="login-policy">Tentativas são registradas. Ao continuar, você concorda com o termo de uso e auditoria.</p>
+    <p id="comite-error" aria-live="polite" role="alert"></p>
+
+  </section>
+
   <section class="mapa">
-    <div class="map">
+    <div class="mapa-inner">
+      <div class="map">
       <h2>Mapa Geral e cobertura</h2>
       <p>Aqui você encontra todas as câmeras de Criciúma</p>
       <div id="map"></div>
-    </div>
-    <div class="select">
+      </div>
+      <div class="map-separator" aria-hidden="true"></div>
+      <div class="select">
       <h2>Lista de câmeras:</h2>
       <input type="text" id="textbusc" placeholder="Digite a rua...">
       <div data-type="nav-menu" class="cam">
@@ -82,16 +133,56 @@
   </section>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="../function/mapScript.js"></script>
+  <script src="../function/script.js" defer></script>
   <footer id="contato">
-    <h2>Fale Conosco</h2>
-    <p>Para mais informações, sugestões ou suporte técnico, entre em contato:</p>
-    <nav class="c1">
-      <ol>Email: contato@ssp.gov</ol>
-      <ol>Telefone: (48)00000-0000</ol>
-      <ol>Endereço: Rua da Segurança, 125 - Centro, Cidade Segura</ol>
-    </nav>
-    <div class="logo">
-      <img src="../img/logo-preta.png" alt="Emblema da SSP">
+    <div class="footer-container">
+      <div class="footer-main">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <img src="../img/logo-preta.png" alt="Emblema da SSP">
+            <div class="footer-brand-text">
+              <h3>SSP - CRICIÚMA</h3>
+              <p>Sistema de Segurança Pública</p>
+            </div>
+          </div>
+          <p class="footer-description">
+            Proteção inteligente, transparente e comprometida com cada cidadão.
+          </p>
+        </div>
+
+        <div class="footer-contact">
+          <h3>Fale Conosco</h3>
+          <ul class="contact-list">
+            <li>
+              <i data-lucide="mail" aria-hidden="true"></i>
+              <a href="mailto:contato@ssp.gov">contato@ssp.gov</a>
+            </li>
+            <li>
+              <i data-lucide="phone" aria-hidden="true"></i>
+              <a href="tel:+5548000000000">(48) 00000-0000</a>
+            </li>
+            <li>
+              <i data-lucide="map-pin" aria-hidden="true"></i>
+              <span>Rua da Segurança, 125 - Centro<br>Criciúma - SC</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="footer-links">
+          <h3>Acesse Também</h3>
+          <ul>
+            <li><a href="mapdex.html">Painel de Mapas</a></li>
+            <li><a href="noticias.html">Central de Notícias</a></li>
+            <li><a href="anadex.html">Análises Completas</a></li>
+            <li><a href="comdex.html">Área do Comitê</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2025 SSP Criciúma. Todos os direitos reservados.</p>
+        <p class="footer-lgpd">Sistema em conformidade com a LGPD</p>
+      </div>
     </div>
   </footer>
 </body>
