@@ -73,6 +73,9 @@ async function loadRealData() {
     // Se temos dados brutos, atualizar tabela
     if (allDenuncias.length > 0) {
       updateTable();
+      populateBairroOptions();
+      renderBairrosTable();
+      renderHeatmap();
     }
     
     hideLoadingAnimation();
@@ -177,6 +180,9 @@ function handleFilterChange(filterId, value) {
   // Atualizar gráficos e tabela
   updateCharts();
   updateTable();
+  // Atualizar tabela e heatmap por bairro de acordo com filtros aplicados
+  renderBairrosTable();
+  renderHeatmap();
   
   showNotification('Filtros aplicados!', 'success');
 }
@@ -986,38 +992,163 @@ function initializeExportButton() {
 
 function exportData() {
   showNotification('Preparando exportação de dados...', 'info');
-  
-  // Simula exportação (substituir por exportação real)
+  // Gerar exportação com dados reais por bairro
   setTimeout(() => {
-    // Cria dados de exemplo para exportação
-    const data = [
-      ['Bairro', 'Ocorrências', 'Patrulhas', 'Taxa de Resolução'],
-      ['Centro', '120', '85', '92%'],
-      ['Pinheirinho', '95', '68', '88%'],
-      ['Santa Luzia', '80', '52', '75%'],
-      ['Operária Nova', '50', '35', '90%'],
-      ['Próspera', '45', '32', '85%'],
-      ['São Luiz', '40', '28', '82%']
-    ];
-    
-    // Converte para CSV
-    const csv = data.map(row => row.join(',')).join('\n');
-    
-    // Cria download
+    const bairroStats = computeBairroStats(allDenuncias);
+    const data = [ ['Bairro', 'Ocorrências', 'Patrulhas (câmeras)', 'Taxa de Resolução'] ];
+    Object.keys(bairroStats).forEach(bairro => {
+      const s = bairroStats[bairro];
+      data.push([
+        bairro,
+        s.total.toString(),
+        (s.cameras || 0).toString(),
+        `${s.resolucaoPercent}%`
+      ]);
+    });
+
+    const csv = data.map(row => row.map(col => String(col).replace(/(\r|\n|,)/g, ' ')).join(',')).join('\n');
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
     const link = document.createElement('a');
     const url = URL.createObjectURL(blob);
-    
     link.setAttribute('href', url);
     link.setAttribute('download', `analises_ssp_${getCurrentDate()}.csv`);
     link.style.visibility = 'hidden';
-    
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    
     showNotification('Dados exportados com sucesso!', 'success');
-  }, 1000);
+  }, 500);
+}
+
+// =======================================
+// Funções para agrupar dados por Bairro
+// =======================================
+function computeBairroStats(denuncias = []) {
+  const stats = {};
+  if (!Array.isArray(denuncias)) return stats;
+
+  denuncias.forEach(d => {
+    const local = (d.localizacao || 'Não informado').split(',')[0].trim();
+    const bairro = local || 'Indefinido';
+    if (!stats[bairro]) {
+      stats[bairro] = { total: 0, resolvidas: 0, cameras: 0, monthly: {cur:0, prev:0} };
+    }
+    stats[bairro].total++;
+    const status = (d.status || '').toLowerCase();
+    if (status === 'resolvida' || status === 'resolvido' || status === 'concluído') stats[bairro].resolvidas++;
+
+    // Verificar mês atual e mês anterior para tendência
+    const data = new Date(d.createdAt || d.dataHora || d.dataOcorrencia);
+    const now = new Date();
+    const currentMonth = now.getMonth();
+    const month = data.getMonth();
+    if (data.getFullYear() === now.getFullYear()) {
+      if (month === currentMonth) stats[bairro].monthly.cur++;
+      else if (month === ((currentMonth - 1 + 12) % 12)) stats[bairro].monthly.prev++;
+    }
+  });
+
+  // Computar cameras por bairro a partir de globalStats se existir
+  if (typeof globalStats !== 'undefined' && globalStats && globalStats.listaCameras) {
+    const cams = globalStats.listaCameras || [];
+    cams.forEach(c => {
+      const loc = (c.location || c.local || 'Não informado').split(',')[0].trim();
+      const bairro = loc || 'Indefinido';
+      if (!stats[bairro]) stats[bairro] = { total: 0, resolvidas: 0, cameras: 0, monthly: {cur:0, prev:0} };
+      stats[bairro].cameras = (stats[bairro].cameras || 0) + 1;
+    });
+  }
+
+  // Finalizar cálculo de taxas
+  Object.keys(stats).forEach(bairro => {
+    const s = stats[bairro];
+    s.resolucaoPercent = s.total > 0 ? Math.round((s.resolvidas / s.total) * 100) : 0;
+    // Classificar nível: alto > 100, medio > 50, baixo senão
+    s.level = s.total > 100 ? 'Alto' : (s.total > 50 ? 'Médio' : 'Baixo');
+    // Tendencia percentual
+    const prev = s.monthly.prev || 0;
+    const cur = s.monthly.cur || 0;
+    s.trendPercent = prev === 0 ? (cur === 0 ? 0 : 100) : Math.round(((cur - prev) / prev) * 100);
+    s.trendSign = s.trendPercent > 0 ? 'up' : (s.trendPercent < 0 ? 'down' : 'stable');
+  });
+
+  return stats;
+}
+
+function renderBairrosTable() {
+  const tbody = document.getElementById('bairro-table-body');
+  if (!tbody) return;
+  tbody.innerHTML = '';
+  const stats = computeBairroStats(allDenuncias);
+  const bairros = Object.keys(stats).sort((a,b) => stats[b].total - stats[a].total);
+  if (bairros.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding: 20px; color: var(--text-medium);">Nenhuma ocorrência encontrada.</td></tr>';
+    return;
+  }
+  bairros.forEach(bairro => {
+    const s = stats[bairro];
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td><strong>${bairro}</strong></td>
+      <td>${s.total}</td>
+      <td>${s.cameras || 0}</td>
+      <td><span class="badge ${s.resolucaoPercent >= 80 ? 'badge-success' : s.resolucaoPercent >= 60 ? 'badge-warning' : 'badge-error'}">${s.resolucaoPercent}%</span></td>
+      <td><span class="status-dot status-${s.level.toLowerCase()}"></span> ${s.level}</td>
+      <td><span class="trend trend-${s.trendSign}"><i class="fas fa-arrow-${s.trendSign === 'up' ? 'up' : s.trendSign === 'down' ? 'down' : 'equals'}"></i> ${Math.abs(s.trendPercent)}%</span></td>
+    `;
+    tbody.appendChild(row);
+  });
+}
+
+function renderHeatmap() {
+  const grid = document.getElementById('heatmap-grid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  const stats = computeBairroStats(allDenuncias);
+  const bairros = Object.keys(stats).sort((a,b) => stats[b].total - stats[a].total).slice(0, 6);
+  if (bairros.length === 0) {
+    grid.innerHTML = '<div style="width:100%; text-align:center; color: var(--text-medium)">Nenhuma área crítica detectada.</div>';
+    return;
+  }
+  const max = Math.max(...bairros.map(b => stats[b].total));
+  bairros.forEach(bairro => {
+    const s = stats[bairro];
+    const pct = max > 0 ? Math.round((s.total / max) * 100) : 0;
+    const item = document.createElement('div');
+    const cls = s.total > 100 ? 'heat-critical' : s.total > 50 ? 'heat-high' : s.total > 20 ? 'heat-medium' : 'heat-low';
+    item.className = `heat-item ${cls}`;
+    item.innerHTML = `
+      <div class="heat-content">
+        <h3>${bairro}</h3>
+        <p class="heat-value">${s.total} ocorrências</p>
+        <div class="heat-bar">
+          <div class="heat-fill" style="width: ${pct}%;"></div>
+        </div>
+      </div>
+    `;
+    grid.appendChild(item);
+  });
+}
+
+function populateBairroOptions() {
+  const select = document.getElementById('bairro-select');
+  if (!select) return;
+  const stats = computeBairroStats(allDenuncias);
+  const bairros = Object.keys(stats).sort((a,b) => stats[b].total - stats[a].total);
+  // Reset options and add 'Todos' default
+  select.innerHTML = '';
+  const defaultOpt = document.createElement('option');
+  defaultOpt.value = 'todos';
+  defaultOpt.textContent = 'Todos os Bairros';
+  defaultOpt.selected = true;
+  select.appendChild(defaultOpt);
+  // Add top bairros
+  bairros.forEach(bairro => {
+    const opt = document.createElement('option');
+    opt.value = bairro.toLowerCase();
+    opt.textContent = bairro;
+    select.appendChild(opt);
+  });
 }
 
 function getCurrentDate() {

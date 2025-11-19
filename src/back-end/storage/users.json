@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "username": "admin",
+    "password": "$2b$10$txQfcZh/yN0Wx9/Le0Lo4eDAf8gVHebCsTACmdUcZOU/OyGk6kIGO",
+    "role": "admin",
+    "name": "Administrador do Sistema",
+    "email": "admin@ssp.gov",
+    "createdAt": "2025-11-01T10:00:00.000Z",
+    "updatedAt": "2025-11-06T19:05:48.176Z"
+  },
+  {
+    "id": 2,
+    "username": "daniel",
+    "password": "$2b$10$KLyRA93P.mxzAJUKewJOpe/M1a7Q75CudIKPtLF7OR9PlYu0FJH/O",
+    "role": "supervisor",
+    "name": "Daniel Felisberto",
+    "email": "danielfelisberto3@gmail.com"
+  },
+  {
+    "id": 3,
+    "username": "gustavo",
+    "password": "$2b$10$pj2l9L06U8KmcZwJIoNbCO8T8eyAIj84Di4TgqfaUkXa8OL8CzvTG",
+    "role": "supervisor",
+    "name": "Gustavo Marcelino",
+    "email": "gustavo@teste.com"
+  },
+  {
+    "id": 4,
+    "username": "lucas",
+    "password": "$2b$10$BC8x4kSeEGg/ebl.gw26xOgLId4OnlsVi3eLy5.UxnCtD4UC/5BqS",
+    "role": "supervisor",
+    "name": "Lucas Guollo",
+    "email": "lucas@teste.com"
+  },
+  {
+    "id": 5,
+    "username": "igor",
+    "password": "$2b$10$kV.o3.KdgSGmXYTwKCQd4.WU5VqaUl2ZO9nESGmWd5zto236TBerq",
+    "role": "supervisor",
+    "name": "Igor Rayciki",
+    "email": "igor@teste.com"
+  }
+]
