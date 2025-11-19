@@ -487,18 +487,32 @@ async function loadNews() {
 
     // Limpar notícias estáticas e adicionar dinâmicas
     newsTrack.innerHTML = '';
+    const origin = (window.location && window.location.origin) ? window.location.origin : '';
     news.forEach(item => {
       const article = document.createElement('article');
       article.className = 'card-noticia';
       article.setAttribute('data-category', item.category || 'geral');
+      // Resolve image: if server path, prefix with origin
+      let img = item.image || '../img/imagem1.webp';
+      try {
+        if (typeof img === 'string' && img.startsWith('/api/communications')) {
+          img = origin ? origin + img : '../img/imagem1.webp';
+        }
+      } catch (e) { img = item.image || '../img/imagem1.webp'; }
+
+      // make headline a link to the full news page with anchor (so Comitê-created items open there)
+      const newsLink = `pages/noticias.html#news-${encodeURIComponent(String(item.id || ''))}`;
+
       article.innerHTML = `
-        <div class="card-media">
-          <img src="${item.image || '../img/imagem1.webp'}" alt="${item.title || 'Notícia'}">
-        </div>
-        <div class="card-content">
-          <h3>${item.title || 'Título'}</h3>
-          <p>${item.description || 'Descrição'}</p>
-        </div>
+        <a class="card-noticia-link" href="${newsLink}">
+          <div class="card-media">
+            <img src="${img}" alt="${item.title || 'Notícia'}">
+          </div>
+          <div class="card-content">
+            <h3>${item.title || 'Título'}</h3>
+            <p>${(item.description || '').slice(0, 140)}</p>
+          </div>
+        </a>
       `;
       newsTrack.appendChild(article);
     });
