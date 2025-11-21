@@ -778,31 +778,36 @@ async function loadAnalytics() {
     const seteDiasAtras = new Date();
     seteDiasAtras.setDate(seteDiasAtras.getDate() - 7);
     const denunciasRecentes = denuncias.filter(d => (new Date(d.createdAt || d.dataOcorrencia) >= seteDiasAtras));
-    if (stats && stats.denuncias && typeof stats.denuncias.semana !== 'undefined') {
-      document.getElementById('total-ocorrencias').textContent = stats.denuncias.semana;
-    } else {
-      document.getElementById('total-ocorrencias').textContent = denunciasRecentes.length;
+    const elTotalOcorrencias = document.getElementById('total-ocorrencias');
+    if (elTotalOcorrencias) {
+      elTotalOcorrencias.textContent = (stats && stats.denuncias && typeof stats.denuncias.semana !== 'undefined') ? stats.denuncias.semana : denunciasRecentes.length;
     }
 
     // 2. Taxa de resolução
     const resolvidas = denuncias.filter(d => d.status === 'resolvido' || d.status === 'concluído' || d.status === 'resolvida').length;
     const taxaResolucao = stats && typeof stats.taxaResolucao !== 'undefined' ? stats.taxaResolucao : (denuncias.length > 0 ? Math.round((resolvidas / denuncias.length) * 100) : 0);
-    document.getElementById('taxa-resolucao').textContent = taxaResolucao + '%';
+    const elTaxaResolucao = document.getElementById('taxa-resolucao');
+    if (elTaxaResolucao) elTaxaResolucao.textContent = taxaResolucao + '%';
     
     const resolucaoTrend = taxaResolucao >= 80 ? 'Excelente desempenho' : 
-                          taxaResolucao >= 60 ? 'Em crescimento' : 'Melhorando';
-    document.getElementById('resolucao-trend').textContent = resolucaoTrend;
+                taxaResolucao >= 60 ? 'Em crescimento' : 'Melhorando';
+    const elResolucaoTrend = document.getElementById('resolucao-trend');
+    if (elResolucaoTrend) elResolucaoTrend.textContent = resolucaoTrend;
 
     // 3. Tempo médio de resposta (simulado baseado em prioridade)
     const tempoMedio = stats && typeof stats.tempoMedioResposta !== 'undefined' ? stats.tempoMedioResposta : (denuncias.filter(d => d.urgente || d.prioridade === 'alta').length > 5 ? '3min' : '5min');
-    document.getElementById('tempo-resposta').textContent = tempoMedio;
-    document.getElementById('tempo-trend').textContent = stats && stats.tempoMedioResposta ? 'Baseado em dados' : (denuncias.filter(d => d.urgente || d.prioridade === 'alta').length > 5 ? '12% mais rápido' : 'Dentro da meta');
+    const elTempoResposta = document.getElementById('tempo-resposta');
+    if (elTempoResposta) elTempoResposta.textContent = tempoMedio;
+    const elTempoTrend = document.getElementById('tempo-trend');
+    if (elTempoTrend) elTempoTrend.textContent = stats && stats.tempoMedioResposta ? 'Baseado em dados' : (denuncias.filter(d => d.urgente || d.prioridade === 'alta').length > 5 ? '12% mais rápido' : 'Dentro da meta');
 
     // 4. Total de câmeras
     // Total de câmeras
-    document.getElementById('total-cameras').textContent = stats && stats.cameras ? (stats.cameras.total || cameras.length) : cameras.length;
+    const elTotalCameras = document.getElementById('total-cameras');
+    if (elTotalCameras) elTotalCameras.textContent = stats && stats.cameras ? (stats.cameras.total || cameras.length) : cameras.length;
     const camerasOnline = stats && stats.cameras && typeof stats.cameras.online !== 'undefined' ? stats.cameras.online : cameras.filter(c => c.status === 'online').length;
-    document.getElementById('cameras-info').textContent = `${camerasOnline} ativas de ${stats && stats.cameras ? (stats.cameras.total || cameras.length) : cameras.length}`;
+    const elCamerasInfo = document.getElementById('cameras-info');
+    if (elCamerasInfo) elCamerasInfo.textContent = `${camerasOnline} ativas de ${stats && stats.cameras ? (stats.cameras.total || cameras.length) : cameras.length}`;
 
     // 5. Gráfico de barras (últimos 7 dias)
     const diasSemana = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
@@ -826,25 +831,25 @@ async function loadAnalytics() {
 
     const maxValor = Math.max(...dadosGrafico.map(d => d.valor), 1);
     const chartGrid = document.getElementById('chart-grid');
-    const bars = chartGrid.querySelectorAll('.chart-bar');
-
-    bars.forEach((bar, index) => {
-      const dados = dadosGrafico[index];
-      const altura = (dados.valor / maxValor) * 100;
-      
-      bar.style.height = altura + '%';
-      bar.querySelector('.bar-value').textContent = dados.valor;
-      bar.querySelector('.bar-label').textContent = dados.dia;
-      
-      // Marcar o dia atual
-      const hoje = new Date().getDay();
-      const diaAtual = (hoje + 6) % 7; // Ajustar para começar na segunda
-      if (index === diaAtual) {
-        bar.classList.add('chart-bar--active');
-      } else {
-        bar.classList.remove('chart-bar--active');
-      }
-    });
+    if (chartGrid) {
+      const bars = chartGrid.querySelectorAll('.chart-bar');
+      bars.forEach((bar, index) => {
+        const dados = dadosGrafico[index];
+        const altura = (dados.valor / maxValor) * 100;
+        bar.style.height = altura + '%';
+        const barValue = bar.querySelector('.bar-value');
+        if (barValue) barValue.textContent = dados.valor;
+        const barLabel = bar.querySelector('.bar-label');
+        if (barLabel) barLabel.textContent = dados.dia;
+        const hoje = new Date().getDay();
+        const diaAtual = (hoje + 6) % 7; // Ajustar para começar na segunda
+        if (index === diaAtual) {
+          bar.classList.add('chart-bar--active');
+        } else {
+          bar.classList.remove('chart-bar--active');
+        }
+      });
+    }
 
     // Atualizar badge de última atualização se disponível
     if (stats && stats.ultimaAtualizacao) {
