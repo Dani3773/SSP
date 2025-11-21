@@ -99,12 +99,16 @@ async function fetchAndRenderCameras() {
 function initCameraListInteractions() {
   const buttons = document.querySelectorAll('.cam .cam-locate');
   buttons.forEach((btn) => {
+
+      console.log('[mapScript] loaded');
     btn.addEventListener('click', () => {
       const id = btn.getAttribute('data-id');
       const lat = parseFloat(btn.getAttribute('data-lat'));
+          console.log('[mapScript] fetchAndRenderCameras - start');
       const lng = parseFloat(btn.getAttribute('data-lng'));
 
       if (id && markersById.has(id)) {
+          console.log('[mapScript] fetched cameras', Array.isArray(cameras) ? cameras.length : cameras);
         const marker = markersById.get(id);
         map.setView(marker.getLatLng(), 16);
         marker.openPopup();
@@ -137,6 +141,7 @@ function initCameraListInteractions() {
   window.selectCameraById = function(id) {
     if (!id) return;
     const key = String(id);
+              console.log('[mapScript] created marker for camera', cam.id);
     if (markersById.has(key)) {
       const marker = markersById.get(key);
       map.setView(marker.getLatLng(), 16);
@@ -148,6 +153,7 @@ function initCameraListInteractions() {
   };
 }
 
+            console.log('[mapScript] render item', cam.id, 'demoId=', demoId);
 function highlightListItem(id) {
   const camContainer = document.querySelector('.cam');
   if (!camContainer) return;
@@ -163,6 +169,7 @@ function highlightListItem(id) {
 function initSearch() {
   const inputBusca = document.getElementById('textbusc');
   const camContainer = document.querySelector('.cam');
+          console.log('[mapScript] render finished, appended items to .cam');
   if (!inputBusca || !camContainer) return;
   inputBusca.addEventListener('input', () => {
     const termo = inputBusca.value.trim().toLowerCase();
