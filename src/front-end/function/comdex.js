@@ -1121,6 +1121,10 @@ function getCameraForm(existingData = null) {
         <label for="camera-stream">URL do Stream RTSP</label>
         <input type="url" id="camera-stream" class="form-input" value="${data.streamUrl || ''}" placeholder="rtsp://... (opcional)">
       </div>
+      <div class="form-group">
+        <label for="camera-demo-link">Link do YouTube (preview)</label>
+        <input type="url" id="camera-demo-link" class="form-input" value="${data.demoVideoId ? ('https://youtu.be/' + data.demoVideoId) : (data.demoLink || '')}" placeholder="https://youtu.be/VIDEO_ID ou https://www.youtube.com/watch?v=VIDEO_ID (opcional)">
+      </div>
       <div class="form-row">
         <div class="form-group">
           <label for="camera-lat">Latitude</label>
@@ -1175,6 +1179,22 @@ function getCameraForm(existingData = null) {
       </div>
     </form>
   `;
+}
+
+// Extrai o ID do YouTube de várias formas de URL
+function extractYouTubeId(url) {
+  if (!url || typeof url !== 'string') return null;
+  // Padrões: youtu.be/ID, youtube.com/watch?v=ID, embed/ID
+  const patterns = [
+    /youtu\.be\/([\w-]{6,})/,
+    /v=([\w-]{6,})/,
+    /embed\/([\w-]{6,})/
+  ];
+  for (const re of patterns) {
+    const m = url.match(re);
+    if (m && m[1]) return m[1];
+  }
+  return null;
 }
 
 function getUserForm(existingData = null) {
@@ -2188,6 +2208,10 @@ async function saveCamera(event) {
     type: form.querySelector('#camera-type').value,
     resolution: form.querySelector('#camera-resolution').value
   };
+  // Extrair id do YouTube (se fornecido)
+  const demoLink = form.querySelector('#camera-demo-link') ? form.querySelector('#camera-demo-link').value.trim() : '';
+  const demoId = extractYouTubeId(demoLink);
+  if (demoId) formData.demoVideoId = demoId;
   
   try {
     const savedCamera = await apiRequest('/cameras', {
@@ -2218,6 +2242,9 @@ async function updateCamera(event) {
     type: form.querySelector('#camera-type').value,
     resolution: form.querySelector('#camera-resolution').value
   };
+  const demoLinkUpd = form.querySelector('#camera-demo-link') ? form.querySelector('#camera-demo-link').value.trim() : '';
+  const demoIdUpd = extractYouTubeId(demoLinkUpd);
+  if (demoIdUpd) formData.demoVideoId = demoIdUpd;
   
   try {
     const updatedCamera = await apiRequest(`/cameras/${cameraId}`, {

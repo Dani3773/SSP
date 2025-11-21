@@ -657,11 +657,10 @@ body .ini {
     margin: 25px;
     padding: 40px 20px;
     background:
-        linear-gradient(135deg,
-            rgba(0, 45, 120, 0.92) 0%,
-            rgba(0, 25, 80, 0.88) 40%,
-            rgba(0, 10, 40, 0.92) 100%),
-        url('../img/Prefeitura.jpg') center/cover no-repeat;
+      linear-gradient(135deg,
+        rgba(0, 45, 120, 0.92) 0%,
+        rgba(0, 25, 80, 0.88) 40%,
+        rgba(0, 10, 40, 0.92) 100%);
 
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.15);
@@ -769,34 +768,42 @@ h1 {
 <!-- ==============================  */
 
 .section-2 {
-    display: flex;
-    justify-content: space-between;
-    align-items: stretch;
-    flex-wrap: wrap;
-    gap: 48px;
-    background: linear-gradient(135deg, #000814, #001d3d, #003566, #5f6773);
-    width: 100%;
-    padding: 48px clamp(24px, 5vw, 80px);
-    border-top: 1px solid rgba(255, 255, 255, 0.15);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-    box-shadow:
-        0 -8px 18px rgba(0, 80, 200, 0.25),
-        0 8px 25px rgba(0, 0, 0, 0.7);
-    color: #ffffff;
-    font-family: "Trebuchet MS", sans-serif;
-    position: relative;
+  /* Fazer o bloco do formulário igual à seção de início (maior, quase ponta-a-ponta) */
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: 32px;
+  width: 95%;
+  max-width: 1440px;
+  margin: 18px auto 70px !important; /* reduzido para metade */
+  padding: 40px 20px;
+  background:
+    linear-gradient(135deg,
+      rgba(0, 45, 120, 0.92) 0%,
+      rgba(0, 25, 80, 0.88) 40%,
+      rgba(0, 10, 40, 0.92) 100%),
+    url('../img/Prefeitura.jpg') center/cover no-repeat;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow:
+    0 6px 25px rgba(0, 0, 0, 0.7),
+    inset 0 0 18px rgba(0, 120, 255, 0.25);
+  color: #ffffff;
+  font-family: "Trebuchet MS", sans-serif;
+  position: relative;
 }
 
 .section-text {
-    flex: 1;
-    min-width: 350px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    position: relative;
-    padding-right: clamp(16px, 4vw, 40px);
+  flex: 1;
+  min-width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; /* estender o formulário horizontalmente */
+  justify-content: center;
+  gap: 20px;
+  position: relative;
+  padding: 0; /* remover padding extra para o formulário chegar perto da borda interna */
 }
 
 .section-text::after {
@@ -809,36 +816,38 @@ h1 {
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0));
 }
 
-.section-2 form {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    width: 450px;
-    background: linear-gradient(160deg, rgba(11, 24, 54, 0.92), rgba(6, 16, 42, 0.88));
-    border: 1px solid rgba(96, 140, 255, 0.25);
-    border-radius: 18px;
-    padding: 16px clamp(14px, 3vw, 22px);
-    box-shadow:
-        0 18px 38px rgba(0, 0, 0, 0.35),
-        0 0 0 1px rgba(12, 60, 140, 0.15);
-    backdrop-filter: blur(10px);
-    position: relative;
-    overflow: hidden;
+.form.section-2, form.section-2 {
+  display: flex;
+  flex-direction: column;
+  gap: 6px; /* reduzir espaçamento vertical para achatar visualmente */
+  width: 90%;
+  max-width: 1280px; /* limite confortável em telas muito largas */
+  margin: 0 auto; /* centraliza o formulário quando ele é o elemento .section-2 */
+  background: linear-gradient(160deg, rgba(11, 24, 54, 0.92), rgba(6, 16, 42, 0.88));
+  border: 1px solid rgba(96, 140, 255, 0.20);
+  border-radius: 14px;
+  padding: 12px 16px; /* reduzir padding vertical para deixar mais "achatado" */
+  box-shadow:
+    0 12px 28px rgba(0, 0, 0, 0.30),
+    0 0 0 1px rgba(12, 60, 140, 0.12);
+  backdrop-filter: blur(8px);
+  position: relative;
+  overflow: hidden;
 }
 
-.section-2 form::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    background: linear-gradient(120deg, rgba(255, 215, 0, 0.16), transparent 45%, rgba(13, 110, 253, 0.18));
-    opacity: 0.6;
-    pointer-events: none;
+.form.section-2::before, form.section-2::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(120deg, rgba(255, 215, 0, 0.16), transparent 45%, rgba(13, 110, 253, 0.18));
+  opacity: 0.6;
+  pointer-events: none;
 }
 
-.section-2 form > * {
-    position: relative;
-    z-index: 1;
+.form.section-2 > *, form.section-2 > * {
+  position: relative;
+  z-index: 1;
 }
 
 .form-header {
@@ -891,12 +900,12 @@ h1 {
 }
 
 .form-fieldset {
-    margin: 0;
-    padding: 6px 10px 8px;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 14px;
-    background: rgba(255, 255, 255, 0.01);
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+  margin: 0;
+  padding: 6px 8px 6px; /* reduzir padding vertical */
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.01);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
 }
 
 .form-fieldset legend {
@@ -908,16 +917,69 @@ h1 {
 }
 
 .form-grid {
-    display: grid;
-    gap: 6px 14px;
-    grid-template-columns: 1fr 1fr;
+  display: grid;
+  gap: 12px; /* reduzir espaçamento horizontal para colunas ficarem mais próximas */
+  grid-template-columns: 1fr 1.3fr; /* coluna direita maior para descrição/suspeitos */
+  align-items: start; /* garante que colunas alinhem pelo topo */
+  align-content: start;
+}
+
+/* Grid column wrappers (agrupam vários campos em uma única coluna do grid) */
+.grid-col.grid-left { grid-column: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.grid-col.grid-right { 
+  grid-column: 2; 
+  display: flex; 
+  flex-direction: column; 
+  gap: 12px; 
+  padding-left: 18px; /* espaço antes do traço */
+  border-left: 1px solid rgba(255,255,255,0.08); /* traço vertical entre colunas */
+}
+
+/* Garantir que os campos da coluna direita ocupem toda a largura disponível */
+.grid-col.grid-right .form-field { width: 100%; }
+
+/* Garantir que campos dentro da grid-left ocupem 100% da célula */
+.grid-col.grid-left .form-field { width: 100%; }
+
+/* Remover traço em telas pequenas */
+@media (max-width: 900px) {
+  .grid-col.grid-right { border-left: none; padding-left: 0; }
+}
+
+/* Layout helpers for new grid placement */
+.form-grid .form-field.grid-left { grid-column: 1; }
+.form-grid .form-field.grid-right { grid-column: 2; }
+.form-field.title-field { grid-column: 1 / -1; text-align: center; }
+.form-field.title-field input { width: 72%; margin: 6px auto 0 auto; }
+
+/* Forçar campos a ocupar mesma altura inicial e alinhar ao topo */
+.form-grid .form-field { align-self: start; }
+
+.form-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.form-actions .form-field { width: 100%; max-width: 760px; }
+
+.form-grid .form-field.grid-right textarea { min-height: 120px; }
+
+@media (max-width: 900px) {
+  .form-grid { grid-template-columns: 1fr; }
+  .form-grid .form-field.grid-left,
+  .form-grid .form-field.grid-right { grid-column: 1; }
+  .form-field.title-field input { width: 92%; }
+  .form-actions .form-field { width: 92%; }
+  .section-2 { margin-bottom: 48px; }
 }
 
 .form-field {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .form-field--full {
@@ -1011,9 +1073,9 @@ h1 {
 }
 
 .section-2 textarea {
-    resize: vertical;
-    min-height: 60px;
-    line-height: 1.4;
+  resize: vertical;
+  min-height: 48px; /* mais compacto */
+  line-height: 1.3;
 }
 
 .section-2 input::placeholder,
@@ -1079,21 +1141,21 @@ h1 {
 
 /* seção das câmeras */
 
-.section-cam {
-    flex: 1;
-    min-width: 320px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: stretch;
-    gap: 18px;
-    position: relative;
-    padding: clamp(18px, 3vw, 28px);
-    border-radius: 20px;
-    background: linear-gradient(155deg, rgba(10, 23, 54, 0.72), rgba(5, 12, 32, 0.85));
-    border: 1px solid rgba(96, 140, 255, 0.18);
-    box-shadow: 0 24px 45px rgba(0, 0, 0, 0.35);
-    overflow: hidden;
+.section-2 form {
+  /* Formulário interno estendido: ocupa a largura do bloco e fica próximo às bordas internas */
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  max-width: 100%;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  padding: 0 8px; /* pequeno padding interno para não colar exatamente na borda */
+  box-shadow: none;
+  backdrop-filter: none;
+  position: relative;
+  overflow: visible;
 }
 
 .section-cam::before {
@@ -2372,6 +2434,13 @@ footer {
     border-top: 3px solid #ffd700;
     padding: 0;
     font-family: 'Trebuchet MS', sans-serif;
+}
+
+/* Espaçamento extra acima do rodapé para separar do formulário */
+footer { padding-top: 32px; }
+
+@media (max-width: 900px) {
+  footer { padding-top: 18px; }
 }
 
 .footer-container {

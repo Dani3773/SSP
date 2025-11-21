@@ -74,63 +74,120 @@
 
   </section>
 
+  <!-- Seção: mapa + lista de câmeras -->
   <section class="mapa">
     <div class="mapa-inner">
       <div class="map">
-      <h2>Mapa Geral e cobertura</h2>
-      <p>Aqui você encontra todas as câmeras de Criciúma</p>
-      <div id="map"></div>
+        <h2>Mapa Geral e cobertura</h2>
+        <p>Aqui você encontra todas as câmeras de Criciúma</p>
+        <div id="map"></div>
       </div>
-      <div class="map-separator" aria-hidden="true"></div>
+
       <div class="select">
-      <h2>Lista de câmeras:</h2>
-      <input type="text" id="textbusc" placeholder="Digite a rua...">
-      <div data-type="nav-menu" class="cam">
-        <div class="cam1">
-          <p>Rua Leoni Parassoli</p>
-          <iframe 
-            width="400" 
-            height="250" 
-            src="https://www.youtube.com/embed/57Xf43Pug5k?autoplay=1&mute=1" 
-            title="" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen>
-          </iframe>
-          <button data-lat="-28.6837" data-lng="-49.3689">LOCALIZACÃO</button>
-        </div>
-        <div class="cam2">
-          <p>Av. Jorge Elias de Lucca</p>
-          <iframe 
-            width="400" 
-            height="250" 
-            src="https://www.youtube.com/embed/z545k7Tcb5o?autoplay=1&mute=1" 
-            title="" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            referrerpolicy="strict-origin-when-cross-origin" 
-            allowfullscreen>
-          </iframe>
-          <button data-lat="-28.6874" data-lng="-49.3334">LOCALIZACÃO</button>
-        </div>
-        <div class="cam3">
-          <p>Av. Universitária</p>
-          <iframe 
-            width="400" 
-            height="250" 
-            src="https://www.youtube.com/embed/qmE7U1YZPQA?autoplay=1&mute=1" 
-            title="" 
-            frameborder="0" 
-            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen>
-          </iframe>
-          <button data-lat="-28.7008" data-lng="-49.4102">LOCALIZACÃO</button>
+        <h2>Lista de câmeras:</h2>
+        <input type="text" id="textbusc" placeholder="Digite a rua...">
+        <div data-type="nav-menu" class="map-cam" aria-live="polite">
+          <!-- Lista dinâmica de câmeras do mapa — preenchida por /function/mapScript.js -->
+          <p class="cam-loading" style="color:rgba(255,255,255,0.8);">Carregando câmeras...</p>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- Formulário de denúncia (apenas o form, wrappers removidos por solicitação) -->
+  <form id="denuncia" class="section-2" action="formulario.php" method="post" name="denuncia" enctype="multipart/form-data">
+    <div class="form-header">
+      <div class="tittle-form">
+        <h2>Faça uma denúncia</h2>
+        <p>Tempo médio de envio: ~2 min</p>
+      </div>
+      <span class="form-badge" aria-hidden="true">
+        <i data-lucide="shield-check"></i>
+      </span>
+    </div>
+
+    <fieldset class="form-fieldset">
+      <legend>Informações Básicas</legend>
+      <div class="form-grid">
+        <!-- Título centralizado (ocupando as duas colunas) -->
+        <div class="form-field form-field--full title-field">
+          <label for="titulo">Título da Denúncia</label>
+          <input type="text" id="titulo" name="titulo" placeholder="Ex.: Roubo em comércio no Centro" maxlength="80" required>
+          <small>Dê um nome curto que descreva a denúncia.</small>
+        </div>
+
+        <!-- Coluna esquerda (agrupada): tipo, gravidade, data, hora -->
+        <div class="grid-col grid-left">
+          <div class="form-field">
+            <label for="tipo">Tipo de Ocorrência</label>
+            <select id="tipo" name="tipo" required>
+              <option value="">Selecione...</option>
+              <option value="roubo">Roubo</option>
+              <option value="furto">Furto</option>
+              <option value="vandalismo">Vandalismo</option>
+              <option value="tráfico">Tráfico de Drogas</option>
+              <option value="violência">Violência</option>
+              <option value="perturbação">Perturbação da Ordem</option>
+              <option value="suspeita">Atividade Suspeita</option>
+              <option value="outro">Outro</option>
+            </select>
+            <small>Escolha o tipo que melhor descreve.</small>
+          </div>
+
+          <div class="form-field">
+            <label for="gravidade">Gravidade do Caso</label>
+            <select id="gravidade" name="gravidade" required>
+              <option value="">Selecione...</option>
+              <option value="baixa">🟢 Baixa</option>
+              <option value="media">🟡 Média</option>
+              <option value="alta">🔴 Alta</option>
+            </select>
+            <small>Avalie a urgência da situação.</small>
+          </div>
+
+          <div class="form-field">
+            <label for="data">Data da Ocorrência</label>
+            <input type="date" id="data" name="data" required>
+            <small>Quando aconteceu?</small>
+          </div>
+
+          <div class="form-field">
+            <label for="hora">Horário</label>
+            <input type="time" id="hora" name="hora" required>
+            <small>Horário aproximado.</small>
+          </div>
+        </div>
+
+        <!-- Coluna direita (agrupada): descrição e suspeitos -->
+        <div class="grid-col grid-right">
+          <div class="form-field">
+            <label for="descricao">Descrição Detalhada</label>
+            <textarea id="descricao" name="descricao" rows="6" placeholder="Conte o que aconteceu em detalhes..." required></textarea>
+            <small>Quanto mais informações, melhor para a investigação.</small>
+          </div>
+
+          <div class="form-field">
+            <label for="suspeitos">Suspeitos (Opcional)</label>
+            <textarea id="suspeitos" name="suspeitos" rows="4" placeholder="Características físicas, roupas, veículos..."></textarea>
+            <small>Descreva características que possam ajudar na identificação.</small>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- Camera + botão centralizados -->
+    <div class="form-actions">
+      <div class="form-field" style="width:60%;">
+        <label for="camera-input">Câmera (obrigatória)</label>
+        <input list="camera-list" id="camera-input" name="camera-input" placeholder="Digite ou selecione a câmera" required />
+        <datalist id="camera-list"></datalist>
+        <input type="hidden" name="camera" id="camera-selecionada" value="">
+        <small>Digite para pesquisar ou escolha uma câmera da lista (obrigatório)</small>
+      </div>
+
+      <button type="submit" class="form-submit">Enviar denúncia</button>
+    </div>
+  </form>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="../function/mapScript.js"></script>
   <script src="../function/script.js" defer></script>

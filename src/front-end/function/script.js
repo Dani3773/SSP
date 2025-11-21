@@ -11,11 +11,71 @@ document.addEventListener('DOMContentLoaded', () => {
   loadCameras();            // Carregar câmeras do banco
   initNewsletterForm();     
   initComiteLogin();        
+  populateCameraDatalist(); // popular datalist de câmeras para o formulário
   initDenunciaForm();       
   loadNews();
   initMenuToggle();
   loadAnalytics();          // Carregar análises
 });
+async function populateCameraDatalist() {
+  const list = document.getElementById('camera-list');
+  const input = document.getElementById('camera-input');
+  if (!list || !input) return;
+  try {
+    const res = await fetch('/api/cameras');
+    if (!res.ok) throw new Error('Erro ao buscar câmeras');
+    const cameras = await res.json();
+
+    // armazenar mapeamentos em memória para lookup
+    window.__SSP__ = window.__SSP__ || {};
+    window.__SSP__.cameraLabelToId = {};
+    window.__SSP__.cameraIdToMeta = {};
+
+    list.innerHTML = '';
+    cameras.forEach(c => {
+      const label = `${c.name || 'Câmera'}${c.location ? (' — ' + c.location) : ''}`.trim();
+      const opt = document.createElement('option');
+      opt.value = label;
+      list.appendChild(opt);
+      if (c.id != null) window.__SSP__.cameraLabelToId[label] = String(c.id);
+      window.__SSP__.cameraIdToMeta[String(c.id != null ? c.id : label)] = {
+        id: c.id != null ? String(c.id) : label,
+        name: c.name,
+        location: c.location,
+        lat: c.latitude || c.lat,
+        lng: c.longitude || c.lng
+      };
+    });
+
+    // quando usuário escolher/editar o input, sincronizar hidden id e tentar centralizar
+    input.addEventListener('change', (e) => {
+      const val = e.target.value;
+      const hid = document.getElementById('camera-selecionada');
+      const id = window.__SSP__.cameraLabelToId[val] || '';
+      if (hid) hid.value = id;
+      if (id && window.selectCameraById) window.selectCameraById(id);
+    });
+
+    // também no input 'input' evento para permitir digitar e buscar por prefixo
+    input.addEventListener('input', (e) => {
+      const val = e.target.value;
+      const hid = document.getElementById('camera-selecionada');
+      // tentar match exato primeiro
+      const exact = window.__SSP__.cameraLabelToId[val];
+      if (exact) {
+        if (hid) hid.value = exact;
+      } else {
+        if (hid) hid.value = '';
+      }
+    });
+
+    // Inicializar seleção e handlers que dependem de elementos já populados
+    try { initCameraSelector(); } catch (e) { /* ignore */ }
+
+  } catch (e) {
+    console.warn('populateCameraDatalist erro:', e.message);
+  }
+}
 
 /* =========================================================
    Header fixo no scroll
@@ -264,57 +324,116 @@ function initInfiniteLoopSlider() {
    Seletor de câmera (formulário denúncia)
    ========================================================= */
 function initCameraSelector() {
-  const cameraButtons = Array.from(document.querySelectorAll('.cam-btn'));
-  if (!cameraButtons.length) return;
+  // Compatibilidade: suportar botões legados `.cam-btn` (homepage) e estrutura
+  // do painel de mapa `.cam-item` com botão interno `.cam-locate`.
+  const legacyButtons = Array.from(document.querySelectorAll('.cam-btn'));
+  const locateButtons = Array.from(document.querySelectorAll('.cam .cam-locate, .map-cam .cam-locate'));
 
   const hiddenField = document.getElementById('camera-selecionada');
+  const cameraInput = document.getElementById('camera-input');
   const helperLabel = document.getElementById('cam-selecionada-label');
   const helperContainer = document.querySelector('.cam-helper');
 
   if (helperContainer && !helperContainer.hasAttribute('aria-live')) {
     helperContainer.setAttribute('aria-live', 'polite');
   }
-  if (!hiddenField || !helperLabel || !helperContainer) return;
+  // Não exigir o helper visual — suportar ausência da UI de feedback
+  if (!hiddenField && !cameraInput) return;
 
-  let activeButton = null;
+  let activeElement = null; // pode ser um .cam-btn (legacy) ou .cam-item (map)
 
-  const updateSelection = (button) => {
-    if (!button) {
-      helperLabel.textContent = 'nenhuma';
-      helperContainer.classList.remove('cam-helper--active');
-      hiddenField.value = '';
+  const updateSelection = (name, element) => {
+    const selectedId = element?.getAttribute?.('data-id') || element?.dataset?.id || '';
+    if (!name) {
+      if (helperLabel) helperLabel.textContent = 'nenhuma';
+      if (helperContainer) helperContainer.classList.remove('cam-helper--active');
+      if (cameraInput) cameraInput.value = '';
+      if (hiddenField) hiddenField.value = '';
       return;
     }
-    const cameraName = button.getAttribute('data-camera') || button.querySelector('h3')?.textContent?.trim() || '';
-    const regionName = button.getAttribute('data-region') || button.querySelector('p')?.textContent?.trim() || '';
-    const status = button.getAttribute('data-status');
-    const descriptiveLabel = [cameraName, regionName, status && status !== 'online' ? status : null]
-      .filter(Boolean).join(' - ');
-    helperLabel.textContent = descriptiveLabel || cameraName || regionName || 'nenhuma';
-    helperContainer.classList.add('cam-helper--active');
-    hiddenField.value = cameraName;
+    if (helperContainer) helperContainer.classList.add('cam-helper--active');
+    if (helperLabel) helperLabel.textContent = name;
+    if (cameraInput) cameraInput.value = name;
+    if (hiddenField) hiddenField.value = selectedId || '';
   };
 
-  cameraButtons.forEach((button) => {
-    button.setAttribute('aria-pressed', 'false');
-    button.addEventListener('click', () => {
-      if (activeButton === button) {
-        button.setAttribute('aria-pressed', 'false');
-        button.classList.remove('cam-btn--active');
-        activeButton = null;
-        updateSelection(null);
-        return;
-      }
-      if (activeButton) {
-        activeButton.classList.remove('cam-btn--active');
-        activeButton.setAttribute('aria-pressed', 'false');
-      }
-      button.classList.add('cam-btn--active');
-      button.setAttribute('aria-pressed', 'true');
-      activeButton = button;
-      updateSelection(button);
+  // Handlers para botões legados (.cam-btn)
+  if (legacyButtons.length) {
+    legacyButtons.forEach((button) => {
+      button.setAttribute('aria-pressed', 'false');
+      button.addEventListener('click', () => {
+        if (activeElement === button) {
+          button.setAttribute('aria-pressed', 'false');
+          button.classList.remove('cam-btn--active');
+          activeElement = null;
+          updateSelection(null);
+          return;
+        }
+        if (activeElement) {
+          activeElement.classList.remove('cam-btn--active');
+          activeElement.setAttribute('aria-pressed', 'false');
+        }
+        button.classList.add('cam-btn--active');
+        button.setAttribute('aria-pressed', 'true');
+        activeElement = button;
+        const cameraName = button.getAttribute('data-camera') || button.querySelector('h3')?.textContent?.trim() || '';
+        const regionName = button.getAttribute('data-region') || button.querySelector('p')?.textContent?.trim() || '';
+        const status = button.getAttribute('data-status');
+        const descriptiveLabel = [cameraName, regionName, status && status !== 'online' ? status : null].filter(Boolean).join(' - ');
+        updateSelection(descriptiveLabel || cameraName || regionName, button);
+      });
     });
-  });
+  }
+
+  // Handlers para lista de mapa (.cam-item + .cam-locate)
+  if (locateButtons.length) {
+    locateButtons.forEach((btn) => {
+      // evitar dupla ligação
+      if (btn.dataset.bound === '1') return;
+      btn.dataset.bound = '1';
+      btn.addEventListener('click', (e) => {
+        const item = btn.closest('.cam-item');
+        if (!item) return;
+
+        if (activeElement === item) {
+          item.classList.remove('cam-btn--active');
+          item.setAttribute('aria-pressed', 'false');
+          activeElement = null;
+          updateSelection(null);
+          return;
+        }
+
+        if (activeElement) {
+          activeElement.classList.remove('cam-btn--active');
+          activeElement.setAttribute('aria-pressed', 'false');
+        }
+
+        item.classList.add('cam-btn--active');
+        item.setAttribute('aria-pressed', 'true');
+        activeElement = item;
+
+        // extrair nome/região do markup criado pelo mapScript
+        const cameraName = item.querySelector('.cam-title')?.textContent?.trim() || item.getAttribute('data-camera') || '';
+        const regionName = item.querySelector('p')?.textContent?.trim() || item.getAttribute('data-region') || '';
+        const label = [cameraName, regionName].filter(Boolean).join(' - ');
+        updateSelection(label || cameraName || regionName, item);
+      });
+    });
+
+  // Sincronizar quando o usuário escolher uma câmera no select (form)
+  // Se houver um input/datalist de câmera, já é populado por populateCameraDatalist
+  const cameraInputEl = document.getElementById('camera-input');
+  if (cameraInputEl) {
+    cameraInputEl.addEventListener('change', (e) => {
+      const label = e.target.value;
+      const id = window.__SSP__?.cameraLabelToId?.[label] || '';
+      if (id && window.selectCameraById) window.selectCameraById(id);
+      // set hidden field (populateCameraDatalist também lida com isso)
+      const hid = document.getElementById('camera-selecionada');
+      if (hid) hid.value = id;
+    });
+  }
+  }
 }
 
 /* =========================================================
@@ -324,12 +443,21 @@ async function loadCameras() {
   const cameraSection = document.querySelector('.cam');
   if (!cameraSection) return;
 
+  // Se a página contém um mapa completo (#map), o `mapScript.js` é responsável
+  // por preencher a lista de câmeras. Evitar que este método sobrescreva o
+  // conteúdo na página de mapa para impedir conflitos/itens duplicados.
+  if (document.getElementById('map')) {
+    console.log('[script] detectado #map — pulando loadCameras para evitar duplicação');
+    return;
+  }
+
   try {
-    // Buscar câmeras e denúncias em paralelo para popular estatísticas do mapa
-    const [camerasResp, denunciasResp] = await Promise.all([
-      fetch('/api/cameras'),
-      fetch('/api/denuncias').catch(() => ({ ok: false }))
-    ]);
+    // Buscar câmeras e (opcionalmente) denúncias em paralelo para popular estatísticas do mapa
+    // Evitar chamar /api/denuncias em páginas públicas onde pode exigir autenticação (evita 401 no Network)
+    const needDenuncias = !!(document.getElementById('map-preview') || document.getElementById('map-alerts') || document.getElementById('map-patrols'));
+    const camerasPromise = fetch('/api/cameras');
+    const denunciasPromise = needDenuncias ? fetch('/api/denuncias').catch(() => ({ ok: false })) : Promise.resolve({ ok: false });
+    const [camerasResp, denunciasResp] = await Promise.all([camerasPromise, denunciasPromise]);
 
     if (!camerasResp.ok) throw new Error('Erro ao carregar câmeras');
 
@@ -639,7 +767,19 @@ function initDenunciaForm() {
     const titulo = document.getElementById('titulo').value.trim();
     const tipo = document.getElementById('tipo').value;
     const gravidade = document.getElementById('gravidade').value;
-    const camera = document.getElementById('camera-selecionada').value;
+    // Resolver câmera selecionada: preferir campo oculto, senão tentar mapear input/datalist
+    const cameraInputEl = document.getElementById('camera-input');
+    const hidEl = document.getElementById('camera-selecionada');
+    let camera = '';
+    if (hidEl && hidEl.value) {
+      camera = hidEl.value;
+    } else if (cameraInputEl && cameraInputEl.value) {
+      const label = cameraInputEl.value;
+      camera = window.__SSP__?.cameraLabelToId?.[label] || '';
+      if (hidEl) hidEl.value = camera;
+    } else if (hidEl) {
+      camera = hidEl.value || '';
+    }
 
     if (!titulo) {
       alert('❌ Por favor, preencha o título da denúncia.');
@@ -661,7 +801,10 @@ function initDenunciaForm() {
 
     if (!camera) {
       alert('❌ Por favor, selecione uma câmera antes de enviar a denúncia.');
-      document.querySelector('.cam')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      // rolar para o campo do formulário (input/datalist) preferencialmente, senão para o mapa
+      const camInput = document.getElementById('camera-input');
+      if (camInput) camInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      else document.querySelector('.map-cam')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
       return;
     }
 
@@ -671,12 +814,21 @@ function initDenunciaForm() {
 
     try {
       // Coletar dados do formulário
+      // Preencher localizacao com a localização da câmera selecionada, se disponível
+      let localizacaoVal = '';
+      try {
+        if (camera && window.__SSP__ && window.__SSP__.cameraIdToMeta) {
+          const meta = window.__SSP__.cameraIdToMeta[String(camera)];
+          if (meta && meta.location) localizacaoVal = meta.location;
+        }
+      } catch (e) { localizacaoVal = ''; }
+
       const denunciaData = {
         titulo: titulo,
         tipoOcorrencia: tipo,
         dataOcorrencia: document.getElementById('data').value,
         horaOcorrencia: document.getElementById('hora').value,
-        localizacao: document.getElementById('localizacao').value,
+        localizacao: localizacaoVal || '',
         descricao: document.getElementById('descricao').value,
         suspeitos: document.getElementById('suspeitos').value || 'Não informado',
         camera: camera,
@@ -707,7 +859,8 @@ function initDenunciaForm() {
 
       // Limpar formulário
       form.reset();
-      document.getElementById('cam-selecionada-label').textContent = 'nenhuma';
+      const camLabelEl = document.getElementById('cam-selecionada-label');
+      if (camLabelEl) camLabelEl.textContent = 'nenhuma';
 
       // Restaurar data e hora atuais
       if (dataInput) {
