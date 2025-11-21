@@ -75,13 +75,13 @@ async function fetchAndRenderCameras() {
       const demoId = cam.demoVideoId || findDemoVideoByName(cam.name || cam.location || '') || DEFAULT_DEMO_VIDEOS[i % DEFAULT_DEMO_VIDEOS.length];
 
       item.innerHTML = `
-        <p>${escapeHtml(cam.name || cam.location || 'Câmera')}</p>
+        <p class="cam-title">${escapeHtml(cam.name || cam.location || 'Câmera')}</p>
         <div class="cam-preview">
           <iframe 
             width="100%" 
             height="250" 
-            src="https://www.youtube.com/embed/${demoId}?autoplay=1&mute=1&playsinline=1" 
-            title="${escapeHtml(cam.name || 'Câmera')}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+            src="https://www.youtube.com/embed/${demoId}?autoplay=1&mute=1&playsinline=1&rel=0&controls=1" 
+            title="${escapeHtml(cam.name || 'Câmera')}" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen playsinline>
           </iframe>
         </div>
         <button class="cam-locate" data-id="${cam.id != null ? String(cam.id) : ''}" data-lat="${lat}" data-lng="${lng}">LOCALIZAÇÃO</button>
@@ -108,6 +108,8 @@ function initCameraListInteractions() {
         const marker = markersById.get(id);
         map.setView(marker.getLatLng(), 16);
         marker.openPopup();
+        // highlight corresponding list item
+        highlightListItem(id);
         return;
       }
 
@@ -125,6 +127,9 @@ function initCameraListInteractions() {
         if (dist < minDist) { minDist = dist; closest = marker; }
       });
       if (closest) closest.openPopup();
+      // highlight nearest list item as fallback
+      const nearestCam = markers.find(m => m.marker === closest);
+      if (nearestCam && nearestCam.cam && nearestCam.cam.id != null) highlightListItem(String(nearestCam.cam.id));
     });
   });
 
@@ -136,10 +141,23 @@ function initCameraListInteractions() {
       const marker = markersById.get(key);
       map.setView(marker.getLatLng(), 16);
       marker.openPopup();
+      highlightListItem(key);
       return true;
     }
     return false;
   };
+}
+
+function highlightListItem(id) {
+  const camContainer = document.querySelector('.cam');
+  if (!camContainer) return;
+  camContainer.querySelectorAll('.cam-item').forEach(el => el.classList.remove('active'));
+  const item = camContainer.querySelector(`.cam-item[data-id="${id}"]`);
+  if (item) {
+    item.classList.add('active');
+    // scroll into view
+    item.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
 }
 
 function initSearch() {
