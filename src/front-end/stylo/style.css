@@ -778,12 +778,12 @@ h1 {
   max-width: 1440px;
   margin: 18px auto 70px !important; /* reduzido para metade */
   padding: 40px 20px;
+  /* Degradê azul profissional, sem imagem de fundo */
   background:
     linear-gradient(135deg,
-      rgba(0, 45, 120, 0.92) 0%,
-      rgba(0, 25, 80, 0.88) 40%,
-      rgba(0, 10, 40, 0.92) 100%),
-    url('../img/Prefeitura.jpg') center/cover no-repeat;
+      rgba(0, 45, 120, 0.98) 0%,
+      rgba(0, 25, 80, 0.95) 40%,
+      rgba(0, 10, 40, 1) 100%);
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.15);
   box-shadow:
